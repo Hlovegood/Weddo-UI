@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>Weddo Palace Colonnade & Arch Portal</title>
+  <!-- Architectural Portal: Classical Roman Semicircular Arch -->
+  <g fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Plinth Foundation Base -->
+    <path d="M40 216 H216" stroke-width="10" />
+    <path d="M52 206 H204" stroke-width="4" stroke-opacity="0.4" />
+
+    <!-- Grand Outer Archway -->
+    <path d="M52 206 V112 C52 70 86 36 128 36 C170 36 204 70 204 112 V206" stroke-width="10" />
+
+    <!-- Inner Twin Arc Vaults forming letter W & architectural nave -->
+    <path d="M76 206 V128 C76 102 96 82 120 82 C128 82 128 92 128 104 V206" stroke-width="8" />
+    <path d="M180 206 V128 C180 102 160 82 136 82 C128 82 128 92 128 104 V206" stroke-width="8" />
+
+    <!-- Solarium Keystone: Intertwined Vow Rings at the Apex -->
+    <circle cx="128" cy="62" r="14" stroke-width="5" />
+    <circle cx="128" cy="62" r="4" fill="#000000" stroke="none" />
+  </g>
+</svg>

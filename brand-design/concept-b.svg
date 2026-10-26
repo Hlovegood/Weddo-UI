@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>Weddo Architectural Monogram</title>
+  <!-- Outer Renaissance Gallery Circle -->
+  <circle cx="128" cy="128" r="108" fill="none" stroke="#000000" stroke-width="12" />
+  
+  <!-- Architectural W: Classical Colonnade Arches -->
+  <path 
+    d="M68 88 L98 174 C102 186 112 186 116 174 L128 132 L140 174 C144 186 154 186 158 174 L188 88" 
+    fill="none" 
+    stroke="#000000" 
+    stroke-width="14" 
+    stroke-linecap="round" 
+    stroke-linejoin="round" 
+  />
+  
+  <!-- Architectural Portal Keystones & Wedding Covenant Rings -->
+  <circle cx="128" cy="92" r="14" fill="none" stroke="#000000" stroke-width="6" />
+  <circle cx="128" cy="92" r="4" fill="#000000" />
+</svg>

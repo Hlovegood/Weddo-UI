@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- Concept A: The Colonnade Portal (W Monogram from Renaissance Twin Arches & Wedding Covenant) -->
+  <g fill="none" stroke="#000000" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Plinth Foundation Base -->
+    <line x1="32" y1="216" x2="224" y2="216" />
+    
+    <!-- Left Renaissance Arch -->
+    <path d="M48 216V124C48 84.2355 80.2355 52 120 52C128 52 128 64 128 80V216" />
+    
+    <!-- Right Renaissance Arch -->
+    <path d="M208 216V124C208 84.2355 175.765 52 136 52C128 52 128 64 128 80V216" />
+    
+    <!-- Central Wedding Covenant Solarium Ring -->
+    <circle cx="128" cy="116" r="28" stroke-dasharray="0" />
+    <circle cx="128" cy="116" r="8" fill="#000000" stroke="none" />
+  </g>
+</svg>

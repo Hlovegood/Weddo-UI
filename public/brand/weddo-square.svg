@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><title>Weddo</title><g transform="translate(5.12 5.12) scale(0.96)">
+  
+  <g fill="#000000" fill-rule="evenodd">
+    <!-- Outer Renaissance Gallery Monoline Ring (Pure Evenodd Geometry) -->
+    <path d="M128,16 A112,112 0 1,0 128,240 A112,112 0 1,0 128,16 Z M128,24 A104,104 0 1,1 128,232 A104,104 0 1,1 128,24 Z" />
+    
+    <!-- Top Architectural Entablature Serifs (Clean 90° Terminals) -->
+    <rect x="56" y="69" width="30" height="5" rx="1.5" />
+    <rect x="113" y="69" width="32" height="5" rx="1.5" />
+    <rect x="172" y="69" width="28" height="5" rx="1.5" />
+    
+    <!-- Left Roman Downstroke (Strict 75.0° Angle) -->
+    <polygon points="66,74 80,74 109,182 95,182" />
+    <!-- Left Hairline Upstroke (Strict 105.0° Angle) -->
+    <polygon points="98,182 103,182 132,74 127,74" />
+    <!-- Bottom Left Plinth Foot -->
+    <rect x="91" y="182" width="20" height="4" rx="1" />
+
+    <!-- Center Overlapping Roman Downstroke (Strict 75.0° Angle) -->
+    <polygon points="121,74 135,74 164,182 150,182" />
+    <!-- Right Hairline Upstroke (Strict 105.0° Angle) -->
+    <polygon points="153,182 158,182 187,74 182,74" />
+    <!-- Bottom Right Plinth Foot -->
+    <rect x="146" y="182" width="20" height="4" rx="1" />
+  </g>
+</g></svg>
