@@ -11,13 +11,19 @@
   },
   "dependencies": {
     "@designcodeio/threeui": "^1.2.0",
+    "@hugeicons/core-free-icons": "^4.3.5",
+    "@hugeicons/react": "^1.1.10",
     "@threlte/core": "^8.6.1",
     "animejs": "^4.5.0",
     "clsx": "^2.1.1",
+    "gsap": "^3.15.0",
     "lucide-react": "^1.59.0",
     "motion": "^14.4.0",
+    "ogl": "^1.0.11",
+    "radix-ui": "^1.8.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
+    "sonner": "^2.0.8",
     "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {

@@ -1,185 +1,182 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { GradientButton } from './kokonutui/GradientButton'
-import { X, ShieldCheck, Check, AlertTriangle, FileText, CheckCircle2 } from 'lucide-react'
+import { X, ShieldCheck, CheckCircle2, AlertCircle } from 'lucide-react'
 
 export function AdminReviewModal({
   isOpen,
   onClose,
-  venues,
-  lang = 'en',
+  lang,
   t
 }) {
+  if (!isOpen) return null
+
   const [submissions, setSubmissions] = useState([
     {
-      id: 'sub-1',
-      venueId: 'olive-garden',
-      venueName: venues[0]?.name,
-      spaceAdded: 'The Andalusian Courtyard (Cap: 140)',
-      packageProposed: 'Boutique Garden Hire (135,000 EGP)',
-      status: 'pending_review',
-      submittedBy: 'vendor_owner@olivegarden.eg'
+      id: 'sub-001',
+      venueName: lang === 'ar' ? 'حديقة الزيتون الملكية - التجمع الخامس' : 'The Olive Garden Estate - New Cairo',
+      version: 'v0.7.2',
+      editor: 'Hesham (Vendor Owner)',
+      submittedAt: '2026-10-23 18:40',
+      status: 'pending',
+      summary: 'Added new Andalusian Courtyard space (150 cap) and updated Royal Emerald Gala package to 215,000 EGP.',
+      photosCount: 4,
+      safetyChecks: 'Bounded raster WebP/JPEG only (nosniff verified)'
     },
     {
-      id: 'sub-2',
-      venueId: 'nile-salon',
-      venueName: venues[1]?.name,
-      spaceAdded: 'Upper River Promenade (Cap: 180)',
-      packageProposed: 'Pharaohs Crown Experience (260,000 EGP)',
-      status: 'pending_review',
-      submittedBy: 'mgmt@nilesalon.cairo'
+      id: 'sub-002',
+      venueName: lang === 'ar' ? 'مركز قمة زايد للمؤتمرات' : 'Zayed Crystal Summit Center',
+      version: 'v0.7.1',
+      editor: 'Summit Operations Team',
+      submittedAt: '2026-10-22 11:20',
+      status: 'pending',
+      summary: 'Configured hybrid livestreaming AV and simultaneously translation booth packages for 2026-2027.',
+      photosCount: 6,
+      safetyChecks: 'Bounded raster WebP/JPEG only (nosniff verified)'
     }
   ])
 
-  const [actionNotice, setActionNotice] = useState('')
-
-  if (!isOpen) return null
-
   const handleApprove = (id) => {
-    setSubmissions((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, status: 'approved' } : s))
-    )
-    setActionNotice(lang === 'ar' ? 'تم اعتماد ونشر تعديلات القاعة بنجاح' : 'Listing changes approved and published to catalog')
-    setTimeout(() => setActionNotice(''), 4000)
+    alert(lang === 'ar' ? 'تم اعتماد القاعة ونشرها رسمياً للجمهور!' : 'Listing approved and published to public catalog!')
+    setSubmissions(prev => prev.filter(s => s.id !== id))
   }
 
   const handleReject = (id) => {
-    setSubmissions((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, status: 'changes_requested' } : s))
-    )
-    setActionNotice(lang === 'ar' ? 'تم إرجاع القائمة لمالك المكان مع طلب مبررات التعديل' : 'Changes requested with notes sent to venue owner')
-    setTimeout(() => setActionNotice(''), 4000)
+    const reason = prompt(lang === 'ar' ? 'اذكر سبب طلب التعديل للمالك:' : 'Enter revision request reason for the venue owner:')
+    if (reason) {
+      alert(lang === 'ar' ? `تم إرسال طلب التعديل: ${reason}` : `Revisions requested: ${reason}`)
+      setSubmissions(prev => prev.filter(s => s.id !== id))
+    }
   }
 
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="fixed inset-0 bg-[#0a0908]/85 backdrop-blur-md"
-        />
+    <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4">
+      
+      {/* Backdrop */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        className="fixed inset-0 bg-[#000000]/75 backdrop-blur-xs transition-opacity" 
+      />
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-3xl bg-[#141211] border border-[#27221e] rounded-3xl shadow-2xl overflow-hidden z-10 flex flex-col max-h-[85vh]"
-        >
-          {/* Header */}
-          <div className="p-6 border-b border-[#27221e] flex items-center justify-between bg-[#0e0d0c]/80 shrink-0">
-            <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-xl bg-[#dfc086]/15 text-[#dfc086]">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <h3 className="text-xl font-serif font-bold text-[#fdfbf7]">{t.adminTitle}</h3>
-                <p className="text-xs text-[#a89d91]">{t.adminSubtitle}</p>
-              </div>
+      {/* Dialog Surface per Design.md: Bone #e7e5e4, 9px radius, hairline #dfdcd5 */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.96, y: 16 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.96, y: 16 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+        className="relative w-full max-w-3xl rounded-[9px] bg-[#e7e5e4] border border-[#dfdcd5] overflow-hidden z-10 flex flex-col max-h-[85vh] shadow-2xl text-[#000000]"
+      >
+        
+        {/* Header */}
+        <div className="p-5 sm:p-6 border-b border-[#dfdcd5] flex items-center justify-between shrink-0 bg-[#ebebeb]">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-full bg-[#dfdcd5] text-[#000000]">
+              <ShieldCheck className="w-4 h-4" />
             </div>
-
-            <button
-              type="button"
-              onClick={onClose}
-              className="p-2.5 rounded-full bg-[#1e1a17] text-[#a89d91] hover:text-[#fdfbf7] transition-colors cursor-pointer"
-            >
-              <X className="w-4 h-4" />
-            </button>
+            <div>
+              <h3 className="font-serif text-2xl font-normal text-[#000000]">
+                {t.adminTitle}
+              </h3>
+              <p className="text-xs font-mono uppercase text-[#595855]">
+                {t.adminSubtitle}
+              </p>
+            </div>
           </div>
 
-          {/* Body */}
-          <div className="p-6 overflow-y-auto space-y-6 flex-1 text-xs">
-            {actionNotice && (
-              <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>{actionNotice}</span>
-              </div>
-            )}
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-full text-[#595855] hover:bg-[#dfdcd5] cursor-pointer"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
 
-            <div className="space-y-4">
-              <h4 className="font-serif font-bold text-[#fdfbf7] text-sm flex items-center gap-2">
-                <FileText className="w-4 h-4 text-[#dfc086]" />
-                <span>{t.pendingListings}</span>
-              </h4>
+        {/* Submissions List */}
+        <div className="p-5 sm:p-6 overflow-y-auto flex-1 space-y-4">
+          <div className="flex items-center justify-between pb-2 border-b border-[#dfdcd5]">
+            <span className="text-xs font-mono uppercase text-[#595855]">
+              {lang === 'ar' ? 'طلبات التعديل المعلقة' : 'Pending Curator Revisions'}
+            </span>
+            <span className="text-xs font-mono font-semibold text-[#000000]">
+              {submissions.length} {lang === 'ar' ? 'طلبات بانتظار الفحص' : 'Awaiting Audit'}
+            </span>
+          </div>
 
-              {submissions.map((sub) => (
-                <div
-                  key={sub.id}
-                  className="p-5 rounded-2xl bg-[#0e0d0c]/50 border border-[#27221e] space-y-3"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h5 className="font-serif font-bold text-[#fdfbf7] text-base">
-                        {lang === 'ar' ? sub.venueName?.ar : sub.venueName?.en}
-                      </h5>
-                      <span className="text-[#a89d91] text-[11px]">{sub.submittedBy}</span>
-                    </div>
-
-                    <span
-                      className={`px-3 py-1 rounded-full text-[11px] font-semibold border ${
-                        sub.status === 'approved'
-                          ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
-                          : sub.status === 'changes_requested'
-                          ? 'bg-red-500/10 text-red-300 border-red-500/30'
-                          : 'bg-[#dfc086]/10 text-[#dfc086] border-[#dfc086]/25'
-                      }`}
-                    >
-                      {sub.status === 'approved'
-                        ? (lang === 'ar' ? 'معتمد ومنشور' : 'Approved')
-                        : sub.status === 'changes_requested'
-                        ? (lang === 'ar' ? 'مطلوب تعديلات' : 'Changes Requested')
-                        : (lang === 'ar' ? 'بانتظار المراجعة' : 'Pending Review')}
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-3 rounded-xl bg-[#181513] border border-[#27221e] text-[#d6cebf]">
-                    <div>
-                      <span className="text-[#786e64] block text-[10px] uppercase">
-                        {lang === 'ar' ? 'المساحة المقترحة:' : 'Proposed Space:'}
-                      </span>
-                      <span>{sub.spaceAdded}</span>
-                    </div>
-                    <div>
-                      <span className="text-[#786e64] block text-[10px] uppercase">
-                        {lang === 'ar' ? 'الباقة المقدمة:' : 'Proposed Package:'}
-                      </span>
-                      <span className="text-[#dfc086] font-serif font-bold">{sub.packageProposed}</span>
+          {submissions.length === 0 ? (
+            <div className="py-12 text-center text-xs font-mono text-[#595855]">
+              {lang === 'ar' ? 'لا توجد طلبات معلقة حالياً.' : 'All venue revisions reviewed and clear.'}
+            </div>
+          ) : (
+            submissions.map(sub => (
+              <div 
+                key={sub.id}
+                className="p-4 sm:p-5 rounded-[9px] bg-[#ebebeb] border border-[#dfdcd5] space-y-3"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <h4 className="font-serif text-lg font-normal text-[#000000]">
+                      {sub.venueName}
+                    </h4>
+                    <div className="flex items-center gap-2 text-xs font-mono text-[#595855]">
+                      <span>{sub.editor}</span>
+                      <span>•</span>
+                      <span>{sub.submittedAt}</span>
+                      <span>•</span>
+                      <span className="text-[#000000] font-semibold">{sub.version}</span>
                     </div>
                   </div>
 
-                  {sub.status === 'pending_review' && (
-                    <div className="flex justify-end gap-3 pt-2">
-                      <button
-                        type="button"
-                        onClick={() => handleReject(sub.id)}
-                        className="px-3 py-1.5 rounded-lg border border-red-800/60 text-red-400 hover:bg-red-950/40 transition-colors cursor-pointer"
-                      >
-                        {t.requestChanges}
-                      </button>
-                      <GradientButton
-                        size="sm"
-                        variant="primary"
-                        icon={Check}
-                        onClick={() => handleApprove(sub.id)}
-                      >
-                        {t.approveListing}
-                      </GradientButton>
-                    </div>
-                  )}
+                  <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-[28.8px] bg-[#dfdcd5] text-[10px] font-mono uppercase text-[#000000] self-start sm:self-auto">
+                    <span>Pending Curator Review</span>
+                  </span>
                 </div>
-              ))}
-            </div>
 
-            {/* Audit notice */}
-            <div className="p-3.5 rounded-xl bg-[#0e0d0c]/50 border border-[#27221e] text-[11px] text-[#a89d91] leading-relaxed">
-              {t.adminNotice}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </AnimatePresence>
+                <p className="text-xs text-[#595855] leading-relaxed font-sans bg-[#ffffff] p-3 rounded-[6px] border border-[#dfdcd5]">
+                  {sub.summary}
+                </p>
+
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+                  <div className="text-[11px] font-mono text-[#595855] flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#000000]" />
+                    <span>{sub.safetyChecks}</span>
+                  </div>
+
+                  <div className="flex items-center gap-2 self-end sm:self-auto">
+                    <button
+                      onClick={() => handleReject(sub.id)}
+                      className="px-3 py-1.5 rounded-[28.8px] border border-[#dfdcd5] text-xs font-mono uppercase text-[#595855] hover:text-[#000000] hover:bg-[#dfdcd5] cursor-pointer"
+                    >
+                      {lang === 'ar' ? 'طلب تعديل' : 'Request Changes'}
+                    </button>
+
+                    <button
+                      onClick={() => handleApprove(sub.id)}
+                      className="btn-pill-ink px-4 py-1.5 text-xs flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>{lang === 'ar' ? 'اعتماد ونشر' : 'Approve & Land'}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="p-4 sm:p-5 border-t border-[#dfdcd5] bg-[#ebebeb] flex items-center justify-end shrink-0">
+          <button
+            onClick={onClose}
+            className="btn-pill-ink px-6 py-2 tap-bounce cursor-pointer text-xs"
+          >
+            <span>{t.modalClose}</span>
+          </button>
+        </div>
+
+      </motion.div>
+
+    </div>
   )
 }
-export default AdminReviewModal

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>Weddo Archway Monogram</title>
+  <!-- Architectural Roman Archway Portal -->
+  <path 
+    d="M48 212 V112 C48 67.817 83.817 32 128 32 C172.183 32 208 67.817 208 112 V212" 
+    fill="none" 
+    stroke="#000000" 
+    stroke-width="12" 
+    stroke-linecap="round" 
+  />
+  
+  <!-- Foundation Plinth Line -->
+  <line x1="36" y1="212" x2="220" y2="212" stroke="#000000" stroke-width="12" stroke-linecap="round" />
+
+  <!-- Renaissance Serif Letter 'W' Monogram Carved Within the Arch -->
+  <!-- Left stem & diagonal -->
+  <path 
+    d="M76 104 H94 M85 104 L107 186 L128 116 L149 186 L171 104 M162 104 H180" 
+    fill="none" 
+    stroke="#000000" 
+    stroke-width="10" 
+    stroke-linecap="round" 
+    stroke-linejoin="round" 
+  />
+
+  <!-- Celestial Union Keystone Ring -->
+  <circle cx="128" cy="72" r="10" fill="none" stroke="#000000" stroke-width="4" />
+</svg>

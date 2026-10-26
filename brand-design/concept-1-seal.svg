@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>Weddo Renaissance Monogram Seal</title>
+  <!-- Outer Monoline Gallery Frame -->
+  <circle cx="128" cy="128" r="108" fill="none" stroke="#000000" stroke-width="8" />
+  
+  <g fill="#000000">
+    <!-- Top Serifs (Architectural Entablatures) -->
+    <rect x="56" y="70" width="30" height="5" rx="1.5" />
+    <rect x="113" y="70" width="30" height="5" rx="1.5" />
+    <rect x="170" y="70" width="30" height="5" rx="1.5" />
+    
+    <!-- Main Left Stem (Broad Roman downstroke) -->
+    <polygon points="66,74 80,74 105,182 91,182" />
+    <!-- Inner Left Hairline Upstroke -->
+    <polygon points="94,182 105,182 131,74 126,74" />
+    <!-- Bottom Left Apex Base Serif -->
+    <rect x="88" y="181" width="20" height="4" rx="1" />
+
+    <!-- Main Center Stem (Broad Roman downstroke overlapping) -->
+    <polygon points="121,74 135,74 161,182 147,182" />
+    <!-- Inner Right Hairline Upstroke -->
+    <polygon points="150,182 161,182 187,74 182,74" />
+    <!-- Bottom Right Apex Base Serif -->
+    <rect x="144" y="181" width="20" height="4" rx="1" />
+  </g>
+</svg>
