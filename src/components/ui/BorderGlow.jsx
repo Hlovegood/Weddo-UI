@@ -77,7 +77,7 @@ export const BorderGlow = ({
   children,
   className = '',
   edgeSensitivity = 30,
-  glowColor = '40 80 80',
+  glowColor,
   backgroundColor = '#120F17',
   borderRadius = 28,
   glowRadius = 40,
@@ -85,12 +85,31 @@ export const BorderGlow = ({
   coneSpread = 25,
   animated = false,
   active = false,
-  colors = ['#c084fc', '#f472b6', '#38bdf8'],
+  colors,
   fillOpacity = 0.5,
   style = {},
   ...props
 }) => {
   const cardRef = useRef(null);
+
+  // Dynamic Theme Detection for Contrasting Glow Fallbacks
+  const [isDark, setIsDark] = React.useState(() => {
+    if (typeof document !== 'undefined') {
+      return document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark';
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark');
+    };
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+    return () => observer.disconnect();
+  }, []);
 
   const getCenterOfElement = useCallback((el) => {
     const { width, height } = el.getBoundingClientRect();
@@ -200,7 +219,15 @@ export const BorderGlow = ({
     };
   }, [animated]);
 
-  const glowVars = buildGlowVars(glowColor, glowIntensity);
+  // Dynamic Contrasting Defaults based on Theme:
+  // Dark Theme: Radiant Luminous Egyptian Gold
+  // Light Theme: Deep Crisp Obsidian Black / Charcoal
+  const resolvedGlowColor = glowColor ?? (isDark ? '45 94 65' : '0 0 12');
+  const resolvedColors = colors ?? (isDark 
+    ? ['#fbe8a6', '#d4af37', '#e5c158', '#b38728'] 
+    : ['#000000', '#1c1b18', '#2e2a24', '#0d0c0a']);
+
+  const glowVars = buildGlowVars(resolvedGlowColor, glowIntensity);
   const lightSurface = isLightColor(backgroundColor);
 
   return (
@@ -217,7 +244,7 @@ export const BorderGlow = ({
         '--cone-spread': coneSpread,
         '--fill-opacity': fillOpacity,
         ...glowVars,
-        ...buildGradientVars(colors),
+        ...buildGradientVars(resolvedColors),
         ...style,
       }}
       {...props}
