@@ -220,12 +220,12 @@ export const BorderGlow = ({
   }, [animated]);
 
   // Dynamic Contrasting Defaults based on Theme:
-  // Dark Theme: Radiant Luminous Egyptian Gold
-  // Light Theme: Deep Saturated Amber-Gold / Burnished Copper (Strong contrast against light linen)
-  const resolvedGlowColor = glowColor ?? (isDark ? '45 94 65' : '36 96 46');
+  // Dark Theme: Radiant Luminous Egyptian Gold (#d4af37, #fbe8a6)
+  // Light Theme: Royal Egyptian Sapphire Blue (#2563eb, #1d4ed8) - Complementary 5.5:1 contrast against linen
+  const resolvedGlowColor = glowColor ?? (isDark ? '45 94 65' : '220 95 50');
   const resolvedColors = colors ?? (isDark 
     ? ['#fbe8a6', '#d4af37', '#e5c158', '#b38728'] 
-    : ['#78350f', '#b45309', '#d97706', '#f59e0b', '#d4af37']);
+    : ['#1e40af', '#2563eb', '#38bdf8', '#0284c7', '#1d4ed8']);
 
   const glowVars = buildGlowVars(resolvedGlowColor, glowIntensity);
   const lightSurface = isLightColor(backgroundColor);

@@ -389,11 +389,11 @@ export function HeroSection({
 
   // Dynamic Theme-Contrasting BorderGlow Colors:
   // Dark Theme: Radiant Luminous Egyptian Gold & Warm Amber against dark onyx backdrop
-  // Light Theme: Deep Saturated Amber-Gold Flame & Burnished Copper with strong contrast against light linen backdrop
-  const venueGlowColor = isDark ? '45 94 65' : '36 96 46'
+  // Light Theme: Royal Egyptian Sapphire Blue (#2563eb / #1d4ed8) - Complementary 5.5:1 contrast against light linen backdrop
+  const venueGlowColor = isDark ? '45 94 65' : '220 95 50'
   const venueGlowColors = isDark 
     ? ['#fbe8a6', '#d4af37', '#e5c158', '#b38728'] 
-    : ['#78350f', '#b45309', '#d97706', '#f59e0b', '#d4af37']
+    : ['#1e40af', '#2563eb', '#38bdf8', '#0284c7', '#1d4ed8']
 
   return (
     <section className="relative w-full overflow-hidden bg-[#c4c3b6] dark:bg-[#121210] transition-colors duration-500 pb-16">
@@ -485,7 +485,7 @@ export function HeroSection({
                       activeEstateIndex === dotIdx 
                         ? (isDark 
                             ? 'w-4 sm:w-5 h-2 bg-[#d4af37] shadow-[0_0_8px_#d4af37]' 
-                            : 'w-4 sm:w-5 h-2 bg-[#d97706] shadow-[0_0_8px_rgba(217,119,6,0.7)]')
+                            : 'w-4 sm:w-5 h-2 bg-[#2563eb] shadow-[0_0_8px_rgba(37,99,235,0.7)]')
                         : 'w-2 h-2 bg-black/25 dark:bg-white/40 hover:bg-black/50 dark:hover:bg-white/70'
                     }`} />
                   </button>
@@ -558,7 +558,7 @@ export function HeroSection({
                     isActive 
                       ? (isDark 
                           ? 'ring-2 ring-[#d4af37] shadow-[0_14px_32px_-6px_rgba(0,0,0,0.85),0_0_28px_rgba(212,175,55,0.45)] z-10' 
-                          : 'ring-2 ring-[#d97706] shadow-[0_14px_32px_-6px_rgba(0,0,0,0.35),0_0_28px_rgba(217,119,6,0.65)] z-10')
+                          : 'ring-2 ring-[#2563eb] shadow-[0_14px_32px_-6px_rgba(0,0,0,0.3),0_0_28px_rgba(37,99,235,0.65)] z-10')
                       : 'opacity-100 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.5)] hover:-translate-y-1'
                   }`}
                   onClick={() => handleCardClick(idx)}
@@ -690,14 +690,14 @@ export function HeroSection({
       >
         <BorderGlow
           edgeSensitivity={26}
-          glowColor={isDark ? "40 80 80" : "36 96 46"}
+          glowColor={isDark ? "40 80 80" : "220 95 50"}
           backgroundColor={isDark ? '#181715' : '#ffffff'}
           borderRadius={24}
           glowRadius={36}
           glowIntensity={isDark ? 1.1 : 1.3}
           coneSpread={26}
           animated={false}
-          colors={isDark ? ['#d4af37', '#f59e0b', '#10b981'] : ['#b45309', '#d97706', '#10b981']}
+          colors={isDark ? ['#d4af37', '#f59e0b', '#10b981'] : ['#1e40af', '#2563eb', '#38bdf8']}
           className="w-full shadow-2xl transition-all"
         >
           <SearchCockpit
