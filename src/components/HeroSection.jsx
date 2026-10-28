@@ -18,6 +18,7 @@ import {
 import { SearchCockpit } from './SearchCockpit'
 import BorderGlow from './ui/BorderGlow'
 import GridMotion from './ui/GridMotion'
+import CircularGallery from './ui/CircularGallery'
 import { TextAnimate } from './ui/text-animate'
 import { Badge } from './ui/badge'
 import { sound } from '../lib/sound'
@@ -279,167 +280,57 @@ export function HeroSection({
     }
   }, [])
 
-  // Desktop Horizontal Cursor Drag-to-Scroll State
-  const scrollContainerRef = useRef(null)
-  const isDraggingRef = useRef(false)
-  const startXRef = useRef(0)
-  const scrollLeftRef = useRef(0)
-  const hasMovedRef = useRef(false)
-  const [isGrabbing, setIsGrabbing] = useState(false)
+  // 3D CircularGallery Ref & Mapped Items
+  const galleryRef = useRef(null)
 
-  const isProgrammaticScrollRef = useRef(false)
-  const programmaticTimeoutRef = useRef(null)
-
-  // Mobile & Scroll Snap Detection: updates active card index indicator
-  useEffect(() => {
-    const container = scrollContainerRef.current
-    if (!container) return
-
-    let rafId
-    const handleScroll = () => {
-      if (isProgrammaticScrollRef.current) return
-      cancelAnimationFrame(rafId)
-      rafId = requestAnimationFrame(() => {
-        if (isProgrammaticScrollRef.current) return
-        const cards = container.children
-        if (!cards || cards.length === 0) return
-        const containerRect = container.getBoundingClientRect()
-        const containerCenter = containerRect.left + containerRect.width / 2
-
-        let closestIdx = 0
-        let minDiff = Infinity
-
-        for (let i = 0; i < cards.length; i++) {
-          const cardRect = cards[i].getBoundingClientRect()
-          const cardCenter = cardRect.left + cardRect.width / 2
-          const diff = Math.abs(containerCenter - cardCenter)
-          if (diff < minDiff) {
-            minDiff = diff
-            closestIdx = i
-          }
-        }
-
-        if (closestIdx !== activeEstateIndex) {
-          setActiveEstateIndex(closestIdx)
-        }
-      })
-    }
-
-    container.addEventListener('scroll', handleScroll, { passive: true })
-    return () => {
-      cancelAnimationFrame(rafId)
-      container.removeEventListener('scroll', handleScroll)
-    }
-  }, [activeEstateIndex])
-
-  // Desktop Mouse Drag Handlers
-  const handlePointerDown = (e) => {
-    if (isMobile) return
-    if (e.button !== 0 && e.pointerType === 'mouse') return
-    const container = scrollContainerRef.current
-    if (!container) return
-
-    isDraggingRef.current = true
-    hasMovedRef.current = false
-    startXRef.current = e.pageX - container.offsetLeft
-    scrollLeftRef.current = container.scrollLeft
-    setIsGrabbing(true)
-
-    try {
-      e.currentTarget.setPointerCapture(e.pointerId)
-    } catch {}
-  }
-
-  const handlePointerMove = (e) => {
-    if (isMobile || !isDraggingRef.current) return
-    const container = scrollContainerRef.current
-    if (!container) return
-
-    const x = e.pageX - container.offsetLeft
-    const distance = x - startXRef.current
-
-    if (Math.abs(distance) > 5) {
-      hasMovedRef.current = true
-    }
-
-    container.scrollLeft = scrollLeftRef.current - distance * 1.3
-  }
-
-  const handlePointerUp = (e) => {
-    if (isMobile) return
-    isDraggingRef.current = false
-    setIsGrabbing(false)
-    try {
-      e.currentTarget.releasePointerCapture(e.pointerId)
-    } catch {}
-
-    if (hasMovedRef.current) {
-      // Find and highlight closest card after manual mouse drag
-      const container = scrollContainerRef.current
-      if (!container) return
-      const cards = container.children
-      if (!cards || cards.length === 0) return
-      const containerRect = container.getBoundingClientRect()
-      const containerCenter = containerRect.left + containerRect.width / 2
-
-      let closestIdx = 0
-      let minDiff = Infinity
-      for (let i = 0; i < cards.length; i++) {
-        const cardRect = cards[i].getBoundingClientRect()
-        const cardCenter = cardRect.left + cardRect.width / 2
-        const diff = Math.abs(containerCenter - cardCenter)
-        if (diff < minDiff) {
-          minDiff = diff
-          closestIdx = i
-        }
+  const circularGalleryItems = useMemo(() => {
+    return HERO_FEATURED_ESTATES.map((estate) => {
+      const isArabic = lang === 'ar'
+      const title = isArabic ? estate.titleAr : estate.titleEn
+      const district = isArabic ? estate.districtAr : estate.districtEn
+      const subtitle = isArabic ? estate.subtitleAr : estate.subtitleEn
+      const priceText = formatEGP(estate.price, lang)
+      const capText = isArabic ? `سعة ${estate.capacity}` : `Capacity ${estate.capacity}`
+      return {
+        image: estate.image,
+        text: title,
+        description: `${district} • ${capText} • ${priceText} — ${subtitle}`,
+        alt: title,
+        estate
       }
-      scrollToCardIndex(closestIdx)
-    }
-  }
+    })
+  }, [lang])
 
-  // Card Selection & Scroll To Card (Highlights & Centers the Card)
-  const handleCardClick = (idx) => {
-    if (hasMovedRef.current) return
-    scrollToCardIndex(idx)
-  }
+  const activeEstate = HERO_FEATURED_ESTATES[activeEstateIndex] || HERO_FEATURED_ESTATES[0]
 
   const scrollToCardIndex = (idx) => {
-    sound.tap()
-    setActiveEstateIndex(idx)
+    sound.tap();
+    setActiveEstateIndex(idx);
+    galleryRef.current?.focus?.(idx);
+  };
 
-    // Lock programmatic scroll to prevent interim scroll events from overriding highlight
-    isProgrammaticScrollRef.current = true
-    clearTimeout(programmaticTimeoutRef.current)
-    programmaticTimeoutRef.current = setTimeout(() => {
-      isProgrammaticScrollRef.current = false
-    }, 600)
-
-    const container = scrollContainerRef.current
-    if (!container) return
-    const cards = container.children
-    if (cards && cards[idx]) {
-      const card = cards[idx]
-      const containerRect = container.getBoundingClientRect()
-      const cardRect = card.getBoundingClientRect()
-      const delta = (cardRect.left - containerRect.left) - (containerRect.width - cardRect.width) / 2
-      if (Math.abs(delta) > 1) {
-        container.scrollBy({ left: delta, behavior: 'smooth' })
-      }
-    }
-  }
-
-  // Direction Button Handlers: Navigate and highlight previous/next venue
+  // Direction Button Handlers: Navigate and highlight previous/next venue in 3D arc
   const handlePrevVenue = () => {
-    const total = HERO_FEATURED_ESTATES.length
-    const prevIdx = activeEstateIndex <= 0 ? total - 1 : activeEstateIndex - 1
-    scrollToCardIndex(prevIdx)
-  }
+    sound.tap();
+    if (galleryRef.current?.prev) {
+      galleryRef.current.prev();
+    } else {
+      const total = HERO_FEATURED_ESTATES.length;
+      const prevIdx = activeEstateIndex <= 0 ? total - 1 : activeEstateIndex - 1;
+      setActiveEstateIndex(prevIdx);
+    }
+  };
 
   const handleNextVenue = () => {
-    const total = HERO_FEATURED_ESTATES.length
-    const nextIdx = (activeEstateIndex + 1) % total
-    scrollToCardIndex(nextIdx)
-  }
+    sound.tap();
+    if (galleryRef.current?.next) {
+      galleryRef.current.next();
+    } else {
+      const total = HERO_FEATURED_ESTATES.length;
+      const nextIdx = (activeEstateIndex + 1) % total;
+      setActiveEstateIndex(nextIdx);
+    }
+  };
 
   const scrollToSearch = () => {
     sound.tap()
@@ -630,175 +521,89 @@ export function HeroSection({
             </div>
           </div>
 
-          {/* Venues Carousel: Expanded Full-Width Container with generous breathing room for glow & shadow */}
-          <div
-            ref={scrollContainerRef}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
-            className={`flex items-stretch gap-4 sm:gap-6 overflow-x-auto pt-6 pb-9 sm:pt-7 sm:pb-10 select-none scrollbar-none transition-all px-3 sm:px-5 lg:px-8 ${
-              isMobile 
-                ? 'snap-x snap-mandatory scroll-smooth' 
-                : (isGrabbing ? 'cursor-grabbing' : 'cursor-grab')
-            }`}
-            style={{
-              scrollBehavior: isGrabbing ? 'auto' : 'smooth',
-              WebkitOverflowScrolling: 'touch',
-              scrollPaddingLeft: isMobile ? '20px' : '32px',
-              scrollPaddingRight: isMobile ? '20px' : '32px'
-            }}
-          >
-            {HERO_FEATURED_ESTATES.map((estate, idx) => {
-              const isActive = activeEstateIndex === idx
-              return (
-                <BorderGlow
-                  key={estate.id}
-                  active={isActive}
-                  glowColor={venueGlowColor}
-                  colors={venueGlowColors}
-                  borderRadius={24}
-                  glowRadius={isDark ? 22 : (isMobile ? 22 : 25)}
-                  glowIntensity={isDark ? (isMobile ? 1.15 : 1.1) : (isActive ? 1.6 : 1.25)}
-                  coneSpread={isDark ? 24 : 26}
-                  edgeSensitivity={isDark ? 30 : 20}
-                  backgroundColor="#12100d"
-                  style={{
-                    scrollSnapAlign: isMobile ? 'center' : 'none'
-                  }}
-                  className={`relative shrink-0 select-none transition-all duration-300 ${
-                    isMobile
-                      ? 'w-[75vw] max-w-[285px] h-[385px] xs:h-[405px] sm:h-[420px]'
-                      : 'w-[265px] sm:w-[285px] md:w-[310px] lg:w-[335px] xl:w-[350px] h-[385px] sm:h-[405px] md:h-[420px] lg:h-[435px]'
-                  } ${
-                    isActive 
-                      ? (isDark 
-                          ? 'ring-2 ring-[#d4af37] shadow-[0_12px_28px_-6px_rgba(0,0,0,0.85),0_0_18px_rgba(212,175,55,0.35)] z-10' 
-                          : 'ring-2 ring-[#2563eb] shadow-[0_12px_28px_-6px_rgba(0,0,0,0.2),0_0_16px_rgba(37,99,235,0.7),0_0_24px_rgba(37,99,235,0.35)] z-10')
-                      : (isDark
-                          ? 'opacity-100 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.5)] hover:-translate-y-1'
-                          : 'opacity-100 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.12)] hover:shadow-[0_10px_24px_-4px_rgba(0,0,0,0.18),0_0_14px_rgba(37,99,235,0.35)] hover:-translate-y-1')
-                  }`}
-                  onClick={() => handleCardClick(idx)}
-                >
-                  {/* Inner Card Presentation - 100% Solid Opaque Foundation */}
-                  <div className="relative w-full h-full rounded-[inherit] overflow-hidden flex flex-col justify-between group pointer-events-auto bg-[#12100d]">
-                    
-                    {/* Solid Opaque Base Underlay */}
-                    <div className="absolute inset-0 bg-[#12100d] pointer-events-none" />
-
-                    {/* Dimmed Card Thumbnail Image - highlighted card is illuminated */}
-                    <img
-                      src={estate.image}
-                      alt={lang === 'ar' ? estate.titleAr : estate.titleEn}
-                      draggable={false}
-                      className={`absolute inset-0 w-full h-full object-cover object-center ${
-                        isActive ? 'brightness-[0.82]' : 'brightness-[0.66]'
-                      } group-hover:brightness-[0.84] group-hover:scale-105 transition-all duration-500 pointer-events-none select-none`}
-                    />
-
-                    {/* Cinematic Ambient Dimming Scrim Layer */}
-                    <div className={`absolute inset-0 ${
-                      isActive ? 'bg-black/25' : 'bg-black/42'
-                    } group-hover:bg-black/20 transition-colors duration-300 pointer-events-none`} />
-
-                    {/* Top Floating Glass Meta Bar */}
-                    <div className="relative z-10 p-3 sm:p-3.5 flex items-center justify-between gap-1.5 pointer-events-none">
-                      {/* Location Badge */}
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-[9px] sm:text-[10px] font-sans font-medium text-white shadow-md">
-                        <MapPin className="w-3 h-3 text-[#d4af37]" />
-                        <span>{lang === 'ar' ? estate.districtAr : estate.districtEn}</span>
-                      </span>
-
-                      {/* Guest Capacity Badge */}
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-[9px] sm:text-[10px] font-mono text-white/95 shadow-md">
-                        <Users className="w-3 h-3 text-[#10b981]" />
-                        <span>{estate.capacity}</span>
-                      </span>
-                    </div>
-
-                    {/* Bottom Dark Gradient Overlay with Architectural Details */}
-                    <div className="relative z-10 bg-gradient-to-t from-[#12100d] via-[#12100d]/92 to-transparent flex flex-col justify-end p-3.5 sm:p-4 pt-12 text-white">
-                      
-                      {/* Category Pill Tag & Star Rating */}
-                      <div className="flex items-center justify-between mb-1.5">
-                        <Badge 
-                          variant="secondary"
-                          className="text-[9px] font-mono tracking-wider uppercase bg-white/20 backdrop-blur-md text-white border-white/20 px-2 py-0.2"
-                        >
-                          {lang === 'ar' ? estate.tagAr : estate.tagEn}
-                        </Badge>
-
-                        <div className="flex items-center gap-1 text-[11px] font-semibold text-white drop-shadow-xs">
-                          <Star className="w-3 h-3 fill-[#d4af37] text-[#d4af37]" />
-                          <span>{estate.rating}</span>
-                          <span className="text-white/60 text-[9px]">({estate.reviewsCount})</span>
-                        </div>
-                      </div>
-
-                      {/* Card Title in Davinci Serif Display Font */}
-                      <h4 className="font-serif text-base sm:text-lg font-normal text-white leading-tight mb-1 truncate drop-shadow-md">
-                        {lang === 'ar' ? estate.titleAr : estate.titleEn}
-                      </h4>
-
-                      {/* Architectural Highlight Caption */}
-                      <p className="text-[11px] text-white/80 line-clamp-2 leading-relaxed mb-2.5">
-                        {lang === 'ar' ? estate.subtitleAr : estate.subtitleEn}
-                      </p>
-
-                      {/* Micro Feature Tags */}
-                      <div className="flex flex-wrap gap-1 mb-3">
-                        {(lang === 'ar' ? estate.featuresAr : estate.featuresEn).slice(0, 3).map((feat, fIdx) => (
-                          <span
-                            key={fIdx}
-                            className="text-[9px] font-sans px-2 py-0.5 rounded-full bg-white/10 text-white/90 border border-white/15"
-                          >
-                            {feat}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Price Tag in EGP & Theme-Contrasting Explore Button */}
-                      <div className="text-xs font-mono font-semibold text-white flex items-center justify-between border-t border-white/15 pt-2.5">
-                        <div className="flex flex-col">
-                          <span className="text-white text-sm sm:text-base font-bold">{formatEGP(estate.price, lang)}</span>
-                          <span className="text-[9px] text-white/60 font-sans font-normal">
-                            {lang === 'ar' ? 'سعر مباشر معتمد بالجنيه' : 'Verified Direct Rate'}
-                          </span>
-                        </div>
-
-                        {/* Theme-Adaptive Contrasting Explore Button:
-                            Light Mode: Crisp Paper White with dark charcoal text & subtle border
-                            Dark Mode: Luminous Royal Egyptian Gold (#d4af37) with obsidian black text */}
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            scrollToSearch()
-                          }}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full font-semibold text-[11px] transition-all duration-200 active:scale-95 shadow-md cursor-pointer bg-[#ffffff] text-[#1c1b18] hover:bg-[#1c1b18] hover:text-[#ffffff] border border-black/15 dark:bg-[#d4af37] dark:text-[#121210] dark:border-transparent dark:hover:bg-[#ffffff] dark:hover:text-[#000000] dark:shadow-[0_0_14px_rgba(212,175,55,0.4)]"
-                        >
-                          <span>{lang === 'ar' ? 'استكشف' : 'Explore'}</span>
-                          <ArrowUpRight className="w-3 h-3 rtl:rotate-90" />
-                        </button>
-                      </div>
-
-                    </div>
-
-                  </div>
-                </BorderGlow>
-              )
-            })}
+          {/* CircularGallery 3D Venues Arc */}
+          <div className="relative w-full h-[430px] xs:h-[460px] sm:h-[500px] md:h-[530px] lg:h-[560px] my-1 overflow-hidden select-none">
+            <CircularGallery
+              ref={galleryRef}
+              items={circularGalleryItems}
+              bend={isMobile ? 2.2 : 2.8}
+              textColor={isDark ? '#f5f5f3' : '#1c1b18'}
+              borderRadius={0.06}
+              scrollEase={0.06}
+              scrollSpeed={isMobile ? 1.8 : 2}
+              itemSize={isMobile ? 0.88 : 0.94}
+              itemAspect={0.76}
+              gap={0.24}
+              wave={prefersReducedMotion ? 0 : (isMobile ? 0.5 : 1)}
+              fadeEdges={0.14}
+              shadow={0.3}
+              snap={true}
+              autoScroll={0}
+              openOnClick={true}
+              font={lang === 'ar' ? 'bold 22px "Amiri", "Almarai", serif' : 'bold 22px "Playfair Display", Georgia, serif'}
+              onActiveChange={(index) => setActiveEstateIndex(index)}
+              onItemClick={(item, index) => {
+                sound.tap();
+                setActiveEstateIndex(index);
+              }}
+              className="w-full h-full"
+            />
           </div>
 
-          {/* Mobile Gestural Swipe Affordance */}
-          <div className="sm:hidden flex items-center justify-center gap-2 -mt-2 mb-2 text-[11px] font-mono text-[#595855] dark:text-white/75 tracking-wider">
+          {/* Active Estate Highlight Floating Glass Bar */}
+          {activeEstate && (
+            <div className="mt-1 sm:mt-2 flex items-center justify-between gap-3 px-4 py-2 sm:px-6 sm:py-2.5 rounded-2xl bg-white/70 dark:bg-black/55 backdrop-blur-xl border border-[#dfdcd5] dark:border-white/15 shadow-md max-w-4xl mx-auto w-full transition-all duration-300">
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                <span className={`shrink-0 w-2.5 h-2.5 rounded-full ${isDark ? 'bg-[#d4af37] shadow-[0_0_8px_#d4af37]' : 'bg-[#2563eb] shadow-[0_0_8px_rgba(37,99,235,0.7)]'}`} />
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <h5 className="font-serif text-sm sm:text-base font-medium text-[#1c1b18] dark:text-white truncate">
+                      {lang === 'ar' ? activeEstate.titleAr : activeEstate.titleEn}
+                    </h5>
+                    <span className="hidden xs:inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-black/5 dark:bg-white/10 text-[#595855] dark:text-white/80">
+                      <MapPin className="w-2.5 h-2.5 text-[#d4af37]" />
+                      <span>{lang === 'ar' ? activeEstate.districtAr : activeEstate.districtEn}</span>
+                    </span>
+                    <span className="hidden md:inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-black/5 dark:bg-white/10 text-[#10b981]">
+                      <Users className="w-2.5 h-2.5" />
+                      <span>{activeEstate.capacity}</span>
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-[#595855] dark:text-white/70 truncate hidden sm:block">
+                    {lang === 'ar' ? activeEstate.subtitleAr : activeEstate.subtitleEn}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
+                <div className="text-right rtl:text-left">
+                  <span className="font-mono text-xs sm:text-sm font-bold text-[#1c1b18] dark:text-white block">
+                    {formatEGP(activeEstate.price, lang)}
+                  </span>
+                  <span className="text-[9px] text-[#595855] dark:text-white/60 block">
+                    {lang === 'ar' ? 'سعر مباشر بالجنيه' : 'Direct EGP Rate'}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={scrollToSearch}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full font-semibold text-xs transition-all duration-200 active:scale-95 shadow-md cursor-pointer bg-[#ffffff] text-[#1c1b18] hover:bg-[#1c1b18] hover:text-[#ffffff] border border-black/15 dark:bg-[#d4af37] dark:text-[#121210] dark:border-transparent dark:hover:bg-[#ffffff] dark:hover:text-[#000000] dark:shadow-[0_0_14px_rgba(212,175,55,0.4)]"
+                >
+                  <span>{lang === 'ar' ? 'استكشف' : 'Explore'}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 rtl:rotate-90" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Gestural Swipe / Drag Affordance */}
+          <div className="flex items-center justify-center gap-2 mt-2 text-[11px] font-mono text-[#595855] dark:text-white/75 tracking-wider">
             <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/60 dark:bg-black/40 backdrop-blur-md border border-[#dfdcd5] dark:border-white/10 shadow-xs">
               <Sparkles className="w-3 h-3 text-[#d4af37]" />
-              <span>{lang === 'ar' ? 'اسحب باللمس لتصفح القاعات' : 'Swipe to explore estates'}</span>
+              <span>{lang === 'ar' ? 'اسحب باللمس أو الماوس لتدوير القصور ثلاثية الأبعاد • اضغط للتكبير' : 'Drag to rotate 3D gallery • Click card to expand'}</span>
             </span>
           </div>
-
         </div>
 
       </div>
