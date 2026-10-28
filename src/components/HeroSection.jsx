@@ -568,7 +568,7 @@ export function HeroSection({
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
-            className={`flex items-stretch gap-4 sm:gap-6 overflow-x-auto pt-6 pb-9 sm:pt-7 sm:pb-10 select-none scrollbar-none transition-all px-3 sm:px-5 lg:px-8 ${
+            className={`flex items-stretch gap-4 sm:gap-6 overflow-x-auto pt-8 pb-12 sm:pt-9 sm:pb-14 select-none scrollbar-none transition-all px-3 sm:px-6 lg:px-10 ${
               isMobile 
                 ? 'snap-x snap-mandatory scroll-smooth' 
                 : (isGrabbing ? 'cursor-grabbing' : 'cursor-grab')
@@ -589,9 +589,10 @@ export function HeroSection({
                   glowColor={venueGlowColor}
                   colors={venueGlowColors}
                   borderRadius={24}
-                  glowRadius={22}
-                  glowIntensity={isMobile ? (isDark ? 1.3 : 1.4) : (isDark ? 1.15 : 1.3)}
-                  coneSpread={26}
+                  glowRadius={isMobile ? 38 : 50}
+                  glowIntensity={isActive ? (isDark ? 2.2 : 2.5) : (isDark ? 1.5 : 1.7)}
+                  coneSpread={isActive ? 38 : 28}
+                  edgeSensitivity={18}
                   backgroundColor="#12100d"
                   style={{
                     scrollSnapAlign: isMobile ? 'center' : 'none'
@@ -603,9 +604,11 @@ export function HeroSection({
                   } ${
                     isActive 
                       ? (isDark 
-                          ? 'ring-2 ring-[#d4af37] shadow-[0_14px_32px_-6px_rgba(0,0,0,0.85),0_0_28px_rgba(212,175,55,0.45)] z-10' 
-                          : 'ring-2 ring-[#2563eb] shadow-[0_14px_32px_-6px_rgba(0,0,0,0.3),0_0_28px_rgba(37,99,235,0.65)] z-10')
-                      : 'opacity-100 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.5)] hover:-translate-y-1'
+                          ? 'ring-2 ring-[#d4af37] shadow-[0_16px_36px_-6px_rgba(0,0,0,0.9),0_0_30px_rgba(212,175,55,0.75),0_0_60px_rgba(212,175,55,0.45),0_0_90px_rgba(212,175,55,0.25)] z-10' 
+                          : 'ring-2 ring-[#2563eb] shadow-[0_16px_36px_-6px_rgba(0,0,0,0.25),0_0_30px_rgba(37,99,235,0.85),0_0_60px_rgba(37,99,235,0.5),0_0_90px_rgba(37,99,235,0.25)] z-10')
+                      : (isDark
+                          ? 'opacity-100 shadow-[0_10px_24px_-4px_rgba(0,0,0,0.65),0_0_20px_rgba(212,175,55,0.25)] hover:shadow-[0_14px_30px_-4px_rgba(0,0,0,0.75),0_0_35px_rgba(212,175,55,0.5)] hover:-translate-y-1'
+                          : 'opacity-100 shadow-[0_10px_24px_-4px_rgba(0,0,0,0.2),0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_14px_30px_-4px_rgba(0,0,0,0.25),0_0_35px_rgba(37,99,235,0.6)] hover:-translate-y-1')
                   }`}
                   onClick={() => handleCardClick(idx)}
                 >
