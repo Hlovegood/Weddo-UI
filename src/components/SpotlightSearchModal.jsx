@@ -48,7 +48,7 @@ export function SpotlightSearchModal({
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto flex items-start justify-center pt-20 px-4 sm:px-6">
+    <div className="fixed inset-0 z-50 overflow-y-auto flex items-start justify-center pt-6 sm:pt-20 px-3 sm:px-6">
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -150,7 +150,7 @@ export function SpotlightSearchModal({
         </div>
 
         {/* Footer info */}
-        <div className="px-6 py-3 border-t border-[#dfdcd5] dark:border-[#2e2d28] bg-[#ebebeb] dark:bg-[#141412] flex items-center justify-between text-xs text-[#595855] dark:text-[#a8a69e] font-mono">
+        <div className="px-4 sm:px-6 py-2.5 sm:py-3 border-t border-[#dfdcd5] dark:border-[#2e2d28] bg-[#ebebeb] dark:bg-[#141412] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-0 text-xs text-[#595855] dark:text-[#a8a69e] font-mono">
           <span>{lang === 'ar' ? 'انقر على أي قاعة لفتح التفاصيل والمساحات' : 'Click any venue to open spaces & packages'}</span>
           <span className="flex items-center gap-1 text-[#000000] dark:text-[#f5f5f3] font-medium">
             <span>Weddo Direct</span>

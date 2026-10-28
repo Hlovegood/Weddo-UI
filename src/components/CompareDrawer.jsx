@@ -36,8 +36,10 @@ export function CompareDrawer({
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 30 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        className="relative w-full max-w-[1100px] rounded-t-[9px] sm:rounded-[9px] bg-[#e7e5e4] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] overflow-hidden z-10 flex flex-col max-h-[90vh] shadow-2xl text-[#000000] dark:text-[#f5f5f3]"
+        className="relative w-full max-w-[1100px] rounded-t-[16px] sm:rounded-[9px] bg-[#e7e5e4] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] overflow-hidden z-10 flex flex-col max-h-[92vh] sm:max-h-[90vh] shadow-2xl text-[#000000] dark:text-[#f5f5f3]"
       >
+        {/* Mobile Pull Handle Indicator */}
+        <div className="sm:hidden w-12 h-1.5 bg-[#dfdcd5] dark:bg-[#2e2d28] rounded-full mx-auto mt-2 mb-1" />
         
         {/* Header */}
         <div className="p-4 sm:p-6 border-b border-[#dfdcd5] dark:border-[#2e2d28] flex items-center justify-between shrink-0 bg-[#ebebeb] dark:bg-[#141412]">
@@ -144,7 +146,7 @@ export function CompareDrawer({
                           onClose()
                           onOpenInquiry(venue)
                         }}
-                        className="btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] w-full flex items-center justify-center gap-1.5 tap-bounce cursor-pointer text-xs"
+                        className="btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] w-full min-h-[42px] flex items-center justify-center gap-1.5 tap-bounce cursor-pointer text-xs"
                       >
                         <span>{t.quickInquire}</span>
                         <ArrowUpRight className="w-3.5 h-3.5 text-[#ffffff] dark:text-[#0b0b0a]" />

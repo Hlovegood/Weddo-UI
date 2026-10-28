@@ -115,7 +115,7 @@ export function SearchCockpit({
                 sound.tap()
                 setFilters(prev => ({ ...prev, area: e.target.value }))
               }}
-              className="w-full h-11 px-3 text-[13px] font-medium rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] transition-colors appearance-none cursor-pointer"
+              className="w-full h-12 sm:h-11 px-3 text-base sm:text-[13px] font-medium rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] transition-colors appearance-none cursor-pointer"
             >
               {cairoAreas.map(area => (
                 <option key={area.id} value={area.id} className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">
@@ -123,7 +123,7 @@ export function SearchCockpit({
                 </option>
               ))}
             </select>
-            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-xs text-[#595855] dark:text-[#a8a69e]">
+            <div className="absolute inset-y-0 right-3 rtl:right-auto rtl:left-3 flex items-center pointer-events-none text-xs text-[#595855] dark:text-[#a8a69e]">
               <ChevronDown className="w-4 h-4" />
             </div>
           </div>
@@ -142,7 +142,7 @@ export function SearchCockpit({
                 sound.tap()
                 setFilters(prev => ({ ...prev, category: e.target.value }))
               }}
-              className="w-full h-11 px-3 text-[13px] font-medium rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] transition-colors appearance-none cursor-pointer"
+              className="w-full h-12 sm:h-11 px-3 text-base sm:text-[13px] font-medium rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] transition-colors appearance-none cursor-pointer"
             >
               {eventTypes.map(type => (
                 <option key={type.id} value={type.id} className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">
@@ -150,7 +150,7 @@ export function SearchCockpit({
                 </option>
               ))}
             </select>
-            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-xs text-[#595855] dark:text-[#a8a69e]">
+            <div className="absolute inset-y-0 right-3 rtl:right-auto rtl:left-3 flex items-center pointer-events-none text-xs text-[#595855] dark:text-[#a8a69e]">
               <ChevronDown className="w-4 h-4" />
             </div>
           </div>
@@ -169,7 +169,7 @@ export function SearchCockpit({
               sound.tap()
               setFilters(prev => ({ ...prev, date: e.target.value }))
             }}
-            className="w-full h-11 px-3 text-[13px] font-medium rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] transition-colors cursor-pointer"
+            className="w-full h-12 sm:h-11 px-3 text-base sm:text-[13px] font-medium rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] transition-colors cursor-pointer"
           />
         </div>
 
@@ -188,7 +188,7 @@ export function SearchCockpit({
           </div>
 
           {usePrecisionSliders ? (
-            <div className="h-11 px-3 bg-white dark:bg-[#282723] rounded-[6px] border border-[#dfdcd5] dark:border-[#2e2d28] flex flex-col justify-center">
+            <div className="h-12 sm:h-11 px-3 bg-white dark:bg-[#282723] rounded-[6px] border border-[#dfdcd5] dark:border-[#2e2d28] flex flex-col justify-center">
               <Slider
                 value={[sliderGuests]}
                 min={50}
@@ -205,7 +205,7 @@ export function SearchCockpit({
                   sound.tap()
                   setFilters(prev => ({ ...prev, guests: e.target.value }))
                 }}
-                className="w-full h-11 px-3 text-[13px] font-medium rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] transition-colors appearance-none cursor-pointer"
+                className="w-full h-12 sm:h-11 px-3 text-base sm:text-[13px] font-medium rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] transition-colors appearance-none cursor-pointer"
               >
                 {guestBands.map(band => (
                   <option key={band.id} value={band.id} className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">
@@ -213,7 +213,7 @@ export function SearchCockpit({
                   </option>
                 ))}
               </select>
-              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-xs text-[#595855] dark:text-[#a8a69e]">
+              <div className="absolute inset-y-0 right-3 rtl:right-auto rtl:left-3 flex items-center pointer-events-none text-xs text-[#595855] dark:text-[#a8a69e]">
                 <ChevronDown className="w-4 h-4" />
               </div>
             </div>
@@ -235,7 +235,7 @@ export function SearchCockpit({
           </div>
 
           {usePrecisionSliders ? (
-            <div className="h-11 px-3 bg-white dark:bg-[#282723] rounded-[6px] border border-[#dfdcd5] dark:border-[#2e2d28] flex flex-col justify-center">
+            <div className="h-12 sm:h-11 px-3 bg-white dark:bg-[#282723] rounded-[6px] border border-[#dfdcd5] dark:border-[#2e2d28] flex flex-col justify-center">
               <Slider
                 value={[sliderBudget]}
                 min={50000}
@@ -252,7 +252,7 @@ export function SearchCockpit({
                   sound.tap()
                   setFilters(prev => ({ ...prev, budget: e.target.value }))
                 }}
-                className="w-full h-11 px-3 text-[13px] font-medium rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] transition-colors appearance-none cursor-pointer"
+                className="w-full h-12 sm:h-11 px-3 text-base sm:text-[13px] font-medium rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] transition-colors appearance-none cursor-pointer"
               >
                 {budgetOptions.map(opt => (
                   <option key={opt.id} value={opt.id} className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">
@@ -260,7 +260,7 @@ export function SearchCockpit({
                   </option>
                 ))}
               </select>
-              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-xs text-[#595855] dark:text-[#a8a69e]">
+              <div className="absolute inset-y-0 right-3 rtl:right-auto rtl:left-3 flex items-center pointer-events-none text-xs text-[#595855] dark:text-[#a8a69e]">
                 <ChevronDown className="w-4 h-4" />
               </div>
             </div>
@@ -293,7 +293,7 @@ export function SearchCockpit({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.96 }}
             onClick={handleApplySearch}
-            className="tap-bounce btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] flex items-center gap-2 shadow-sm cursor-pointer"
+            className="tap-bounce btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] min-h-[44px] px-5 flex items-center justify-center gap-2 shadow-sm cursor-pointer"
           >
             <Search className="w-3.5 h-3.5 text-[#ffffff] dark:text-[#0b0b0a]" />
             <span>{t.searchAction}</span>

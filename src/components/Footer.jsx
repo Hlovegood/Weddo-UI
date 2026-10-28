@@ -159,7 +159,7 @@ export function Footer({ lang, t, onReplayPreloader }) {
                       value={supportSubject}
                       onChange={(e) => setSupportSubject(e.target.value)}
                       placeholder={lang === 'ar' ? 'استفسار عن إتاحة قاعة أو باقة...' : 'Venue inquiry, package clarification...'}
-                      className="w-full h-10 px-3 text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] border border-[#dfdcd5] dark:border-[#2e2d28] text-[#000000] dark:text-[#f5f5f3] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3]"
+                      className="w-full h-11 sm:h-10 px-3 text-base sm:text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] border border-[#dfdcd5] dark:border-[#2e2d28] text-[#000000] dark:text-[#f5f5f3] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3]"
                     />
                   </div>
 
@@ -173,7 +173,7 @@ export function Footer({ lang, t, onReplayPreloader }) {
                       value={supportMessage}
                       onChange={(e) => setSupportMessage(e.target.value)}
                       placeholder={lang === 'ar' ? 'اكتب تفاصيل استفسارك...' : 'Describe how we can assist you...'}
-                      className="w-full p-3 text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] border border-[#dfdcd5] dark:border-[#2e2d28] text-[#000000] dark:text-[#f5f5f3] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3]"
+                      className="w-full p-3 text-base sm:text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] border border-[#dfdcd5] dark:border-[#2e2d28] text-[#000000] dark:text-[#f5f5f3] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3]"
                     />
                   </div>
 

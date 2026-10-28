@@ -119,6 +119,9 @@ export function FoliaPlannerSection({ lang, t }) {
     }
   ])
   const [selectedTableId, setSelectedTableId] = useState('table-kosha')
+  const [isAddingGuest, setIsAddingGuest] = useState(false)
+  const [newGuestName, setNewGuestName] = useState('')
+  const [newGuestMeal, setNewGuestMeal] = useState('Standard')
   const currentTable = tables.find(t => t.id === selectedTableId) || tables[0]
 
   const guestsListRef = useRef(null)
@@ -590,7 +593,7 @@ export function FoliaPlannerSection({ lang, t }) {
                     </h4>
                   </div>
 
-                  <div ref={guestsListRef} className="space-y-2 mb-6">
+                  <div ref={guestsListRef} className="space-y-2 mb-4">
                     {currentTable.guests?.map((guest, idx) => (
                       <div key={idx} className="flex items-center justify-between p-2.5 rounded-xl bg-[#dfdcd5]/40 dark:bg-[#282723]/60 border border-[#dfdcd5] dark:border-[#2e2d28] text-xs">
                         <span className="font-medium text-[#000000] dark:text-[#f5f5f3] flex items-center gap-1.5">
@@ -605,28 +608,78 @@ export function FoliaPlannerSection({ lang, t }) {
                   </div>
                 </div>
 
-                <button
-                  onClick={() => {
-                    sound.tap()
-                    const guestName = prompt(lang === 'ar' ? 'أدخل اسم الضيف الجديد:' : 'Enter new guest name:')
-                    if (guestName) {
-                      setTables(prev => prev.map(t => {
-                        if (t.id === currentTable.id) {
-                          return {
-                            ...t,
-                            occupied: t.occupied + 1,
-                            guests: [...t.guests, { name: guestName, meal: 'Standard' }]
+                {/* Inline Mobile-Friendly Guest Addition Form */}
+                {isAddingGuest ? (
+                  <div className="p-3.5 rounded-2xl bg-[#dfdcd5]/40 dark:bg-[#282723]/60 border border-[#dfdcd5] dark:border-[#2e2d28] space-y-2.5 transition-colors">
+                    <span className="block text-[10px] font-mono uppercase tracking-wider text-[#595855] dark:text-[#a8a69e]">
+                      {lang === 'ar' ? 'إضافة ضيف جديد' : 'New Guest Details'}
+                    </span>
+                    <input
+                      type="text"
+                      autoFocus
+                      value={newGuestName}
+                      onChange={(e) => setNewGuestName(e.target.value)}
+                      placeholder={lang === 'ar' ? 'اسم الضيف...' : 'Guest name...'}
+                      className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-base sm:text-xs text-[#000000] dark:text-[#f5f5f3] outline-none"
+                    />
+                    <select
+                      value={newGuestMeal}
+                      onChange={(e) => setNewGuestMeal(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-base sm:text-xs text-[#000000] dark:text-[#f5f5f3] outline-none cursor-pointer"
+                    >
+                      <option value="Standard">{lang === 'ar' ? 'وجبة قياسية (Standard)' : 'Standard Meal'}</option>
+                      <option value="Vegetarian">{lang === 'ar' ? 'نباتي (Vegetarian)' : 'Vegetarian'}</option>
+                      <option value="Gluten-Free">{lang === 'ar' ? 'خالي من الجلوتين (Gluten-Free)' : 'Gluten-Free'}</option>
+                    </select>
+                    <div className="flex items-center gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (newGuestName.trim()) {
+                            sound.success()
+                            setTables(prev => prev.map(t => {
+                              if (t.id === currentTable.id) {
+                                return {
+                                  ...t,
+                                  occupied: t.occupied + 1,
+                                  guests: [...t.guests, { name: newGuestName.trim(), meal: newGuestMeal }]
+                                }
+                              }
+                              return t
+                            }))
+                            setNewGuestName('')
+                            setIsAddingGuest(false)
                           }
-                        }
-                        return t
-                      }))
-                    }
-                  }}
-                  className="w-full py-3 rounded-full bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] font-medium text-xs tap-bounce flex items-center justify-center gap-2 cursor-pointer hover:bg-[#595855] dark:hover:bg-[#dfdcd5] transition-all shadow-sm"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>{lang === 'ar' ? 'إضافة ضيف لهذه الطاولة' : 'Seat Guest at This Table'}</span>
-                </button>
+                        }}
+                        className="flex-1 py-2.5 rounded-xl bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] font-medium text-xs tap-bounce transition-colors"
+                      >
+                        {lang === 'ar' ? 'تأكيد الإضافة' : 'Confirm'}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          sound.tap()
+                          setIsAddingGuest(false)
+                          setNewGuestName('')
+                        }}
+                        className="px-3.5 py-2.5 rounded-xl border border-[#dfdcd5] dark:border-[#2e2d28] text-xs text-[#595855] dark:text-[#a8a69e] hover:bg-[#dfdcd5] dark:hover:bg-[#282723] transition-colors"
+                      >
+                        {lang === 'ar' ? 'إلغاء' : 'Cancel'}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      sound.tap()
+                      setIsAddingGuest(true)
+                    }}
+                    className="w-full py-3 min-h-[44px] rounded-full bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] font-medium text-xs tap-bounce flex items-center justify-center gap-2 cursor-pointer hover:bg-[#595855] dark:hover:bg-[#dfdcd5] transition-all shadow-sm"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>{lang === 'ar' ? 'إضافة ضيف لهذه الطاولة' : 'Seat Guest at This Table'}</span>
+                  </button>
+                )}
               </div>
             </div>
           </Step>
@@ -757,7 +810,53 @@ export function FoliaPlannerSection({ lang, t }) {
                 </div>
               </div>
 
-              <div className="overflow-x-auto">
+              {/* Mobile Invoice Cards (screens < sm) */}
+              <div className="block sm:hidden space-y-3">
+                {invoices.map(inv => (
+                  <div
+                    key={`mob-${inv.id}`}
+                    className="p-4 rounded-2xl bg-[#dfdcd5]/40 dark:bg-[#282723]/60 border border-[#dfdcd5] dark:border-[#2e2d28] space-y-3 transition-colors"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-semibold text-[#000000] dark:text-[#f5f5f3]">
+                        {inv.id}
+                      </span>
+                      <Badge 
+                        variant={inv.status === 'paid' ? 'emerald' : 'gold'}
+                        pulse={inv.status !== 'paid'}
+                      >
+                        {inv.status === 'paid' ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Clock className="w-3.5 h-3.5" />}
+                        <span>{inv.status === 'paid' ? t.statusPaid : t.statusPending}</span>
+                      </Badge>
+                    </div>
+
+                    <div>
+                      <div className="font-medium text-sm text-[#000000] dark:text-[#f5f5f3]">{inv.vendor}</div>
+                      <span className="text-xs text-[#595855] dark:text-[#a8a69e]">{inv.service}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-2 border-t border-[#dfdcd5] dark:border-[#2e2d28]">
+                      <div>
+                        <span className="block text-[10px] font-mono uppercase text-[#595855] dark:text-[#a8a69e]">
+                          {inv.date}
+                        </span>
+                        <span className="font-serif text-base font-semibold text-[#000000] dark:text-[#f5f5f3]">
+                          {formatEGP(inv.amount, lang)}
+                        </span>
+                      </div>
+                      <button
+                        onClick={(e) => toggleInvoiceStatus(inv.id, e.currentTarget)}
+                        className="tap-bounce px-3 py-1.5 min-h-[36px] rounded-lg bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] text-xs font-medium cursor-pointer"
+                      >
+                        {lang === 'ar' ? 'تعديل الحالة' : 'Toggle Status'}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop Invoices Table (screens >= sm) */}
+              <div className="hidden sm:block overflow-x-auto">
                 <table className="w-full text-left rtl:text-right border-collapse text-xs sm:text-sm">
                   <thead>
                     <tr className="border-b border-[#dfdcd5] dark:border-[#2e2d28] text-[#595855] dark:text-[#a8a69e] text-[11px] font-mono uppercase tracking-wider">

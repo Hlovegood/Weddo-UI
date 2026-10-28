@@ -139,7 +139,7 @@ export function VendorPortalPage({ venues, lang, t }) {
           </div>
 
           {/* Active Venue Switcher */}
-          <div className="bg-[#e7e5e4] dark:bg-[#1c1b18] p-4 rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] shadow-sm shrink-0 transition-colors">
+          <div className="bg-[#e7e5e4] dark:bg-[#1c1b18] p-3 sm:p-4 rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] shadow-sm shrink-0 transition-colors w-full sm:w-auto">
             <span className="block text-[10px] font-mono uppercase tracking-wider text-[#595855] dark:text-[#a8a69e] mb-1">
               {lang === 'ar' ? 'القاعة المُدارة حالياً' : 'Active Managed Estate'}
             </span>
@@ -149,7 +149,7 @@ export function VendorPortalPage({ venues, lang, t }) {
                 sound.tap()
                 setSelectedVenueId(e.target.value)
               }}
-              className="text-sm font-serif font-medium text-[#000000] dark:text-[#f5f5f3] bg-transparent outline-none cursor-pointer [&>option]:bg-white dark:[&>option]:bg-[#1c1b18] dark:[&>option]:text-[#f5f5f3]"
+              className="w-full text-base sm:text-sm font-serif font-medium text-[#000000] dark:text-[#f5f5f3] bg-transparent outline-none cursor-pointer [&>option]:bg-white dark:[&>option]:bg-[#1c1b18] dark:[&>option]:text-[#f5f5f3]"
             >
               {venues.map(v => (
                 <option key={v.id} value={v.id}>
@@ -210,13 +210,13 @@ export function VendorPortalPage({ venues, lang, t }) {
       </div>
 
       {/* Tabs Switcher */}
-      <div className="flex items-center gap-2 border-b border-[#dfdcd5] dark:border-[#2e2d28] pb-3 mb-8 overflow-x-auto transition-colors">
+      <div className="flex items-center gap-2 border-b border-[#dfdcd5] dark:border-[#2e2d28] pb-3 mb-8 overflow-x-auto scrollbar-none flex-nowrap -mx-4 px-4 sm:mx-0 sm:px-0 transition-colors">
         <button
           onClick={() => {
             sound.tap()
             setActiveTab('spaces')
           }}
-          className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+          className={`px-4 py-2.5 rounded-xl text-xs font-medium whitespace-nowrap min-h-[40px] transition-all shrink-0 ${
             activeTab === 'spaces'
               ? 'bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] shadow-sm'
               : 'bg-[#e7e5e4] dark:bg-[#1c1b18] text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28]'
@@ -229,7 +229,7 @@ export function VendorPortalPage({ venues, lang, t }) {
             sound.tap()
             setActiveTab('calendar')
           }}
-          className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+          className={`px-4 py-2.5 rounded-xl text-xs font-medium whitespace-nowrap min-h-[40px] transition-all shrink-0 ${
             activeTab === 'calendar'
               ? 'bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] shadow-sm'
               : 'bg-[#e7e5e4] dark:bg-[#1c1b18] text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28]'
@@ -242,7 +242,7 @@ export function VendorPortalPage({ venues, lang, t }) {
             sound.tap()
             setActiveTab('inquiries')
           }}
-          className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+          className={`px-4 py-2.5 rounded-xl text-xs font-medium whitespace-nowrap min-h-[40px] transition-all shrink-0 ${
             activeTab === 'inquiries'
               ? 'bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] shadow-sm'
               : 'bg-[#e7e5e4] dark:bg-[#1c1b18] text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28]'
@@ -255,7 +255,7 @@ export function VendorPortalPage({ venues, lang, t }) {
             sound.tap()
             setActiveTab('docs')
           }}
-          className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+          className={`px-4 py-2.5 rounded-xl text-xs font-medium whitespace-nowrap min-h-[40px] transition-all shrink-0 ${
             activeTab === 'docs'
               ? 'bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] shadow-sm'
               : 'bg-[#e7e5e4] dark:bg-[#1c1b18] text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28]'
@@ -335,7 +335,7 @@ export function VendorPortalPage({ venues, lang, t }) {
                 : 'Locked dates appear as fully booked across customer discovery and inquiries.'}
             </p>
 
-            <form onSubmit={handleAddBlock} className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-5 bg-[#dfdcd5]/40 dark:bg-[#282723]/60 rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] mb-8 transition-colors">
+            <form onSubmit={handleAddBlock} className="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 sm:p-5 bg-[#dfdcd5]/40 dark:bg-[#282723]/60 rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] mb-8 transition-colors">
               <div>
                 <label className="block text-[10px] font-mono uppercase tracking-wider text-[#595855] dark:text-[#a8a69e] mb-1">
                   {lang === 'ar' ? 'التاريخ' : 'Date'}
@@ -344,7 +344,7 @@ export function VendorPortalPage({ venues, lang, t }) {
                   type="date"
                   value={newBlockDate}
                   onChange={(e) => setNewBlockDate(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-xs text-black dark:text-[#f5f5f3] transition-colors"
+                  className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-base sm:text-xs text-black dark:text-[#f5f5f3] transition-colors outline-none"
                 />
               </div>
 
@@ -355,7 +355,7 @@ export function VendorPortalPage({ venues, lang, t }) {
                 <select
                   value={newBlockSession}
                   onChange={(e) => setNewBlockSession(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-xs text-black dark:text-[#f5f5f3] transition-colors [&>option]:bg-white dark:[&>option]:bg-[#1c1b18] dark:[&>option]:text-[#f5f5f3]"
+                  className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-base sm:text-xs text-black dark:text-[#f5f5f3] transition-colors outline-none cursor-pointer [&>option]:bg-white dark:[&>option]:bg-[#1c1b18] dark:[&>option]:text-[#f5f5f3]"
                 >
                   <option value="Evening Gala (6 PM - 2 AM)">Evening Gala (6 PM - 2 AM)</option>
                   <option value="Day Katb Ketab (11 AM - 4 PM)">Day Katb Ketab (11 AM - 4 PM)</option>
@@ -370,7 +370,7 @@ export function VendorPortalPage({ venues, lang, t }) {
                 <select
                   value={newBlockSpace}
                   onChange={(e) => setNewBlockSpace(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-xs text-black dark:text-[#f5f5f3] transition-colors [&>option]:bg-white dark:[&>option]:bg-[#1c1b18] dark:[&>option]:text-[#f5f5f3]"
+                  className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-base sm:text-xs text-black dark:text-[#f5f5f3] transition-colors outline-none cursor-pointer [&>option]:bg-white dark:[&>option]:bg-[#1c1b18] dark:[&>option]:text-[#f5f5f3]"
                 >
                   {spaces.map(s => (
                     <option key={s.id} value={s.name.en}>{s.name[lang] || s.name.en}</option>
@@ -381,7 +381,7 @@ export function VendorPortalPage({ venues, lang, t }) {
               <div className="flex items-end">
                 <button
                   type="submit"
-                  className="w-full py-2.5 px-4 rounded-xl bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] text-xs font-medium hover:bg-[#595855] dark:hover:bg-[#dfdcd5] transition-colors cursor-pointer"
+                  className="w-full py-2.5 min-h-[42px] px-4 rounded-xl bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] text-xs font-medium hover:bg-[#595855] dark:hover:bg-[#dfdcd5] transition-colors cursor-pointer"
                 >
                   {lang === 'ar' ? 'حظر الموعد' : 'Lock Date'}
                 </button>
@@ -391,9 +391,9 @@ export function VendorPortalPage({ venues, lang, t }) {
             {/* List of blocked dates */}
             <div className="divide-y divide-[#dfdcd5] dark:divide-[#2e2d28] transition-colors">
               {blockedDates.map((b, idx) => (
-                <div key={idx} className="py-3.5 flex items-center justify-between text-xs">
+                <div key={idx} className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
                   <div className="flex items-center gap-3">
-                    <span className="font-mono font-semibold text-[#000000] dark:text-[#f5f5f3] bg-[#dfdcd5]/50 dark:bg-[#282723] px-2.5 py-1 rounded-md">
+                    <span className="font-mono font-semibold text-[#000000] dark:text-[#f5f5f3] bg-[#dfdcd5]/50 dark:bg-[#282723] px-2.5 py-1 rounded-md shrink-0">
                       {b.date}
                     </span>
                     <div>
@@ -403,7 +403,7 @@ export function VendorPortalPage({ venues, lang, t }) {
                   </div>
                   <button
                     onClick={() => handleRemoveBlock(idx)}
-                    className="p-1.5 text-red-600 dark:text-rose-400 hover:bg-red-50 dark:hover:bg-rose-950/40 rounded-lg transition-colors cursor-pointer"
+                    className="self-end sm:self-center p-2 text-red-600 dark:text-rose-400 hover:bg-red-50 dark:hover:bg-rose-950/40 rounded-lg transition-colors cursor-pointer"
                     title={lang === 'ar' ? 'إلغاء الحظر' : 'Unlock date'}
                   >
                     <Trash2 className="w-4 h-4" />
@@ -419,9 +419,9 @@ export function VendorPortalPage({ venues, lang, t }) {
       {activeTab === 'inquiries' && (
         <div className="space-y-4">
           {pipelineInquiries.map(inq => (
-            <div key={inq.id} className="bg-[#e7e5e4] dark:bg-[#1c1b18] p-6 rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors">
+            <div key={inq.id} className="bg-[#e7e5e4] dark:bg-[#1c1b18] p-5 sm:p-6 rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors">
               <div>
-                <div className="flex items-center gap-2 mb-1.5">
+                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                   <h4 className="font-serif text-xl font-medium text-[#000000] dark:text-[#f5f5f3] transition-colors">
                     {inq.couple}
                   </h4>
@@ -436,7 +436,7 @@ export function VendorPortalPage({ venues, lang, t }) {
                   </span>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-4 text-xs text-[#595855] dark:text-[#a8a69e] transition-colors">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs text-[#595855] dark:text-[#a8a69e] transition-colors">
                   <span className="font-mono">{inq.date} ({inq.session})</span>
                   <span>•</span>
                   <span>{inq.guests} {lang === 'ar' ? 'ضيف' : 'guests'}</span>
@@ -447,23 +447,23 @@ export function VendorPortalPage({ venues, lang, t }) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap pt-2 sm:pt-0 border-t sm:border-t-0 border-[#dfdcd5] dark:border-[#2e2d28]">
                 <a
                   href={`tel:${inq.phone}`}
-                  className="px-3 py-1.5 rounded-lg border border-[#dfdcd5] dark:border-[#2e2d28] text-xs text-[#000000] dark:text-[#f5f5f3] hover:bg-black/5 dark:hover:bg-white/5 flex items-center gap-1.5 transition-colors"
+                  className="px-3.5 py-2 min-h-[38px] rounded-lg border border-[#dfdcd5] dark:border-[#2e2d28] text-xs text-[#000000] dark:text-[#f5f5f3] hover:bg-black/5 dark:hover:bg-white/5 flex items-center gap-1.5 transition-colors"
                 >
                   <Phone className="w-3.5 h-3.5" />
                   <span>{inq.phone}</span>
                 </a>
                 <button
                   onClick={() => handleUpdateInquiryStatus(inq.id, 'tasting_scheduled')}
-                  className="px-3 py-1.5 rounded-lg bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] text-xs font-medium hover:bg-[#595855] dark:hover:bg-[#dfdcd5] transition-colors cursor-pointer"
+                  className="px-3.5 py-2 min-h-[38px] rounded-lg bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] text-xs font-medium hover:bg-[#595855] dark:hover:bg-[#dfdcd5] transition-colors cursor-pointer"
                 >
                   {lang === 'ar' ? 'تأكيد التذوق' : 'Confirm Tasting'}
                 </button>
                 <button
                   onClick={() => handleUpdateInquiryStatus(inq.id, 'contract_sent')}
-                  className="px-3 py-1.5 rounded-lg bg-[#10b981] text-white text-xs font-medium hover:bg-[#059669] transition-colors cursor-pointer"
+                  className="px-3.5 py-2 min-h-[38px] rounded-lg bg-[#10b981] text-white text-xs font-medium hover:bg-[#059669] transition-colors cursor-pointer"
                 >
                   {lang === 'ar' ? 'إرسال العقد' : 'Send Contract'}
                 </button>

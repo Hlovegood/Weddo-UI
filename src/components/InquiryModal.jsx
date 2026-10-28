@@ -106,7 +106,7 @@ export function InquiryModal({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 16 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        className="relative w-full max-w-2xl rounded-[9px] bg-[#e7e5e4] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] overflow-hidden z-10 flex flex-col shadow-2xl text-[#000000] dark:text-[#f5f5f3]"
+        className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-[12px] bg-[#e7e5e4] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] z-10 flex flex-col shadow-2xl text-[#000000] dark:text-[#f5f5f3]"
       >
         
         {/* Header */}
@@ -161,7 +161,7 @@ export function InquiryModal({
                   required
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full h-10 px-3 text-xs sm:text-sm rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3]"
+                  className="w-full h-11 sm:h-10 px-3 text-base sm:text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3]"
                 />
               </div>
 
@@ -174,7 +174,7 @@ export function InquiryModal({
                   <button
                     type="button"
                     onClick={() => setSession('day')}
-                    className={`py-2 px-3 rounded-[28.8px] text-xs font-mono tracking-wider uppercase transition-all cursor-pointer ${
+                    className={`h-11 sm:h-10 px-3 rounded-[28.8px] text-xs font-mono tracking-wider uppercase transition-all cursor-pointer ${
                       session === 'day'
                         ? 'bg-[#000000] text-[#ffffff] dark:bg-[#f5f5f3] dark:text-[#0b0b0a]'
                         : 'border border-[#dfdcd5] dark:border-[#2e2d28] text-[#595855] dark:text-[#a8a69e] bg-[#ebebeb] dark:bg-[#141412]'
@@ -185,7 +185,7 @@ export function InquiryModal({
                   <button
                     type="button"
                     onClick={() => setSession('evening')}
-                    className={`py-2 px-3 rounded-[28.8px] text-xs font-mono tracking-wider uppercase transition-all cursor-pointer ${
+                    className={`h-11 sm:h-10 px-3 rounded-[28.8px] text-xs font-mono tracking-wider uppercase transition-all cursor-pointer ${
                       session === 'evening'
                         ? 'bg-[#000000] text-[#ffffff] dark:bg-[#f5f5f3] dark:text-[#0b0b0a]'
                         : 'border border-[#dfdcd5] dark:border-[#2e2d28] text-[#595855] dark:text-[#a8a69e] bg-[#ebebeb] dark:bg-[#141412]'
@@ -206,7 +206,7 @@ export function InquiryModal({
                 <select
                   value={spaceId}
                   onChange={(e) => setSpaceId(e.target.value)}
-                  className="w-full h-10 px-3 text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3]"
+                  className="w-full h-11 sm:h-10 px-3 text-base sm:text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] cursor-pointer"
                 >
                   {venue.spaces?.map(s => (
                     <option key={s.id} value={s.id} className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">
@@ -223,7 +223,7 @@ export function InquiryModal({
                 <select
                   value={packageId}
                   onChange={(e) => setPackageId(e.target.value)}
-                  className="w-full h-10 px-3 text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3]"
+                  className="w-full h-11 sm:h-10 px-3 text-base sm:text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] cursor-pointer"
                 >
                   {venue.packages?.map(p => (
                     <option key={p.id} value={p.id} className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">
@@ -268,7 +268,7 @@ export function InquiryModal({
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
                   placeholder={lang === 'ar' ? 'سارة المنصور' : 'Sarah Mansour'}
-                  className="w-full h-10 px-3 text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3]"
+                  className="w-full h-11 sm:h-10 px-3 text-base sm:text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3]"
                 />
               </div>
 
@@ -282,7 +282,7 @@ export function InquiryModal({
                   value={contactPhone}
                   onChange={(e) => setContactPhone(e.target.value)}
                   placeholder="01012345678"
-                  className="w-full h-10 px-3 text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] font-mono"
+                  className="w-full h-11 sm:h-10 px-3 text-base sm:text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3] font-mono"
                 />
               </div>
             </div>
@@ -297,7 +297,7 @@ export function InquiryModal({
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder={lang === 'ar' ? 'ملاحظات خاصة، استفسار عن الكوشة أو موعد المعاينة...' : 'Special requirements, bridal suite timing, menu tasting...'}
-                className="w-full p-3 text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3]"
+                className="w-full p-3 text-base sm:text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] focus:outline-none focus:border-[#000000] dark:focus:border-[#f5f5f3]"
               />
             </div>
 

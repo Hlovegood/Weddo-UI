@@ -511,12 +511,12 @@ export function HeroSection({
 
           {/* Active Estate Highlight Floating Glass Bar */}
           {activeEstate && (
-            <div className="mt-1 sm:mt-2 flex items-center justify-between gap-3 px-4 py-2 sm:px-6 sm:py-2.5 rounded-2xl bg-white/70 dark:bg-black/55 backdrop-blur-xl border border-[#dfdcd5] dark:border-white/15 shadow-md max-w-4xl mx-auto w-full transition-all duration-300">
-              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+            <div className="mt-1 sm:mt-2 flex items-center justify-between gap-2 sm:gap-3 px-3 py-2 sm:px-6 sm:py-2.5 rounded-2xl bg-white/70 dark:bg-black/55 backdrop-blur-xl border border-[#dfdcd5] dark:border-white/15 shadow-md max-w-4xl mx-auto w-full transition-all duration-300">
+              <div className="flex items-center gap-2 sm:gap-4 min-w-0">
                 <span className={`shrink-0 w-2.5 h-2.5 rounded-full ${isDark ? 'bg-[#d4af37] shadow-[0_0_8px_#d4af37]' : 'bg-[#2563eb] shadow-[0_0_8px_rgba(37,99,235,0.7)]'}`} />
                 <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h5 className="font-serif text-sm sm:text-base font-medium text-[#1c1b18] dark:text-white truncate">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <h5 className="font-serif text-xs sm:text-base font-medium text-[#1c1b18] dark:text-white truncate">
                       {lang === 'ar' ? activeEstate.titleAr : activeEstate.titleEn}
                     </h5>
                     <span className="hidden xs:inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-full bg-black/5 dark:bg-white/10 text-[#595855] dark:text-white/80">
@@ -534,7 +534,7 @@ export function HeroSection({
                 </div>
               </div>
 
-              <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
+              <div className="flex items-center gap-2 sm:gap-4 shrink-0">
                 <div className="text-right rtl:text-left">
                   <span className="font-mono text-xs sm:text-sm font-bold text-[#1c1b18] dark:text-white block">
                     {formatEGP(activeEstate.price, lang)}
@@ -547,7 +547,7 @@ export function HeroSection({
                 <button
                   type="button"
                   onClick={scrollToSearch}
-                  className="inline-flex items-center gap-1 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full font-semibold text-xs transition-all duration-200 active:scale-95 shadow-md cursor-pointer bg-[#ffffff] text-[#1c1b18] hover:bg-[#1c1b18] hover:text-[#ffffff] border border-black/15 dark:bg-[#d4af37] dark:text-[#121210] dark:border-transparent dark:hover:bg-[#ffffff] dark:hover:text-[#000000] dark:shadow-[0_0_14px_rgba(212,175,55,0.4)]"
+                  className="inline-flex items-center gap-1 px-3 py-1.5 sm:px-4 sm:py-2 min-h-[36px] rounded-full font-semibold text-xs transition-all duration-200 active:scale-95 shadow-md cursor-pointer bg-[#ffffff] text-[#1c1b18] hover:bg-[#1c1b18] hover:text-[#ffffff] border border-black/15 dark:bg-[#d4af37] dark:text-[#121210] dark:border-transparent dark:hover:bg-[#ffffff] dark:hover:text-[#000000] dark:shadow-[0_0_14px_rgba(212,175,55,0.4)]"
                 >
                   <span>{lang === 'ar' ? 'استكشف' : 'Explore'}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 rtl:rotate-90" />

@@ -24,7 +24,7 @@ export function PricingSection({ lang, t }) {
       ],
       isPopular: false,
       btnText: t.planBtnFree,
-      btnStyle: 'bg-[#e7e5e4] text-[#000000] hover:bg-[#dfdcd5] border border-[#dfdcd5]',
+      btnStyle: 'bg-white dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] hover:bg-[#dfdcd5] dark:hover:bg-[#34332e] border border-[#dfdcd5] dark:border-[#2e2d28]',
     },
     {
       id: 'monthly',
@@ -41,7 +41,7 @@ export function PricingSection({ lang, t }) {
       ],
       isPopular: false,
       btnText: t.planBtnUpgrade,
-      btnStyle: 'bg-[#000000] text-[#ffffff] hover:opacity-85',
+      btnStyle: 'bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a] hover:opacity-85',
     },
     {
       id: 'annual',
@@ -58,7 +58,7 @@ export function PricingSection({ lang, t }) {
       ],
       isPopular: true,
       btnText: t.planBtnUpgrade,
-      btnStyle: 'bg-[#000000] text-[#ffffff] hover:opacity-85 font-medium',
+      btnStyle: 'bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a] hover:opacity-85 font-medium',
     }
   ]
 
@@ -90,32 +90,32 @@ export function PricingSection({ lang, t }) {
   ]
 
   return (
-    <section id="pricing-plans" className="py-20 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="pricing-plans" className="py-12 sm:py-20 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[28.8px] bg-[#e7e5e4] border border-[#dfdcd5] text-[#595855] text-[11px] font-mono tracking-widest uppercase mb-4">
-          <Sparkles className="w-3 h-3 text-[#000000]" />
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[28.8px] bg-[#e7e5e4] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-[#595855] dark:text-[#a8a69e] text-[11px] font-mono tracking-widest uppercase mb-4">
+          <Sparkles className="w-3 h-3 text-[#000000] dark:text-[#f5f5f3]" />
           <span>FOLIA PLANNING MEMBERSHIP // 2026</span>
         </div>
 
-        <h2 className="font-serif text-3xl sm:text-5xl font-normal tracking-[-0.03em] text-[#000000] leading-[1.0] mb-4">
+        <h2 className="font-serif text-3xl sm:text-5xl font-normal tracking-[-0.03em] text-[#000000] dark:text-[#f5f5f3] leading-[1.1] mb-4">
           {t.pricingTitle}
         </h2>
 
-        <p className="text-[15px] text-[#595855] leading-relaxed font-sans mb-8">
+        <p className="text-[14px] sm:text-[15px] text-[#595855] dark:text-[#a8a69e] leading-relaxed font-sans mb-8">
           {t.pricingSubtitle}
         </p>
 
         {/* Interactive Billing Toggle */}
-        <div className="inline-flex items-center bg-[#dfdcd5]/60 p-1.5 rounded-full border border-[#dfdcd5]">
+        <div className="inline-flex max-w-full items-center bg-[#dfdcd5]/60 dark:bg-[#282723] p-1 sm:p-1.5 rounded-full border border-[#dfdcd5] dark:border-[#2e2d28]">
           <button
             onClick={() => {
               sound.tap()
               setBillingCycle('monthly')
             }}
-            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all select-none cursor-pointer ${
-              billingCycle === 'monthly' ? 'bg-[#000000] text-[#ffffff] shadow-xs' : 'text-[#595855] hover:text-[#000000]'
+            className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-medium transition-all select-none cursor-pointer ${
+              billingCycle === 'monthly' ? 'bg-[#000000] text-[#ffffff] dark:bg-[#f5f5f3] dark:text-[#0b0b0a] shadow-xs' : 'text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]'
             }`}
           >
             {lang === 'ar' ? 'اشتراك شهري' : 'Monthly'}
@@ -125,12 +125,12 @@ export function PricingSection({ lang, t }) {
               sound.tap()
               setBillingCycle('annual')
             }}
-            className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium transition-all select-none cursor-pointer ${
-              billingCycle === 'annual' ? 'bg-[#000000] text-[#ffffff] shadow-xs' : 'text-[#595855] hover:text-[#000000]'
+            className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full text-xs font-medium transition-all select-none cursor-pointer ${
+              billingCycle === 'annual' ? 'bg-[#000000] text-[#ffffff] dark:bg-[#f5f5f3] dark:text-[#0b0b0a] shadow-xs' : 'text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]'
             }`}
           >
             <span>{lang === 'ar' ? 'اشتراك سنوي' : 'Annual Pass'}</span>
-            <Badge variant="live" className="text-[10px] py-0 px-2 bg-emerald-500 text-white border-none">
+            <Badge variant="live" className="text-[10px] py-0 px-1.5 sm:px-2 bg-emerald-500 text-white border-none">
               {lang === 'ar' ? 'وفر ٤٧٪' : 'Save 47%'}
             </Badge>
           </button>
@@ -146,45 +146,45 @@ export function PricingSection({ lang, t }) {
               key={plan.id}
               whileHover={{ y: -4 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className={`rounded-[9px] p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative ${
+              className={`rounded-[14px] p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative ${
                 plan.isPopular
-                  ? 'bg-[#e7e5e4] border-2 border-[#000000]'
-                  : 'bg-[#e7e5e4] border border-[#dfdcd5]'
+                  ? 'bg-[#e7e5e4] dark:bg-[#1c1b18] border-2 border-[#000000] dark:border-[#f5f5f3] shadow-md'
+                  : 'bg-[#e7e5e4] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28]'
               }`}
             >
               {plan.isPopular && (
                 <div className="absolute -top-3.5 inset-x-0 flex justify-center">
-                  <span className="px-3.5 py-0.5 rounded-[28.8px] bg-[#000000] text-[#ffffff] text-[10px] font-mono tracking-widest uppercase flex items-center gap-1.5 shadow-sm">
-                    <Crown className="w-3 h-3 text-[#dfdcd5]" />
-                    <span>{lang === 'ar' ? 'الأكثر طلباً للعروسين والشركات' : 'Most Popular Portfolio'}</span>
+                  <span className="px-3.5 py-0.5 rounded-[28.8px] bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a] text-[10px] font-mono tracking-widest uppercase flex items-center gap-1.5 shadow-sm">
+                    <Crown className="w-3 h-3 text-[#dfdcd5] dark:text-[#34332e]" />
+                    <span>{lang === 'ar' ? 'الأكثر طلباً للعروسين' : 'Most Popular Portfolio'}</span>
                   </span>
                 </div>
               )}
 
               <div>
-                <h3 className="font-serif text-2xl font-normal text-[#000000] mb-2">
+                <h3 className="font-serif text-2xl font-normal text-[#000000] dark:text-[#f5f5f3] mb-2">
                   {plan.name}
                 </h3>
                 
                 <div className="flex items-baseline gap-2 mb-1">
-                  <span className="font-serif text-4xl font-normal text-[#000000] tracking-tight">
+                  <span className="font-serif text-3xl sm:text-4xl font-normal text-[#000000] dark:text-[#f5f5f3] tracking-tight">
                     {displayPrice}
                   </span>
                 </div>
 
-                <span className="text-[12px] text-[#595855] font-mono tracking-wider block mb-4 uppercase">
+                <span className="text-[12px] text-[#595855] dark:text-[#a8a69e] font-mono tracking-wider block mb-4 uppercase">
                   {plan.frequency}
                 </span>
 
-                <p className="text-[14px] text-[#595855] leading-relaxed mb-6 pb-6 border-b border-[#dfdcd5] font-sans">
+                <p className="text-[14px] text-[#595855] dark:text-[#a8a69e] leading-relaxed mb-6 pb-6 border-b border-[#dfdcd5] dark:border-[#2e2d28] font-sans">
                   {plan.description}
                 </p>
 
                 {/* Feature List */}
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feat, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-[13px] text-[#000000] font-sans">
-                      <div className="w-4 h-4 rounded-full bg-[#000000] text-[#ffffff] flex items-center justify-center shrink-0 mt-0.5">
+                    <li key={i} className="flex items-start gap-2.5 text-[13px] text-[#000000] dark:text-[#f5f5f3] font-sans">
+                      <div className="w-4 h-4 rounded-full bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a] flex items-center justify-center shrink-0 mt-0.5">
                         <Check className="w-2.5 h-2.5 stroke-[3]" />
                       </div>
                       <span>{feat}</span>
@@ -199,10 +199,10 @@ export function PricingSection({ lang, t }) {
                   sound.success()
                   alert(lang === 'ar' ? 'تم اختيار الباقة! جاري تجهيز مساحتك.' : 'Plan selected! Setting up your workspace.')
                 }}
-                className={`tap-bounce w-full py-3 rounded-[28.8px] text-[13px] transition-all flex items-center justify-center gap-2 cursor-pointer select-none ${plan.btnStyle}`}
+                className={`tap-bounce w-full py-3 min-h-[44px] rounded-[28.8px] text-[13px] transition-all flex items-center justify-center gap-2 cursor-pointer select-none ${plan.btnStyle}`}
               >
                 <span>{plan.btnText}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
               </motion.button>
 
             </motion.div>
@@ -211,21 +211,21 @@ export function PricingSection({ lang, t }) {
       </div>
 
       {/* shadcn Accordion: Venue Membership & Booking Policies FAQ */}
-      <div className="max-w-3xl mx-auto rounded-[9px] bg-[#e7e5e4] p-8 sm:p-10 border border-[#dfdcd5]">
+      <div className="max-w-3xl mx-auto rounded-[14px] bg-[#e7e5e4] dark:bg-[#1c1b18] p-6 sm:p-10 border border-[#dfdcd5] dark:border-[#2e2d28] transition-colors">
         <div className="flex items-center gap-2 mb-6">
-          <HelpCircle className="w-4 h-4 text-[#000000]" />
-          <h3 className="font-serif text-2xl font-normal text-[#000000]">
+          <HelpCircle className="w-4 h-4 text-[#000000] dark:text-[#f5f5f3]" />
+          <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#000000] dark:text-[#f5f5f3]">
             {lang === 'ar' ? 'الأسئلة الشائعة وضمانات الحجز' : 'Frequently Asked Questions & Booking Guarantee'}
           </h3>
         </div>
 
         <Accordion type="single" collapsible defaultValue="item-0">
           {faqs.map((faq, idx) => (
-            <AccordionItem key={idx} value={`item-${idx}`}>
-              <AccordionTrigger>
+            <AccordionItem key={idx} value={`item-${idx}`} className="border-[#dfdcd5] dark:border-[#2e2d28]">
+              <AccordionTrigger className="text-start rtl:text-right text-[#000000] dark:text-[#f5f5f3] text-sm sm:text-base">
                 {faq.q}
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="text-[#595855] dark:text-[#a8a69e] text-xs sm:text-sm leading-relaxed">
                 {faq.a}
               </AccordionContent>
             </AccordionItem>

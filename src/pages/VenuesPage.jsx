@@ -164,19 +164,19 @@ export function VenuesPage({
             glowIntensity={1.2}
             coneSpread={28}
             animated={true}
-            className="shrink-0 transition-colors shadow-sm"
+            className="w-full sm:w-auto shrink-0 transition-colors shadow-sm"
           >
-            <div className="flex items-center gap-4 p-4">
-              <div className="text-center px-3 border-r border-[#dfdcd5] dark:border-[#2e2d28] rtl:border-r-0 rtl:border-l">
-                <span className="block font-serif text-2xl font-medium text-[#000000] dark:text-[#f5f5f3]">{venues.length}</span>
+            <div className="flex items-center justify-around sm:justify-start gap-2 sm:gap-4 p-3 sm:p-4">
+              <div className="text-center px-2 sm:px-3 border-r border-[#dfdcd5] dark:border-[#2e2d28] rtl:border-r-0 rtl:border-l">
+                <span className="block font-serif text-xl sm:text-2xl font-medium text-[#000000] dark:text-[#f5f5f3]">{venues.length}</span>
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#595855] dark:text-[#a8a69e]">{lang === 'ar' ? 'قاعات مفحوصة' : 'Estates'}</span>
               </div>
-              <div className="text-center px-3 border-r border-[#dfdcd5] dark:border-[#2e2d28] rtl:border-r-0 rtl:border-l">
-                <span className="block font-serif text-2xl font-medium text-[#10b981]">100%</span>
+              <div className="text-center px-2 sm:px-3 border-r border-[#dfdcd5] dark:border-[#2e2d28] rtl:border-r-0 rtl:border-l">
+                <span className="block font-serif text-xl sm:text-2xl font-medium text-[#10b981]">100%</span>
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#595855] dark:text-[#a8a69e]">{lang === 'ar' ? 'حماية مدنية' : 'Safety Certified'}</span>
               </div>
-              <div className="text-center px-3">
-                <span className="block font-serif text-2xl font-medium text-[#000000] dark:text-[#f5f5f3]">0</span>
+              <div className="text-center px-2 sm:px-3">
+                <span className="block font-serif text-xl sm:text-2xl font-medium text-[#000000] dark:text-[#f5f5f3]">0</span>
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#595855] dark:text-[#a8a69e]">{lang === 'ar' ? 'عمولات وسيط' : 'Broker Fees'}</span>
               </div>
             </div>
@@ -187,7 +187,7 @@ export function VenuesPage({
       {/* Control Cockpit Bar */}
       <div className="bg-[#ffffff] dark:bg-[#1c1b18] rounded-2xl p-4 sm:p-6 border border-black/10 dark:border-white/10 shadow-sm mb-8 space-y-4 transition-colors">
         {/* Row 1: Search & Sort & View Mode */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
           {/* Search Input */}
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-[#595855] dark:text-[#a8a69e] absolute left-3.5 top-1/2 -translate-y-1/2 rtl:left-auto rtl:right-3.5" />
@@ -195,13 +195,14 @@ export function VenuesPage({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={lang === 'ar' ? 'ابحث باسم القاعة، المساحة، أو المنطقة (مثل: الزيتون، النيل، زايد)...' : 'Search by estate name, space, or area (e.g. Olive Garden, Nile, Zayed)...'}
-              className="w-full pl-10 pr-4 rtl:pl-4 rtl:pr-10 py-2.5 rounded-xl bg-[#dfdcd5]/30 dark:bg-[#282723] border border-black/10 dark:border-white/10 text-sm placeholder:text-[#595855]/60 dark:placeholder:text-[#a8a69e]/60 text-[#000000] dark:text-[#f5f5f3] outline-none focus:border-black dark:focus:border-white transition-colors"
+              placeholder={lang === 'ar' ? 'ابحث باسم القاعة، المساحة، أو المنطقة...' : 'Search by estate name, space, or area...'}
+              className="w-full pl-10 pr-8 rtl:pl-8 rtl:pr-10 py-2.5 rounded-xl bg-[#dfdcd5]/30 dark:bg-[#282723] border border-black/10 dark:border-white/10 text-base sm:text-sm placeholder:text-[#595855]/60 dark:placeholder:text-[#a8a69e]/60 text-[#000000] dark:text-[#f5f5f3] outline-none focus:border-black dark:focus:border-white transition-colors"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 rtl:right-auto rtl:left-3 text-xs text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 rtl:right-auto rtl:left-3 p-1 text-xs text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]"
+                aria-label={lang === 'ar' ? 'مسح البحث' : 'Clear search'}
               >
                 ✕
               </button>
@@ -209,33 +210,36 @@ export function VenuesPage({
           </div>
 
           {/* Controls Right */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center flex-wrap gap-2 sm:gap-3">
             {/* Sort Select */}
-            <div className="flex items-center gap-2 bg-[#dfdcd5]/30 dark:bg-[#282723] px-3 py-2 rounded-xl border border-black/10 dark:border-white/10 text-xs">
-              <ArrowUpDown className="w-3.5 h-3.5 text-[#595855] dark:text-[#a8a69e]" />
+            <div className="flex items-center gap-1.5 sm:gap-2 bg-[#dfdcd5]/30 dark:bg-[#282723] px-2.5 sm:px-3 py-2 rounded-xl border border-black/10 dark:border-white/10 text-xs flex-1 sm:flex-initial justify-between sm:justify-start">
+              <div className="flex items-center gap-1.5">
+                <ArrowUpDown className="w-3.5 h-3.5 text-[#595855] dark:text-[#a8a69e]" />
+                <span className="sr-only">{lang === 'ar' ? 'الترتيب' : 'Sort by'}</span>
+              </div>
               <select
                 value={sortBy}
                 onChange={(e) => {
                   sound.tap()
                   setSortBy(e.target.value)
                 }}
-                className="bg-transparent text-xs font-medium text-[#000000] dark:text-[#f5f5f3] outline-none cursor-pointer"
+                className="bg-transparent text-base sm:text-xs font-medium text-[#000000] dark:text-[#f5f5f3] outline-none cursor-pointer"
               >
-                <option value="featured">{lang === 'ar' ? 'المميزة أولاً' : 'Featured First'}</option>
-                <option value="price_asc">{lang === 'ar' ? 'السعر: من الأقل' : 'Price: Low to High'}</option>
-                <option value="price_desc">{lang === 'ar' ? 'السعر: من الأعلى' : 'Price: High to Low'}</option>
-                <option value="capacity">{lang === 'ar' ? 'السعة: الأكبر' : 'Max Capacity'}</option>
+                <option value="featured" className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">{lang === 'ar' ? 'المميزة أولاً' : 'Featured First'}</option>
+                <option value="price_asc" className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">{lang === 'ar' ? 'السعر: من الأقل' : 'Price: Low to High'}</option>
+                <option value="price_desc" className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">{lang === 'ar' ? 'السعر: من الأعلى' : 'Price: High to Low'}</option>
+                <option value="capacity" className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">{lang === 'ar' ? 'السعة: الأكبر' : 'Max Capacity'}</option>
               </select>
             </div>
 
             {/* View Mode Toggle */}
-            <div className="flex items-center bg-[#dfdcd5]/30 dark:bg-[#282723] p-1 rounded-xl border border-black/10 dark:border-white/10">
+            <div className="flex items-center bg-[#dfdcd5]/30 dark:bg-[#282723] p-1 rounded-xl border border-black/10 dark:border-white/10 shrink-0">
               <button
                 onClick={() => {
                   sound.tap()
                   setViewMode('grid')
                 }}
-                className={`p-1.5 rounded-lg transition-colors ${
+                className={`p-1.5 rounded-lg transition-colors min-w-[32px] min-h-[32px] flex items-center justify-center ${
                   viewMode === 'grid' ? 'bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a]' : 'text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]'
                 }`}
                 title={lang === 'ar' ? 'عرض شبكي' : 'Grid View'}
@@ -247,7 +251,7 @@ export function VenuesPage({
                   sound.tap()
                   setViewMode('list')
                 }}
-                className={`p-1.5 rounded-lg transition-colors ${
+                className={`p-1.5 rounded-lg transition-colors min-w-[32px] min-h-[32px] flex items-center justify-center ${
                   viewMode === 'list' ? 'bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a]' : 'text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]'
                 }`}
                 title={lang === 'ar' ? 'عرض تفصيلي' : 'Blueprint List View'}
@@ -260,7 +264,7 @@ export function VenuesPage({
             {(searchQuery || selectedArea !== 'all' || activeTab !== 'all' || selectedCapacity !== 'all' || selectedBudget !== 'all') && (
               <button
                 onClick={handleResetAll}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-50 dark:bg-rose-950/40 text-red-700 dark:text-rose-400 hover:bg-red-100 dark:hover:bg-rose-950/60 border border-red-200 dark:border-rose-900/40 text-xs font-medium transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-50 dark:bg-rose-950/40 text-red-700 dark:text-rose-400 hover:bg-red-100 dark:hover:bg-rose-950/60 border border-red-200 dark:border-rose-900/40 text-xs font-medium transition-colors shrink-0"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>{lang === 'ar' ? 'إعادة ضبط' : 'Reset'}</span>
@@ -304,7 +308,7 @@ export function VenuesPage({
             <select
               value={selectedArea}
               onChange={(e) => setSelectedArea(e.target.value)}
-              className="w-full text-xs bg-[#dfdcd5]/30 dark:bg-[#282723] border border-black/10 dark:border-white/10 rounded-lg px-2.5 py-1.5 text-[#000000] dark:text-[#f5f5f3] outline-none"
+              className="w-full text-base sm:text-xs min-h-[42px] sm:min-h-0 bg-[#dfdcd5]/30 dark:bg-[#282723] border border-black/10 dark:border-white/10 rounded-lg px-2.5 py-2 sm:py-1.5 text-[#000000] dark:text-[#f5f5f3] outline-none cursor-pointer"
             >
               {areas.map(a => (
                 <option key={a.id} value={a.id} className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">{a.label}</option>
@@ -320,7 +324,7 @@ export function VenuesPage({
             <select
               value={selectedCapacity}
               onChange={(e) => setSelectedCapacity(e.target.value)}
-              className="w-full text-xs bg-[#dfdcd5]/30 dark:bg-[#282723] border border-black/10 dark:border-white/10 rounded-lg px-2.5 py-1.5 text-[#000000] dark:text-[#f5f5f3] outline-none"
+              className="w-full text-base sm:text-xs min-h-[42px] sm:min-h-0 bg-[#dfdcd5]/30 dark:bg-[#282723] border border-black/10 dark:border-white/10 rounded-lg px-2.5 py-2 sm:py-1.5 text-[#000000] dark:text-[#f5f5f3] outline-none cursor-pointer"
             >
               <option value="all" className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">{lang === 'ar' ? 'كافة السعات' : 'Any Capacity'}</option>
               <option value="intimate" className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">{lang === 'ar' ? 'حميمة (أقل من ١٥٠ ضيف)' : 'Intimate (<150 guests)'}</option>
@@ -338,7 +342,7 @@ export function VenuesPage({
             <select
               value={selectedBudget}
               onChange={(e) => setSelectedBudget(e.target.value)}
-              className="w-full text-xs bg-[#dfdcd5]/30 dark:bg-[#282723] border border-black/10 dark:border-white/10 rounded-lg px-2.5 py-1.5 text-[#000000] dark:text-[#f5f5f3] outline-none"
+              className="w-full text-base sm:text-xs min-h-[42px] sm:min-h-0 bg-[#dfdcd5]/30 dark:bg-[#282723] border border-black/10 dark:border-white/10 rounded-lg px-2.5 py-2 sm:py-1.5 text-[#000000] dark:text-[#f5f5f3] outline-none cursor-pointer"
             >
               <option value="all" className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">{lang === 'ar' ? 'كافة الميزانيات' : 'Any Budget'}</option>
               <option value="under150k" className="dark:bg-[#1c1b18] dark:text-[#f5f5f3]">{lang === 'ar' ? 'أقل من ١٥٠,٠٠٠ ج.م' : 'Under 150,000 EGP'}</option>
@@ -407,123 +411,262 @@ export function VenuesPage({
           ))}
         </div>
       ) : (
-        /* List / Blueprint Mode: High Density Table View */
-        <div className="bg-[#e7e5e4] dark:bg-[#1c1b18] rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] overflow-hidden shadow-sm transition-colors">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left rtl:text-right text-xs">
-              <thead className="bg-[#dfdcd5]/60 dark:bg-[#282723] text-[#595855] dark:text-[#a8a69e] font-mono uppercase text-[10px] tracking-wider border-b border-[#dfdcd5] dark:border-[#2e2d28]">
-                <tr>
-                  <th className="py-3 px-4">{lang === 'ar' ? 'القاعة والمعلم' : 'Estate'}</th>
-                  <th className="py-3 px-4">{lang === 'ar' ? 'المنطقة' : 'Area'}</th>
-                  <th className="py-3 px-4">{lang === 'ar' ? 'السعة القصوى' : 'Max Capacity'}</th>
-                  <th className="py-3 px-4">{lang === 'ar' ? 'المساحات' : 'Spaces'}</th>
-                  <th className="py-3 px-4">{lang === 'ar' ? 'يبدأ من' : 'Starting Rate'}</th>
-                  <th className="py-3 px-4">{lang === 'ar' ? 'الأمان' : 'Safety Audit'}</th>
-                  <th className="py-3 px-4 text-center">{lang === 'ar' ? 'إجراءات' : 'Actions'}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#dfdcd5] dark:divide-[#2e2d28]">
-                {filteredVenues.map((venue) => {
-                  const lowestPrice = venue.packages?.reduce((min, p) => p.price < min ? p.price : min, venue.packages?.[0]?.price || 0) || 0
-                  const isCompared = compareIds?.includes(venue.id)
-                  const isShortlisted = shortlist?.includes(venue.id)
-                  const maxCap = venue.spaces?.reduce((max, s) => s.capacity > max ? s.capacity : max, 0) || 0
-                  const venueName = venue.name?.[lang] || venue.name?.en || ''
-                  const venueSummary = venue.summary?.[lang] || venue.summary?.en || ''
-                  const areaLabel = getAreaLabel(venue.area, lang)
+        /* List / Blueprint Mode: High Density Table on Desktop + Responsive Blueprint Cards on Mobile */
+        <div className="space-y-4">
+          {/* Mobile Blueprint Cards (<md screens) */}
+          <div className="block md:hidden space-y-4">
+            {filteredVenues.map((venue) => {
+              const lowestPrice = venue.packages?.reduce((min, p) => p.price < min ? p.price : min, venue.packages?.[0]?.price || 0) || 0
+              const isCompared = compareIds?.includes(venue.id)
+              const isShortlisted = shortlist?.includes(venue.id)
+              const maxCap = venue.spaces?.reduce((max, s) => s.capacity > max ? s.capacity : max, 0) || 0
+              const venueName = venue.name?.[lang] || venue.name?.en || ''
+              const venueSummary = venue.summary?.[lang] || venue.summary?.en || ''
+              const areaLabel = getAreaLabel(venue.area, lang)
 
-                  return (
-                    <tr key={venue.id} className="hover:bg-[#dfdcd5]/30 dark:hover:bg-[#282723]/50 transition-colors">
-                      <td className="py-3.5 px-4">
-                        <div className="flex items-center gap-3">
-                          <img
-                            src={venue.coverPhoto || '/venue_olive_garden.jpg'}
-                            alt={venueName}
-                            className="w-12 h-10 object-cover rounded-lg border border-[#dfdcd5] dark:border-[#2e2d28] shrink-0"
-                          />
-                          <div>
-                            <span className="font-serif text-sm font-medium text-[#000000] dark:text-[#f5f5f3] block">
-                              {venueName}
-                            </span>
-                            <span className="text-[11px] text-[#595855] dark:text-[#a8a69e] line-clamp-1">
-                              {venueSummary}
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td className="py-3.5 px-4 font-mono text-[11px] text-[#595855] dark:text-[#a8a69e]">
-                        {areaLabel}
-                      </td>
-
-                      <td className="py-3.5 px-4">
-                        <span className="font-mono font-medium text-[#000000] dark:text-[#f5f5f3]">
-                          {maxCap} {lang === 'ar' ? 'ضيف' : 'guests'}
+              return (
+                <div
+                  key={`mobile-${venue.id}`}
+                  className="bg-[#e7e5e4] dark:bg-[#1c1b18] rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] p-4 shadow-xs transition-colors space-y-3.5"
+                >
+                  {/* Header info */}
+                  <div className="flex items-start gap-3">
+                    <img
+                      src={venue.coverPhoto || '/venue_olive_garden.jpg'}
+                      alt={venueName}
+                      className="w-16 h-16 object-cover rounded-xl border border-[#dfdcd5] dark:border-[#2e2d28] shrink-0"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-1 mb-1">
+                        <span className="font-serif text-base font-semibold text-[#000000] dark:text-[#f5f5f3] truncate">
+                          {venueName}
                         </span>
-                      </td>
-
-                      <td className="py-3.5 px-4">
-                        <span className="px-2 py-0.5 rounded-md bg-[#dfdcd5] dark:bg-[#282723] text-[10px] font-mono text-[#595855] dark:text-[#a8a69e]">
-                          {venue.spaces?.length || 0} {lang === 'ar' ? 'مساحات' : 'spaces'}
-                        </span>
-                      </td>
-
-                      <td className="py-3.5 px-4">
-                        <span className="font-serif text-sm font-semibold text-[#000000] dark:text-[#f5f5f3]">
-                          {lowestPrice.toLocaleString()} <span className="text-[10px] font-mono">EGP</span>
-                        </span>
-                      </td>
-
-                      <td className="py-3.5 px-4">
-                        <span className="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
-                          <ShieldCheck className="w-3.5 h-3.5" />
+                        <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-medium shrink-0">
+                          <ShieldCheck className="w-3 h-3" />
                           <span>{lang === 'ar' ? 'معتمد' : 'Verified'}</span>
                         </span>
-                      </td>
+                      </div>
+                      <p className="text-xs text-[#595855] dark:text-[#a8a69e] line-clamp-1 mb-1.5">
+                        {venueSummary}
+                      </p>
+                      <span className="inline-block px-2 py-0.5 rounded-md bg-[#dfdcd5]/60 dark:bg-[#282723] text-[10px] font-mono text-[#595855] dark:text-[#a8a69e]">
+                        {areaLabel}
+                      </span>
+                    </div>
+                  </div>
 
-                      <td className="py-3.5 px-4">
-                        <div className="flex items-center justify-center gap-2">
-                          <button
-                            onClick={() => onToggleCompare(venue.id)}
-                            className={`p-1.5 rounded-lg border text-xs transition-colors ${
-                              isCompared 
-                                ? 'bg-black text-white border-black dark:bg-[#f5f5f3] dark:text-black dark:border-[#f5f5f3]' 
-                                : 'border-black/20 dark:border-white/15 text-[#595855] dark:text-[#a8a69e] hover:bg-black/5 dark:hover:bg-white/5'
-                            }`}
-                            title={lang === 'ar' ? 'مقارنة' : 'Compare'}
-                          >
-                            <Scale className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            onClick={() => onToggleShortlist(venue.id)}
-                            className={`p-1.5 rounded-lg border text-xs transition-colors ${
-                              isShortlisted 
-                                ? 'bg-rose-500 text-white border-rose-500 dark:bg-rose-950/80 dark:text-rose-400 dark:border-rose-800' 
-                                : 'border-black/20 dark:border-white/15 text-[#595855] dark:text-[#a8a69e] hover:bg-black/5 dark:hover:bg-white/5'
-                            }`}
-                            title={lang === 'ar' ? 'حفظ' : 'Shortlist'}
-                          >
-                            <Heart className={`w-3.5 h-3.5 ${isShortlisted ? 'fill-current' : ''}`} />
-                          </button>
-                          <button
-                            onClick={() => onSelectDetails(venue)}
-                            className="px-2.5 py-1 rounded-lg bg-[#000000] text-white text-[11px] font-medium hover:bg-[#595855] dark:bg-[#282723] dark:text-[#f5f5f3] dark:hover:bg-[#34332e] transition-colors"
-                          >
-                            {lang === 'ar' ? 'معاينة' : 'Inspect'}
-                          </button>
-                          <button
-                            onClick={() => onQuickInquire(venue)}
-                            className="px-2.5 py-1 rounded-lg border border-black/20 dark:border-white/20 text-[11px] font-medium text-[#000000] dark:text-[#f5f5f3] hover:bg-black hover:text-white dark:hover:bg-[#f5f5f3] dark:hover:text-black transition-colors"
-                          >
-                            {lang === 'ar' ? 'حجز' : 'Book'}
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+                  {/* 3-Column Stats Grid */}
+                  <div className="grid grid-cols-3 gap-2 bg-[#dfdcd5]/30 dark:bg-[#282723]/60 p-2.5 rounded-xl text-center border border-black/5 dark:border-white/5">
+                    <div>
+                      <span className="block text-[10px] font-mono text-[#595855] dark:text-[#a8a69e] uppercase">
+                        {lang === 'ar' ? 'السعة' : 'Capacity'}
+                      </span>
+                      <span className="font-mono text-xs font-semibold text-[#000000] dark:text-[#f5f5f3]">
+                        {maxCap}
+                      </span>
+                    </div>
+                    <div className="border-x border-[#dfdcd5] dark:border-[#2e2d28]">
+                      <span className="block text-[10px] font-mono text-[#595855] dark:text-[#a8a69e] uppercase">
+                        {lang === 'ar' ? 'المساحات' : 'Spaces'}
+                      </span>
+                      <span className="font-mono text-xs font-semibold text-[#000000] dark:text-[#f5f5f3]">
+                        {venue.spaces?.length || 0}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="block text-[10px] font-mono text-[#595855] dark:text-[#a8a69e] uppercase">
+                        {lang === 'ar' ? 'يبدأ من' : 'Rate'}
+                      </span>
+                      <span className="font-serif text-xs font-semibold text-[#000000] dark:text-[#f5f5f3]">
+                        {lowestPrice.toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Actions Row with 40px touch targets */}
+                  <div className="flex items-center gap-2 pt-1">
+                    <button
+                      onClick={() => {
+                        sound.tap()
+                        onToggleCompare(venue.id)
+                      }}
+                      className={`min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl border text-xs transition-colors shrink-0 ${
+                        isCompared 
+                          ? 'bg-black text-white border-black dark:bg-[#f5f5f3] dark:text-black dark:border-[#f5f5f3]' 
+                          : 'border-black/20 dark:border-white/15 text-[#595855] dark:text-[#a8a69e] hover:bg-black/5 dark:hover:bg-white/5'
+                      }`}
+                      aria-label={lang === 'ar' ? 'مقارنة القاعة' : 'Compare estate'}
+                    >
+                      <Scale className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        sound.tap()
+                        onToggleShortlist(venue.id)
+                      }}
+                      className={`min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl border text-xs transition-colors shrink-0 ${
+                        isShortlisted 
+                          ? 'bg-rose-500 text-white border-rose-500 dark:bg-rose-950/80 dark:text-rose-400 dark:border-rose-800' 
+                          : 'border-black/20 dark:border-white/15 text-[#595855] dark:text-[#a8a69e] hover:bg-black/5 dark:hover:bg-white/5'
+                      }`}
+                      aria-label={lang === 'ar' ? 'حفظ في المفضلة' : 'Save to shortlist'}
+                    >
+                      <Heart className={`w-4 h-4 ${isShortlisted ? 'fill-current' : ''}`} />
+                    </button>
+                    <button
+                      onClick={() => {
+                        sound.pop()
+                        onSelectDetails(venue)
+                      }}
+                      className="flex-1 min-h-[40px] px-3 rounded-xl bg-white dark:bg-[#282723] border border-[#dfdcd5] dark:border-[#2e2d28] text-xs font-medium text-[#000000] dark:text-[#f5f5f3] hover:bg-[#dfdcd5] dark:hover:bg-[#34332e] transition-colors"
+                    >
+                      {lang === 'ar' ? 'معاينة' : 'Inspect'}
+                    </button>
+                    <button
+                      onClick={() => {
+                        sound.pop()
+                        onQuickInquire(venue)
+                      }}
+                      className="flex-1 min-h-[40px] px-3 rounded-xl bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] text-xs font-medium hover:bg-[#595855] dark:hover:bg-[#dfdcd5] transition-colors"
+                    >
+                      {lang === 'ar' ? 'حجز' : 'Book'}
+                    </button>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Desktop Blueprint Table (md+ screens) */}
+          <div className="hidden md:block bg-[#e7e5e4] dark:bg-[#1c1b18] rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] overflow-hidden shadow-sm transition-colors">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left rtl:text-right text-xs">
+                <thead className="bg-[#dfdcd5]/60 dark:bg-[#282723] text-[#595855] dark:text-[#a8a69e] font-mono uppercase text-[10px] tracking-wider border-b border-[#dfdcd5] dark:border-[#2e2d28]">
+                  <tr>
+                    <th className="py-3 px-4">{lang === 'ar' ? 'القاعة والمعلم' : 'Estate'}</th>
+                    <th className="py-3 px-4">{lang === 'ar' ? 'المنطقة' : 'Area'}</th>
+                    <th className="py-3 px-4">{lang === 'ar' ? 'السعة القصوى' : 'Max Capacity'}</th>
+                    <th className="py-3 px-4">{lang === 'ar' ? 'المساحات' : 'Spaces'}</th>
+                    <th className="py-3 px-4">{lang === 'ar' ? 'يبدأ من' : 'Starting Rate'}</th>
+                    <th className="py-3 px-4">{lang === 'ar' ? 'الأمان' : 'Safety Audit'}</th>
+                    <th className="py-3 px-4 text-center">{lang === 'ar' ? 'إجراءات' : 'Actions'}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#dfdcd5] dark:divide-[#2e2d28]">
+                  {filteredVenues.map((venue) => {
+                    const lowestPrice = venue.packages?.reduce((min, p) => p.price < min ? p.price : min, venue.packages?.[0]?.price || 0) || 0
+                    const isCompared = compareIds?.includes(venue.id)
+                    const isShortlisted = shortlist?.includes(venue.id)
+                    const maxCap = venue.spaces?.reduce((max, s) => s.capacity > max ? s.capacity : max, 0) || 0
+                    const venueName = venue.name?.[lang] || venue.name?.en || ''
+                    const venueSummary = venue.summary?.[lang] || venue.summary?.en || ''
+                    const areaLabel = getAreaLabel(venue.area, lang)
+
+                    return (
+                      <tr key={venue.id} className="hover:bg-[#dfdcd5]/30 dark:hover:bg-[#282723]/50 transition-colors">
+                        <td className="py-3.5 px-4">
+                          <div className="flex items-center gap-3">
+                            <img
+                              src={venue.coverPhoto || '/venue_olive_garden.jpg'}
+                              alt={venueName}
+                              className="w-12 h-10 object-cover rounded-lg border border-[#dfdcd5] dark:border-[#2e2d28] shrink-0"
+                            />
+                            <div>
+                              <span className="font-serif text-sm font-medium text-[#000000] dark:text-[#f5f5f3] block">
+                                {venueName}
+                              </span>
+                              <span className="text-[11px] text-[#595855] dark:text-[#a8a69e] line-clamp-1">
+                                {venueSummary}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td className="py-3.5 px-4 font-mono text-[11px] text-[#595855] dark:text-[#a8a69e]">
+                          {areaLabel}
+                        </td>
+
+                        <td className="py-3.5 px-4">
+                          <span className="font-mono font-medium text-[#000000] dark:text-[#f5f5f3]">
+                            {maxCap} {lang === 'ar' ? 'ضيف' : 'guests'}
+                          </span>
+                        </td>
+
+                        <td className="py-3.5 px-4">
+                          <span className="px-2 py-0.5 rounded-md bg-[#dfdcd5] dark:bg-[#282723] text-[10px] font-mono text-[#595855] dark:text-[#a8a69e]">
+                            {venue.spaces?.length || 0} {lang === 'ar' ? 'مساحات' : 'spaces'}
+                          </span>
+                        </td>
+
+                        <td className="py-3.5 px-4">
+                          <span className="font-serif text-sm font-semibold text-[#000000] dark:text-[#f5f5f3]">
+                            {lowestPrice.toLocaleString()} <span className="text-[10px] font-mono">EGP</span>
+                          </span>
+                        </td>
+
+                        <td className="py-3.5 px-4">
+                          <span className="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+                            <ShieldCheck className="w-3.5 h-3.5" />
+                            <span>{lang === 'ar' ? 'معتمد' : 'Verified'}</span>
+                          </span>
+                        </td>
+
+                        <td className="py-3.5 px-4">
+                          <div className="flex items-center justify-center gap-2">
+                            <button
+                              onClick={() => {
+                                sound.tap()
+                                onToggleCompare(venue.id)
+                              }}
+                              className={`p-1.5 rounded-lg border text-xs transition-colors ${
+                                isCompared 
+                                  ? 'bg-black text-white border-black dark:bg-[#f5f5f3] dark:text-black dark:border-[#f5f5f3]' 
+                                  : 'border-black/20 dark:border-white/15 text-[#595855] dark:text-[#a8a69e] hover:bg-black/5 dark:hover:bg-white/5'
+                              }`}
+                              title={lang === 'ar' ? 'مقارنة' : 'Compare'}
+                            >
+                              <Scale className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={() => {
+                                sound.tap()
+                                onToggleShortlist(venue.id)
+                              }}
+                              className={`p-1.5 rounded-lg border text-xs transition-colors ${
+                                isShortlisted 
+                                  ? 'bg-rose-500 text-white border-rose-500 dark:bg-rose-950/80 dark:text-rose-400 dark:border-rose-800' 
+                                  : 'border-black/20 dark:border-white/15 text-[#595855] dark:text-[#a8a69e] hover:bg-black/5 dark:hover:bg-white/5'
+                              }`}
+                              title={lang === 'ar' ? 'حفظ' : 'Shortlist'}
+                            >
+                              <Heart className={`w-3.5 h-3.5 ${isShortlisted ? 'fill-current' : ''}`} />
+                            </button>
+                            <button
+                              onClick={() => {
+                                sound.pop()
+                                onSelectDetails(venue)
+                              }}
+                              className="px-2.5 py-1.5 rounded-lg bg-[#000000] text-white text-[11px] font-medium hover:bg-[#595855] dark:bg-[#282723] dark:text-[#f5f5f3] dark:hover:bg-[#34332e] transition-colors"
+                            >
+                              {lang === 'ar' ? 'معاينة' : 'Inspect'}
+                            </button>
+                            <button
+                              onClick={() => {
+                                sound.pop()
+                                onQuickInquire(venue)
+                              }}
+                              className="px-2.5 py-1.5 rounded-lg border border-black/20 dark:border-white/20 text-[11px] font-medium text-[#000000] dark:text-[#f5f5f3] hover:bg-black hover:text-white dark:hover:bg-[#f5f5f3] dark:hover:text-black transition-colors"
+                            >
+                              {lang === 'ar' ? 'حجز' : 'Book'}
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}

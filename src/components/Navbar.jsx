@@ -674,7 +674,7 @@ export function Navbar({
                 sound.tap()
                 setMobileMenuOpen(!mobileMenuOpen)
               }}
-              className="lg:hidden tap-bounce p-2 rounded-full bg-white/80 border border-[#dfdcd5] text-[#000000] cursor-pointer"
+              className="lg:hidden tap-bounce p-2 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full bg-white/80 dark:bg-[#1c1b18]/80 border border-[#dfdcd5] dark:border-[#2e2d28] text-[#000000] dark:text-[#f5f5f3] cursor-pointer"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -692,7 +692,7 @@ export function Navbar({
               animate={{ opacity: 1, height: 'auto', scale: 1 }}
               exit={{ opacity: 0, height: 0, scale: 0.98 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="lg:hidden mt-3 max-w-[1240px] mx-auto bg-[#e7e5e4]/95 backdrop-blur-2xl border border-[#000000] rounded-[14px] p-5 shadow-2xl overflow-hidden text-start"
+              className="lg:hidden mt-3 max-w-[1240px] mx-auto bg-[#e7e5e4]/95 dark:bg-[#1c1b18]/95 backdrop-blur-2xl border border-black/15 dark:border-white/20 rounded-[14px] p-5 shadow-2xl overflow-hidden text-start"
             >
               <div className="flex flex-col space-y-3">
                 <a 
@@ -701,13 +701,13 @@ export function Navbar({
                     sound.tap()
                     setMobileMenuOpen(false)
                   }}
-                  className="flex items-center justify-between p-3 rounded-[8px] bg-white text-[14px] font-medium text-[#000000] border border-[#dfdcd5]"
+                  className="flex items-center justify-between p-3.5 rounded-[10px] bg-white dark:bg-[#282723] text-[14px] font-medium text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28]"
                 >
                   <span className="flex items-center gap-2">
-                    <Landmark className="w-4 h-4 text-[#000000]" />
+                    <Landmark className="w-4 h-4 text-[#000000] dark:text-[#f5f5f3]" />
                     <span>{lang === 'ar' ? 'استكشاف القاعات والقصور' : 'Explore Venues & Palaces'}</span>
                   </span>
-                  <ChevronRight className="w-4 h-4 text-[#595855]" />
+                  <ChevronRight className="w-4 h-4 text-[#595855] dark:text-[#a8a69e] rtl:rotate-180" />
                 </a>
 
                 <a 
@@ -716,13 +716,13 @@ export function Navbar({
                     sound.tap()
                     setMobileMenuOpen(false)
                   }}
-                  className="flex items-center justify-between p-3 rounded-[8px] bg-white text-[14px] font-medium text-[#000000] border border-[#dfdcd5]"
+                  className="flex items-center justify-between p-3.5 rounded-[10px] bg-white dark:bg-[#282723] text-[14px] font-medium text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28]"
                 >
                   <span className="flex items-center gap-2">
-                    <LayoutGrid className="w-4 h-4 text-[#000000]" />
+                    <LayoutGrid className="w-4 h-4 text-[#000000] dark:text-[#f5f5f3]" />
                     <span>{lang === 'ar' ? 'أدوات فوليا لتخطيط الحدث' : 'Folia Planning Suite'}</span>
                   </span>
-                  <ChevronRight className="w-4 h-4 text-[#595855]" />
+                  <ChevronRight className="w-4 h-4 text-[#595855] dark:text-[#a8a69e] rtl:rotate-180" />
                 </a>
 
                 <a 
@@ -731,10 +731,10 @@ export function Navbar({
                     sound.tap()
                     setMobileMenuOpen(false)
                   }}
-                  className="flex items-center justify-between p-3 rounded-[8px] bg-white text-[14px] font-medium text-[#000000] border border-[#dfdcd5]"
+                  className="flex items-center justify-between p-3.5 rounded-[10px] bg-white dark:bg-[#282723] text-[14px] font-medium text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28]"
                 >
                   <span className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-[#000000]" />
+                    <Calendar className="w-4 h-4 text-[#000000] dark:text-[#f5f5f3]" />
                     <span>{lang === 'ar' ? 'الباقات وعضويات التخطيط' : 'Pricing & Memberships'}</span>
                   </span>
                   <Badge variant="live" className="text-[10px] py-0 px-2 bg-emerald-600 text-white border-none">
@@ -743,8 +743,8 @@ export function Navbar({
                 </a>
 
                 {/* Role Switcher in Mobile Drawer */}
-                <div className="pt-3 border-t border-[#dfdcd5]">
-                  <span className="text-[11px] font-mono tracking-wider uppercase text-[#595855] block mb-2 px-1">
+                <div className="pt-3 border-t border-[#dfdcd5] dark:border-[#2e2d28]">
+                  <span className="text-[11px] font-mono tracking-wider uppercase text-[#595855] dark:text-[#a8a69e] block mb-2 px-1">
                     {lang === 'ar' ? 'بوابة النظام' : 'Portal Mode'}
                   </span>
                   <div className="grid grid-cols-3 gap-2 text-xs">
@@ -754,8 +754,10 @@ export function Navbar({
                         setCurrentRole('customer')
                         setMobileMenuOpen(false)
                       }}
-                      className={`p-2 rounded-[6px] text-center font-medium transition-colors ${
-                        currentRole === 'customer' ? 'bg-[#000000] text-[#ffffff]' : 'bg-white text-[#000000] border border-[#dfdcd5]'
+                      className={`p-2.5 rounded-[8px] text-center font-medium min-h-[40px] transition-colors ${
+                        currentRole === 'customer' 
+                          ? 'bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a]' 
+                          : 'bg-white dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28]'
                       }`}
                     >
                       {lang === 'ar' ? 'العروسين' : 'Couples'}
@@ -767,8 +769,10 @@ export function Navbar({
                         setMobileMenuOpen(false)
                         onOpenOwnerModal()
                       }}
-                      className={`p-2 rounded-[6px] text-center font-medium transition-colors ${
-                        currentRole === 'owner' ? 'bg-[#000000] text-[#ffffff]' : 'bg-white text-[#000000] border border-[#dfdcd5]'
+                      className={`p-2.5 rounded-[8px] text-center font-medium min-h-[40px] transition-colors ${
+                        currentRole === 'owner' 
+                          ? 'bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a]' 
+                          : 'bg-white dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28]'
                       }`}
                     >
                       {lang === 'ar' ? 'أصحاب القاعات' : 'Estate Owners'}
@@ -780,8 +784,10 @@ export function Navbar({
                         setMobileMenuOpen(false)
                         onOpenAdminModal()
                       }}
-                      className={`p-2 rounded-[6px] text-center font-medium transition-colors ${
-                        currentRole === 'admin' ? 'bg-[#000000] text-[#ffffff]' : 'bg-white text-[#000000] border border-[#dfdcd5]'
+                      className={`p-2.5 rounded-[8px] text-center font-medium min-h-[40px] transition-colors ${
+                        currentRole === 'admin' 
+                          ? 'bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a]' 
+                          : 'bg-white dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28]'
                       }`}
                     >
                       {lang === 'ar' ? 'الإدارة' : 'Auditor'}
@@ -789,14 +795,14 @@ export function Navbar({
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-[#dfdcd5] flex items-center gap-2">
+                <div className="pt-2 border-t border-[#dfdcd5] dark:border-[#2e2d28] flex items-center gap-2">
                   <button
                     onClick={() => {
                       sound.pop()
                       setMobileMenuOpen(false)
                       onOpenCompare()
                     }}
-                    className="flex-1 py-2 rounded-full bg-white text-[#000000] border border-[#dfdcd5] text-xs font-semibold flex items-center justify-center gap-1.5"
+                    className="flex-1 py-2.5 min-h-[42px] rounded-full bg-white dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] border border-[#dfdcd5] dark:border-[#2e2d28] text-xs font-semibold flex items-center justify-center gap-1.5"
                   >
                     <Scale className="w-3.5 h-3.5" />
                     <span>{lang === 'ar' ? 'المقارنة' : 'Compare'} ({compareCount})</span>
@@ -808,7 +814,7 @@ export function Navbar({
                       setMobileMenuOpen(false)
                       onOpenInquiries()
                     }}
-                    className="flex-1 py-2 rounded-full bg-[#000000] text-[#ffffff] text-xs font-semibold flex items-center justify-center gap-1.5"
+                    className="flex-1 py-2.5 min-h-[42px] rounded-full bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a] text-xs font-semibold flex items-center justify-center gap-1.5"
                   >
                     <MessageSquare className="w-3.5 h-3.5" />
                     <span>{lang === 'ar' ? 'الطلبات' : 'Inquiries'} ({inquiriesCount})</span>

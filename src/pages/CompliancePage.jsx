@@ -102,13 +102,13 @@ export function CompliancePage({ venues, lang, t }) {
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             <button
               onClick={() => {
                 sound.success()
                 alert(lang === 'ar' ? 'جارٍ تحميل دليل معايير ويدو للأمان ٢٠٢٦ (PDF)...' : 'Downloading WEDDO Safety Standards Whitepaper (PDF)...')
               }}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] text-xs font-medium hover:bg-[#595855] dark:hover:bg-[#dfdcd5] transition-colors"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 rounded-full bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] text-xs font-medium hover:bg-[#595855] dark:hover:bg-[#dfdcd5] transition-colors"
             >
               <Download className="w-3.5 h-3.5" />
               <span>{lang === 'ar' ? 'تحميل دليل المعايير (PDF)' : 'Download Whitepaper'}</span>
@@ -183,7 +183,7 @@ export function CompliancePage({ venues, lang, t }) {
                   sound.tap()
                   setSelectedVenueId(e.target.value)
                 }}
-                className="w-full px-4 py-3 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-sm font-serif font-medium text-black dark:text-[#f5f5f3] outline-none cursor-pointer [&>option]:bg-white dark:[&>option]:bg-[#1c1b18] dark:[&>option]:text-[#f5f5f3] transition-colors"
+                className="w-full px-4 py-3 min-h-[44px] rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-base sm:text-sm font-serif font-medium text-black dark:text-[#f5f5f3] outline-none cursor-pointer [&>option]:bg-white dark:[&>option]:bg-[#1c1b18] dark:[&>option]:text-[#f5f5f3] transition-colors"
               >
                 {venues.map(v => (
                   <option key={v.id} value={v.id}>
@@ -264,11 +264,11 @@ export function CompliancePage({ venues, lang, t }) {
               className="w-full accent-black dark:accent-[#f5f5f3] cursor-pointer"
             />
 
-            <div className="flex justify-between text-[11px] font-mono text-[#595855] dark:text-[#a8a69e]">
+            <div className="grid grid-cols-2 sm:flex sm:justify-between gap-1 text-[10px] sm:text-[11px] font-mono text-[#595855] dark:text-[#a8a69e]">
               <span>70 dB (Dinner & Harp)</span>
-              <span className="text-amber-700 dark:text-amber-400 font-semibold">85 dB (Katb Ketab & Speech)</span>
-              <span className="text-emerald-700 dark:text-emerald-400 font-semibold">95 dB (Zaffa Drums)</span>
-              <span className="text-red-700 dark:text-red-400 font-semibold">105+ dB (Late Night DJ)</span>
+              <span className="text-amber-700 dark:text-amber-400 font-semibold sm:text-center">85 dB (Katb Ketab)</span>
+              <span className="text-emerald-700 dark:text-emerald-400 font-semibold sm:text-center">95 dB (Zaffa Drums)</span>
+              <span className="text-red-700 dark:text-red-400 font-semibold text-end">105+ dB (Late DJ)</span>
             </div>
 
             <div className="p-4 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-xs text-[#595855] dark:text-[#a8a69e] leading-relaxed transition-colors">

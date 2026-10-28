@@ -42,9 +42,10 @@ export function VenueCard({
   const lowestPrice = venue.packages?.reduce((min, p) => p.price < min ? p.price : min, venue.packages[0]?.price || 0)
   const maxCapacity = venue.spaces?.reduce((max, s) => s.capacity > max ? s.capacity : max, 0)
 
-  // 1. GSAP 3D Interactive Parallax Tilt on Mouse Move
+  // 1. GSAP 3D Interactive Parallax Tilt on Mouse Move (Desktop Only - avoids mobile scroll jank)
   const handleMouseMove = (e) => {
     if (!cardRef.current) return
+    if (typeof window !== 'undefined' && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
     const rect = cardRef.current.getBoundingClientRect()
     const x = e.clientX - rect.left - rect.width / 2
     const y = e.clientY - rect.top - rect.height / 2
@@ -152,14 +153,15 @@ export function VenueCard({
             </Badge>
           ) : <div />}
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2 sm:gap-1.5">
             {/* Compare Toggle with Tooltip */}
             <Tooltip>
               <TooltipTrigger asChild>
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={handleCompareClick}
-                  className={`tap-bounce p-2 rounded-full backdrop-blur-md transition-all cursor-pointer ${isCompared
+                  aria-label={isCompared ? t.removeFromCompare : t.addToCompare}
+                  className={`tap-bounce w-9 h-9 sm:w-8 sm:h-8 flex items-center justify-center rounded-full backdrop-blur-md transition-all cursor-pointer ${isCompared
                     ? 'bg-[#000000] text-white shadow-xs dark:bg-[#f5f5f3] dark:text-[#0b0b0a]'
                     : 'bg-white/85 text-[#000000] hover:bg-white dark:bg-[#1c1b18]/90 dark:text-[#f5f5f3] dark:hover:bg-[#282723]'
                     }`}
@@ -178,7 +180,8 @@ export function VenueCard({
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={handleShortlistClick}
-                  className={`tap-bounce p-2 rounded-full backdrop-blur-md transition-all cursor-pointer ${isShortlisted
+                  aria-label={isShortlisted ? t.savedToShortlist : t.saveToShortlist}
+                  className={`tap-bounce w-9 h-9 sm:w-8 sm:h-8 flex items-center justify-center rounded-full backdrop-blur-md transition-all cursor-pointer ${isShortlisted
                     ? 'bg-[#ffe4e6] text-[#e11d48] shadow-xs dark:bg-rose-950/80 dark:text-rose-400'
                     : 'bg-white/85 text-[#000000] hover:bg-white dark:bg-[#1c1b18]/90 dark:text-[#f5f5f3] dark:hover:bg-[#282723]'
                     }`}
@@ -294,14 +297,14 @@ export function VenueCard({
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => {
                 sound.pop()
                 onSelectDetails(venue)
               }}
-              className="tap-bounce px-3.5 py-2 rounded-[28.8px] text-xs font-medium bg-white dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] hover:bg-[#dfdcd5] dark:hover:bg-[#34332e] border border-[#dfdcd5] dark:border-[#2e2d28] transition-colors cursor-pointer select-none"
+              className="tap-bounce px-3 sm:px-3.5 py-2 min-h-[38px] rounded-[28.8px] text-[11px] sm:text-xs font-medium bg-white dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] hover:bg-[#dfdcd5] dark:hover:bg-[#34332e] border border-[#dfdcd5] dark:border-[#2e2d28] transition-colors cursor-pointer select-none whitespace-nowrap"
             >
               {t.viewDetails}
             </motion.button>
@@ -316,7 +319,7 @@ export function VenueCard({
                     sound.pop()
                     onQuickInquire(venue)
                   }}
-                  className="tap-bounce btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] text-xs flex items-center gap-1 shadow-xs cursor-pointer select-none"
+                  className="tap-bounce btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] text-[11px] sm:text-xs min-h-[38px] px-3.5 sm:px-4 flex items-center gap-1 shadow-xs cursor-pointer select-none whitespace-nowrap"
                 >
                   <span>{t.quickInquire}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#ffffff] dark:text-[#0b0b0a]" />

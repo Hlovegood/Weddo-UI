@@ -96,7 +96,7 @@ export function HomePage({
           {/* Card 1: Venues Catalog */}
           <div 
             onClick={() => onNavigate('/venues')}
-            className="group cursor-pointer bg-[#ffffff] dark:bg-[#1c1b18] p-7 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            className="group cursor-pointer bg-[#ffffff] dark:bg-[#1c1b18] p-6 sm:p-7 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               <div className="w-12 h-12 rounded-xl bg-[#c4c3b6]/30 dark:bg-[#282723] flex items-center justify-center text-[#000000] dark:text-[#f5f5f3] mb-5 group-hover:scale-110 group-hover:bg-[#000000] group-hover:text-[#ffffff] dark:group-hover:bg-[#f5f5f3] dark:group-hover:text-[#0b0b0a] transition-all duration-300">
@@ -123,7 +123,7 @@ export function HomePage({
           {/* Card 2: Folia Planning Suite */}
           <div 
             onClick={() => onNavigate('/planning')}
-            className="group cursor-pointer bg-[#ffffff] dark:bg-[#1c1b18] p-7 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            className="group cursor-pointer bg-[#ffffff] dark:bg-[#1c1b18] p-6 sm:p-7 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               <div className="w-12 h-12 rounded-xl bg-[#10b981]/15 flex items-center justify-center text-[#10b981] mb-5 group-hover:scale-110 group-hover:bg-[#10b981] group-hover:text-[#ffffff] transition-all duration-300">
@@ -150,7 +150,7 @@ export function HomePage({
           {/* Card 3: Pricing & Membership */}
           <div 
             onClick={() => onNavigate('/pricing')}
-            className="group cursor-pointer bg-[#ffffff] dark:bg-[#1c1b18] p-7 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            className="group cursor-pointer bg-[#ffffff] dark:bg-[#1c1b18] p-6 sm:p-7 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               <div className="w-12 h-12 rounded-xl bg-[#f59e0b]/15 flex items-center justify-center text-[#f59e0b] mb-5 group-hover:scale-110 group-hover:bg-[#f59e0b] group-hover:text-[#ffffff] transition-all duration-300">
@@ -177,7 +177,7 @@ export function HomePage({
           {/* Card 4: Safety & Compliance Hub */}
           <div 
             onClick={() => onNavigate('/compliance')}
-            className="group cursor-pointer bg-[#ffffff] dark:bg-[#1c1b18] p-7 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            className="group cursor-pointer bg-[#ffffff] dark:bg-[#1c1b18] p-6 sm:p-7 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/15 flex items-center justify-center text-[#8b5cf6] mb-5 group-hover:scale-110 group-hover:bg-[#8b5cf6] group-hover:text-[#ffffff] transition-all duration-300">
@@ -217,7 +217,7 @@ export function HomePage({
             </div>
             <button
               onClick={() => onNavigate('/venues')}
-              className="mt-4 md:mt-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a] text-xs font-medium hover:opacity-90 transition-all cursor-pointer"
+              className="mt-4 md:mt-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a] text-xs font-medium hover:opacity-90 active:scale-95 min-h-[44px] transition-all cursor-pointer"
             >
               <span>{lang === 'ar' ? 'عرض الكتالوج الكامل (٨ قاعات)' : 'View Full Catalog (8 Venues)'}</span>
               <ArrowRight className="w-3.5 h-3.5 rtl:rotate-180" />
@@ -257,7 +257,7 @@ export function HomePage({
           colors={isDark ? ['#d4af37', '#f472b6', '#38bdf8'] : ['#1e40af', '#2563eb', '#38bdf8']}
           className="transition-colors duration-300 shadow-xl border border-black/5 dark:border-white/10"
         >
-          <div className="p-8 sm:p-12">
+          <div className="p-6 sm:p-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-full bg-[#10b981]/15 text-[#10b981] flex items-center justify-center shrink-0 transition-colors">

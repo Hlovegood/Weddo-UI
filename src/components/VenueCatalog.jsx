@@ -98,16 +98,16 @@ export function VenueCatalog({
         </div>
 
         {/* Counter Pill Badge & Sort options */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 bg-[#e7e5e4] dark:bg-[#1c1b18] px-3 py-1 rounded-full border border-[#dfdcd5] dark:border-[#2e2d28] text-xs">
-            <ArrowUpDown className="w-3.5 h-3.5 text-[#595855] dark:text-[#a8a69e]" />
+        <div className="flex flex-wrap items-center justify-between sm:justify-start gap-2.5 sm:gap-3 w-full sm:w-auto">
+          <div className="flex items-center gap-1.5 bg-[#e7e5e4] dark:bg-[#1c1b18] px-3 py-1.5 sm:py-1 rounded-full border border-[#dfdcd5] dark:border-[#2e2d28] min-h-[38px] sm:min-h-0">
+            <ArrowUpDown className="w-3.5 h-3.5 text-[#595855] dark:text-[#a8a69e] shrink-0" />
             <select
               value={sortBy}
               onChange={(e) => {
                 sound.tap()
                 setSortBy(e.target.value)
               }}
-              className="bg-transparent text-xs font-medium text-[#000000] dark:text-[#f5f5f3] outline-none cursor-pointer [&>option]:bg-[#e7e5e4] [&>option]:text-black dark:[&>option]:bg-[#1c1b18] dark:[&>option]:text-[#f5f5f3]"
+              className="bg-transparent text-base sm:text-xs font-medium text-[#000000] dark:text-[#f5f5f3] outline-none cursor-pointer [&>option]:bg-[#e7e5e4] [&>option]:text-black dark:[&>option]:bg-[#1c1b18] dark:[&>option]:text-[#f5f5f3]"
             >
               <option value="featured">{lang === 'ar' ? 'المميزة أولاً' : 'Featured First'}</option>
               <option value="price_asc">{lang === 'ar' ? 'السعر: من الأقل' : 'Price: Low to High'}</option>
@@ -116,7 +116,7 @@ export function VenueCatalog({
             </select>
           </div>
 
-          <Badge variant="secondary" className="font-mono text-xs py-1 dark:bg-[#1c1b18] dark:text-[#f5f5f3] dark:border-[#2e2d28]">
+          <Badge variant="secondary" className="font-mono text-xs py-1.5 sm:py-1 min-h-[38px] sm:min-h-0 dark:bg-[#1c1b18] dark:text-[#f5f5f3] dark:border-[#2e2d28]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#000000] dark:bg-[#f5f5f3] animate-pulse" />
             <span className="font-semibold tabular-nums">
               {filteredVenues.length < 10 ? `0${filteredVenues.length}` : filteredVenues.length}
@@ -127,7 +127,7 @@ export function VenueCatalog({
       </div>
 
       {/* Gallery Pill Category Navigation */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none relative">
+      <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none relative -mx-4 px-4 sm:mx-0 sm:px-0">
         {categoryTabs.map(tab => {
           const Icon = tab.icon
           const isActive = activeTab === tab.id

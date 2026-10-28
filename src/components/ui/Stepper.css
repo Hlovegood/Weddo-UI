@@ -437,6 +437,34 @@
   padding: var(--stepper-inset) 24px var(--stepper-inset) var(--stepper-inset);
 }
 
+@media (max-width: 640px) {
+  .stepper__description {
+    display: none;
+  }
+  .stepper__segment {
+    padding: 0 6px;
+    gap: 4px;
+    height: 40px;
+  }
+  .stepper__title {
+    font-size: 11px;
+  }
+  .stepper__badge {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .stepper__segment:not([data-status='active']) .stepper__text {
+    display: none;
+  }
+  .stepper__segment {
+    padding: 0 4px;
+  }
+}
+
 @media (hover: hover) {
   .stepper__segment:not(:disabled):hover {
     background: var(--stepper-hover-fill);

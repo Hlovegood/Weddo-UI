@@ -35,7 +35,7 @@ export function VenueDetailsModal({
   const badge = venue.badge?.[lang] || venue.badge?.en
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 sm:p-6 lg:p-8">
+    <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-2 sm:p-6 lg:p-8">
       
       {/* Backdrop */}
       <motion.div 
@@ -52,7 +52,7 @@ export function VenueDetailsModal({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 16 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        className="relative w-full max-w-4xl rounded-[9px] bg-[#e7e5e4] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] overflow-hidden z-10 flex flex-col max-h-[90vh] shadow-2xl text-[#000000] dark:text-[#f5f5f3]"
+        className="relative w-full max-w-4xl rounded-[12px] sm:rounded-[9px] bg-[#e7e5e4] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] overflow-hidden z-10 flex flex-col max-h-[94vh] sm:max-h-[90vh] shadow-2xl text-[#000000] dark:text-[#f5f5f3]"
       >
         
         {/* Cover Photo Banner */}
@@ -68,7 +68,7 @@ export function VenueDetailsModal({
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={onClose}
-            className="tap-bounce absolute top-4 right-4 p-2 rounded-full bg-[#000000]/70 hover:bg-[#000000] text-[#ffffff] transition-colors z-20 cursor-pointer"
+            className="tap-bounce absolute top-3 right-3 rtl:right-auto rtl:left-3 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-full bg-[#000000]/70 hover:bg-[#000000] text-[#ffffff] transition-colors z-20 cursor-pointer"
           >
             <X className="w-4 h-4" />
           </motion.button>
@@ -99,10 +99,10 @@ export function VenueDetailsModal({
         </div>
 
         {/* Navigation Tabs Pill Bar */}
-        <div className="flex items-center border-b border-[#dfdcd5] dark:border-[#2e2d28] px-6 bg-[#ebebeb] dark:bg-[#141412] shrink-0">
+        <div className="flex items-center border-b border-[#dfdcd5] dark:border-[#2e2d28] px-4 sm:px-6 bg-[#ebebeb] dark:bg-[#141412] shrink-0 overflow-x-auto scrollbar-none flex-nowrap">
           <button
             onClick={() => setActiveTab('spaces')}
-            className={`py-3 px-4 text-xs font-mono uppercase tracking-wider border-b-2 transition-all cursor-pointer ${
+            className={`py-3 px-3 sm:px-4 text-xs font-mono uppercase tracking-wider border-b-2 whitespace-nowrap transition-all cursor-pointer ${
               activeTab === 'spaces'
                 ? 'border-[#000000] dark:border-[#f5f5f3] text-[#000000] dark:text-[#f5f5f3] font-semibold'
                 : 'border-transparent text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]'
@@ -112,7 +112,7 @@ export function VenueDetailsModal({
           </button>
           <button
             onClick={() => setActiveTab('packages')}
-            className={`py-3 px-4 text-xs font-mono uppercase tracking-wider border-b-2 transition-all cursor-pointer ${
+            className={`py-3 px-3 sm:px-4 text-xs font-mono uppercase tracking-wider border-b-2 whitespace-nowrap transition-all cursor-pointer ${
               activeTab === 'packages'
                 ? 'border-[#000000] dark:border-[#f5f5f3] text-[#000000] dark:text-[#f5f5f3] font-semibold'
                 : 'border-transparent text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]'
@@ -122,7 +122,7 @@ export function VenueDetailsModal({
           </button>
           <button
             onClick={() => setActiveTab('calendar')}
-            className={`py-3 px-4 text-xs font-mono uppercase tracking-wider border-b-2 transition-all cursor-pointer ${
+            className={`py-3 px-3 sm:px-4 text-xs font-mono uppercase tracking-wider border-b-2 whitespace-nowrap transition-all cursor-pointer ${
               activeTab === 'calendar'
                 ? 'border-[#000000] dark:border-[#f5f5f3] text-[#000000] dark:text-[#f5f5f3] font-semibold'
                 : 'border-transparent text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]'
@@ -290,10 +290,10 @@ export function VenueDetailsModal({
             <span>{t.inquiryPackage}: <strong className="text-[#000000] dark:text-[#f5f5f3] font-semibold">{selectedPackageId || 'Default'}</strong></span>
           </div>
 
-          <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+          <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-end">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-[28.8px] border border-[#dfdcd5] dark:border-[#2e2d28] bg-[#e7e5e4] dark:bg-[#1c1b18] text-xs font-sans text-[#000000] dark:text-[#f5f5f3] hover:bg-[#dfdcd5] dark:hover:bg-[#282723] cursor-pointer"
+              className="px-4 py-2.5 min-h-[42px] rounded-[28.8px] border border-[#dfdcd5] dark:border-[#2e2d28] bg-[#e7e5e4] dark:bg-[#1c1b18] text-xs font-sans text-[#000000] dark:text-[#f5f5f3] hover:bg-[#dfdcd5] dark:hover:bg-[#282723] cursor-pointer"
             >
               {t.modalClose}
             </button>
@@ -303,7 +303,7 @@ export function VenueDetailsModal({
                 onClose()
                 onOpenInquiry(venue, selectedSpaceId, selectedPackageId)
               }}
-              className="btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] inline-flex items-center gap-2 tap-bounce cursor-pointer"
+              className="btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] min-h-[42px] px-5 inline-flex items-center justify-center gap-2 tap-bounce cursor-pointer"
             >
               <Send className="w-3.5 h-3.5 text-[#ffffff] dark:text-[#0b0b0a]" />
               <span>{t.quickInquire}</span>

@@ -214,15 +214,17 @@ export function PricingPage({ lang, t }) {
           </h3>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs text-left rtl:text-right">
+        <div className="overflow-x-auto -mx-2 px-2">
+          <table className="w-full min-w-[540px] text-xs text-left rtl:text-right border-collapse">
             <thead>
-              <tr className="border-b border-[#dfdcd5] dark:border-[#2e2d28] font-serif text-base text-[#000000] dark:text-[#f5f5f3]">
-                <th className="py-4 px-4 font-normal">{lang === 'ar' ? 'الميزة والخدمة' : 'Feature / Amenity'}</th>
-                <th className="py-4 px-4 text-center font-normal">{lang === 'ar' ? 'المعاينة المجانية' : 'Discovery (0 EGP)'}</th>
-                <th className="py-4 px-4 text-center font-normal">{lang === 'ar' ? 'فوليا شهري' : 'Monthly Pass'}</th>
-                <th className="py-4 px-4 text-center font-normal bg-[#dfdcd5]/40 dark:bg-[#282723] rounded-t-xl text-black dark:text-[#f5f5f3]">
-                  {lang === 'ar' ? 'الباقة السنوية (الأكثر طلباً)' : 'Annual Engagement Pass'}
+              <tr className="border-b border-[#dfdcd5] dark:border-[#2e2d28] font-serif text-sm sm:text-base text-[#000000] dark:text-[#f5f5f3]">
+                <th className="py-4 px-4 font-normal sticky left-0 rtl:left-auto rtl:right-0 bg-[#e7e5e4] dark:bg-[#1c1b18] z-10 min-w-[180px] sm:min-w-[220px] shadow-[2px_0_6px_-2px_rgba(0,0,0,0.05)] rtl:shadow-[-2px_0_6px_-2px_rgba(0,0,0,0.05)]">
+                  {lang === 'ar' ? 'الميزة والخدمة' : 'Feature / Amenity'}
+                </th>
+                <th className="py-4 px-3 sm:px-4 text-center font-normal min-w-[100px]">{lang === 'ar' ? 'المعاينة المجانية' : 'Discovery (0 EGP)'}</th>
+                <th className="py-4 px-3 sm:px-4 text-center font-normal min-w-[100px]">{lang === 'ar' ? 'فوليا شهري' : 'Monthly Pass'}</th>
+                <th className="py-4 px-3 sm:px-4 text-center font-normal bg-[#dfdcd5]/40 dark:bg-[#282723] rounded-t-xl text-black dark:text-[#f5f5f3] min-w-[120px]">
+                  {lang === 'ar' ? 'الباقة السنوية (الأكثر طلباً)' : 'Annual Pass'}
                 </th>
               </tr>
             </thead>
@@ -230,28 +232,30 @@ export function PricingPage({ lang, t }) {
               {comparisonFeatures.map((sec, secIdx) => (
                 <React.Fragment key={secIdx}>
                   <tr className="bg-[#dfdcd5]/30 dark:bg-[#282723]/50">
-                    <td colSpan={4} className="py-2.5 px-4 font-mono text-[10px] uppercase tracking-wider text-[#595855] dark:text-[#a8a69e] font-semibold">
+                    <td colSpan={4} className="py-2.5 px-4 font-mono text-[10px] uppercase tracking-wider text-[#595855] dark:text-[#a8a69e] font-semibold sticky left-0 rtl:left-auto rtl:right-0 bg-[#dfdcd5]/30 dark:bg-[#282723]/50 z-10">
                       {sec.category}
                     </td>
                   </tr>
                   {sec.items.map((item, itemIdx) => (
                     <tr key={itemIdx} className="hover:bg-[#dfdcd5]/20 dark:hover:bg-[#282723]/30 transition-colors">
-                      <td className="py-3 px-4 text-[#000000] dark:text-[#f5f5f3] font-medium">{item.name}</td>
-                      <td className="py-3 px-4 text-center">
+                      <td className="py-3 px-4 text-[#000000] dark:text-[#f5f5f3] font-medium sticky left-0 rtl:left-auto rtl:right-0 bg-[#e7e5e4] dark:bg-[#1c1b18] z-10 shadow-[2px_0_6px_-2px_rgba(0,0,0,0.05)] rtl:shadow-[-2px_0_6px_-2px_rgba(0,0,0,0.05)]">
+                        {item.name}
+                      </td>
+                      <td className="py-3 px-3 sm:px-4 text-center">
                         {item.free ? (
                           <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400 mx-auto" />
                         ) : (
                           <span className="text-[#595855]/40 dark:text-[#a8a69e]/40">—</span>
                         )}
                       </td>
-                      <td className="py-3 px-4 text-center">
+                      <td className="py-3 px-3 sm:px-4 text-center">
                         {item.monthly ? (
                           <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400 mx-auto" />
                         ) : (
                           <span className="text-[#595855]/40 dark:text-[#a8a69e]/40">—</span>
                         )}
                       </td>
-                      <td className="py-3 px-4 text-center bg-[#dfdcd5]/30 dark:bg-[#282723] font-medium">
+                      <td className="py-3 px-3 sm:px-4 text-center bg-[#dfdcd5]/30 dark:bg-[#282723] font-medium">
                         {item.annual ? (
                           <Check className="w-4 h-4 text-emerald-700 dark:text-emerald-400 mx-auto stroke-[2.5]" />
                         ) : (

@@ -90,20 +90,20 @@ export function OwnerDashboardModal({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 16 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        className="relative w-full max-w-4xl rounded-[9px] bg-[#e7e5e4] border border-[#dfdcd5] overflow-hidden z-10 flex flex-col max-h-[90vh] shadow-2xl text-[#000000]"
+        className="relative w-full max-w-4xl rounded-[12px] sm:rounded-[9px] bg-[#e7e5e4] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] overflow-hidden z-10 flex flex-col max-h-[92vh] sm:max-h-[90vh] shadow-2xl text-[#000000] dark:text-[#f5f5f3]"
       >
         
         {/* Header */}
-        <div className="p-5 sm:p-6 border-b border-[#dfdcd5] flex items-center justify-between shrink-0 bg-[#ebebeb]">
+        <div className="p-4 sm:p-6 border-b border-[#dfdcd5] dark:border-[#2e2d28] flex items-center justify-between shrink-0 bg-[#ebebeb] dark:bg-[#141412]">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-full bg-[#dfdcd5] text-[#000000]">
+            <div className="p-2 rounded-full bg-[#dfdcd5] dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3]">
               <BriefcaseBusiness className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-serif text-2xl font-normal text-[#000000]">
+              <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#000000] dark:text-[#f5f5f3]">
                 {t.ownerTitle}
               </h3>
-              <p className="text-xs font-mono uppercase text-[#595855]">
+              <p className="text-xs font-mono uppercase text-[#595855] dark:text-[#a8a69e]">
                 {t.ownerSubtitle}
               </p>
             </div>
@@ -111,40 +111,40 @@ export function OwnerDashboardModal({
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#595855] hover:bg-[#dfdcd5] cursor-pointer"
+            className="p-1.5 rounded-full text-[#595855] dark:text-[#a8a69e] hover:bg-[#dfdcd5] dark:hover:bg-[#282723] cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Segmented Pill Tabs */}
-        <div className="flex items-center border-b border-[#dfdcd5] px-6 bg-[#ebebeb] shrink-0">
+        <div className="flex items-center border-b border-[#dfdcd5] dark:border-[#2e2d28] px-4 sm:px-6 bg-[#ebebeb] dark:bg-[#141412] shrink-0 overflow-x-auto scrollbar-none flex-nowrap">
           <button
             onClick={() => setActiveTab('spaces')}
-            className={`py-3 px-4 text-xs font-mono uppercase tracking-wider border-b-2 transition-all cursor-pointer ${
+            className={`py-3 px-3 sm:px-4 text-xs font-mono uppercase tracking-wider border-b-2 whitespace-nowrap transition-all cursor-pointer ${
               activeTab === 'spaces'
-                ? 'border-[#000000] text-[#000000] font-semibold'
-                : 'border-transparent text-[#595855] hover:text-[#000000]'
+                ? 'border-[#000000] dark:border-[#f5f5f3] text-[#000000] dark:text-[#f5f5f3] font-semibold'
+                : 'border-transparent text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]'
             }`}
           >
             {t.ownerTabSpaces}
           </button>
           <button
             onClick={() => setActiveTab('packages')}
-            className={`py-3 px-4 text-xs font-mono uppercase tracking-wider border-b-2 transition-all cursor-pointer ${
+            className={`py-3 px-3 sm:px-4 text-xs font-mono uppercase tracking-wider border-b-2 whitespace-nowrap transition-all cursor-pointer ${
               activeTab === 'packages'
-                ? 'border-[#000000] text-[#000000] font-semibold'
-                : 'border-transparent text-[#595855] hover:text-[#000000]'
+                ? 'border-[#000000] dark:border-[#f5f5f3] text-[#000000] dark:text-[#f5f5f3] font-semibold'
+                : 'border-transparent text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]'
             }`}
           >
             {t.ownerTabPackages}
           </button>
           <button
             onClick={() => setActiveTab('calendar')}
-            className={`py-3 px-4 text-xs font-mono uppercase tracking-wider border-b-2 transition-all cursor-pointer ${
+            className={`py-3 px-3 sm:px-4 text-xs font-mono uppercase tracking-wider border-b-2 whitespace-nowrap transition-all cursor-pointer ${
               activeTab === 'calendar'
-                ? 'border-[#000000] text-[#000000] font-semibold'
-                : 'border-transparent text-[#595855] hover:text-[#000000]'
+                ? 'border-[#000000] dark:border-[#f5f5f3] text-[#000000] dark:text-[#f5f5f3] font-semibold'
+                : 'border-transparent text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]'
             }`}
           >
             {t.ownerTabCalendar}
@@ -152,13 +152,13 @@ export function OwnerDashboardModal({
         </div>
 
         {/* Body Content */}
-        <div className="p-6 overflow-y-auto flex-1 space-y-6">
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-6">
           
           {/* TAB 1: Spaces Configuration */}
           {activeTab === 'spaces' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono uppercase text-[#595855]">
+                <span className="text-xs font-mono uppercase text-[#595855] dark:text-[#a8a69e]">
                   {lang === 'ar' ? 'المساحات المعمارية النشطة' : 'Active Spaces & Capacities'}
                 </span>
 
@@ -173,7 +173,7 @@ export function OwnerDashboardModal({
                     }
                     setSpaces(prev => [...prev, newSpace])
                   }}
-                  className="tap-bounce flex items-center gap-1.5 px-3 py-1 rounded-[28.8px] bg-[#000000] text-[#ffffff] text-xs font-mono uppercase cursor-pointer"
+                  className="tap-bounce flex items-center gap-1.5 px-3 py-1.5 rounded-[28.8px] bg-[#000000] dark:bg-[#f5f5f3] text-[#ffffff] dark:text-[#0b0b0a] text-xs font-mono uppercase cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>{lang === 'ar' ? 'إضافة مساحة جديدة' : 'Add Space'}</span>
@@ -181,23 +181,23 @@ export function OwnerDashboardModal({
               </div>
 
               {spaces.map(space => (
-                <div key={space.id} className="p-4 rounded-[9px] bg-[#ebebeb] border border-[#dfdcd5] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div key={space.id} className="p-4 rounded-[9px] bg-[#ebebeb] dark:bg-[#282723]/60 border border-[#dfdcd5] dark:border-[#2e2d28] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div>
-                    <h4 className="font-serif text-lg font-normal text-[#000000]">
+                    <h4 className="font-serif text-lg font-normal text-[#000000] dark:text-[#f5f5f3]">
                       {space.name[lang] || space.name.en}
                     </h4>
-                    <span className="text-xs font-mono text-[#595855] uppercase">
+                    <span className="text-xs font-mono text-[#595855] dark:text-[#a8a69e] uppercase">
                       {space.type[lang] || space.type.en} • {space.capacity} {t.guestsLabel}
                     </span>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <span className="text-xs font-mono uppercase text-[#595855]">
+                    <span className="text-xs font-mono uppercase text-[#595855] dark:text-[#a8a69e]">
                       {space.isAcceptingInquiries ? 'Accepting' : 'Paused'}
                     </span>
                     <button
                       onClick={() => setSpaces(prev => prev.filter(s => s.id !== space.id))}
-                      className="p-1 text-[#595855] hover:text-[#000000] cursor-pointer"
+                      className="p-1.5 text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3] cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -211,25 +211,25 @@ export function OwnerDashboardModal({
           {activeTab === 'packages' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono uppercase text-[#595855]">
+                <span className="text-xs font-mono uppercase text-[#595855] dark:text-[#a8a69e]">
                   {lang === 'ar' ? 'باقات الأسعار المعتمدة' : 'Official Published Packages'}
                 </span>
               </div>
 
               {packages.map(pkg => (
-                <div key={pkg.id} className="p-4 rounded-[9px] bg-[#ebebeb] border border-[#dfdcd5] flex items-center justify-between gap-4">
+                <div key={pkg.id} className="p-4 rounded-[9px] bg-[#ebebeb] dark:bg-[#282723]/60 border border-[#dfdcd5] dark:border-[#2e2d28] flex items-center justify-between gap-4">
                   <div>
-                    <h4 className="font-serif text-lg font-normal text-[#000000]">
+                    <h4 className="font-serif text-lg font-normal text-[#000000] dark:text-[#f5f5f3]">
                       {pkg.name[lang] || pkg.name.en}
                     </h4>
-                    <span className="text-xs font-mono text-[#595855]">
+                    <span className="text-xs font-mono text-[#595855] dark:text-[#a8a69e]">
                       {formatEGP(pkg.price, lang)}
                     </span>
                   </div>
 
                   <button
                     onClick={() => setPackages(prev => prev.filter(p => p.id !== pkg.id))}
-                    className="p-1 text-[#595855] hover:text-[#000000] cursor-pointer"
+                    className="p-1.5 text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3] cursor-pointer"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -241,8 +241,8 @@ export function OwnerDashboardModal({
           {/* TAB 3: Blocked Dates Calendar */}
           {activeTab === 'calendar' && (
             <div className="space-y-4">
-              <div className="p-4 rounded-[9px] bg-[#ebebeb] border border-[#dfdcd5] space-y-3">
-                <h4 className="text-xs font-mono uppercase tracking-wider text-[#000000]">
+              <div className="p-4 rounded-[9px] bg-[#ebebeb] dark:bg-[#282723]/60 border border-[#dfdcd5] dark:border-[#2e2d28] space-y-3">
+                <h4 className="text-xs font-mono uppercase tracking-wider text-[#000000] dark:text-[#f5f5f3]">
                   {lang === 'ar' ? 'حظر موعد لمنع استلام استفسارات' : 'Block Date from Public Inquiries'}
                 </h4>
 
@@ -251,13 +251,13 @@ export function OwnerDashboardModal({
                     type="date"
                     value={newBlockDate}
                     onChange={(e) => setNewBlockDate(e.target.value)}
-                    className="h-9 px-3 text-xs rounded-[6px] bg-[#ffffff] border border-[#dfdcd5] text-[#000000]"
+                    className="h-10 px-3 text-base sm:text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-[#000000] dark:text-[#f5f5f3]"
                   />
 
                   <select
                     value={newBlockSession}
                     onChange={(e) => setNewBlockSession(e.target.value)}
-                    className="h-9 px-3 text-xs rounded-[6px] bg-[#ffffff] border border-[#dfdcd5] text-[#000000]"
+                    className="h-10 px-3 text-base sm:text-xs rounded-[6px] bg-[#ffffff] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-[#000000] dark:text-[#f5f5f3] cursor-pointer"
                   >
                     <option value="day">{t.sessionDay}</option>
                     <option value="evening">{t.sessionEvening}</option>
@@ -266,7 +266,7 @@ export function OwnerDashboardModal({
 
                   <button
                     onClick={handleAddBlock}
-                    className="btn-pill-ink py-2 text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] min-h-[40px] text-xs flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>{lang === 'ar' ? 'إضافة الحظر' : 'Apply Block'}</span>
@@ -275,18 +275,18 @@ export function OwnerDashboardModal({
               </div>
 
               <div className="space-y-2">
-                <span className="text-xs font-mono uppercase text-[#595855] block">
+                <span className="text-xs font-mono uppercase text-[#595855] dark:text-[#a8a69e] block">
                   {lang === 'ar' ? 'المواعيد المحظورة حالياً' : 'Current Active Block Records'}
                 </span>
 
                 {blockedDates.map((block, idx) => (
-                  <div key={idx} className="p-3 rounded-[9px] bg-[#ebebeb] border border-[#dfdcd5] flex items-center justify-between text-xs font-mono">
+                  <div key={idx} className="p-3 rounded-[9px] bg-[#ebebeb] dark:bg-[#282723]/60 border border-[#dfdcd5] dark:border-[#2e2d28] flex items-center justify-between text-xs font-mono">
                     <div>
-                      <strong className="text-[#000000]">{block.date}</strong> ({block.session}) • <span className="text-[#595855]">{block.actor}</span>
+                      <strong className="text-[#000000] dark:text-[#f5f5f3]">{block.date}</strong> ({block.session}) • <span className="text-[#595855] dark:text-[#a8a69e]">{block.actor}</span>
                     </div>
                     <button
                       onClick={() => handleRemoveBlock(idx)}
-                      className="p-1 text-[#595855] hover:text-[#000000] cursor-pointer"
+                      className="p-1.5 text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3] cursor-pointer"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -299,14 +299,14 @@ export function OwnerDashboardModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 sm:p-5 border-t border-[#dfdcd5] bg-[#ebebeb] flex items-center justify-between shrink-0">
-          <span className="text-xs font-mono uppercase text-[#595855]">
+        <div className="p-4 sm:p-5 border-t border-[#dfdcd5] dark:border-[#2e2d28] bg-[#ebebeb] dark:bg-[#141412] flex items-center justify-between shrink-0">
+          <span className="text-xs font-mono uppercase text-[#595855] dark:text-[#a8a69e]">
             WEDDO OPERATOR CONSOLE
           </span>
 
           <button
             onClick={onClose}
-            className="btn-pill-ink px-6 py-2 tap-bounce cursor-pointer text-xs"
+            className="btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] px-6 py-2 min-h-[40px] tap-bounce cursor-pointer text-xs"
           >
             <span>{t.modalClose}</span>
           </button>

@@ -125,13 +125,13 @@ export function PlanningPage({ lang, t }) {
           </div>
 
           {/* Sub-view Mode Switcher */}
-          <div className="flex items-center bg-[#e7e5e4] dark:bg-[#1c1b18] p-1.5 rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] shadow-sm shrink-0 transition-colors">
+          <div className="flex items-center w-full sm:w-auto justify-between sm:justify-start bg-[#e7e5e4] dark:bg-[#1c1b18] p-1.5 rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] shadow-sm shrink-0 transition-colors">
             <button
               onClick={() => {
                 sound.tap()
                 setActiveSubView('suite')
               }}
-              className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+              className={`flex-1 sm:flex-initial px-4 py-2.5 sm:py-2 rounded-xl text-xs font-medium min-h-[40px] sm:min-h-0 transition-all ${
                 activeSubView === 'suite'
                   ? 'bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] shadow-sm'
                   : 'text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]'
@@ -144,7 +144,7 @@ export function PlanningPage({ lang, t }) {
                 sound.tap()
                 setActiveSubView('timeline')
               }}
-              className={`px-4 py-2 rounded-xl text-xs font-medium transition-all ${
+              className={`flex-1 sm:flex-initial px-4 py-2.5 sm:py-2 rounded-xl text-xs font-medium min-h-[40px] sm:min-h-0 transition-all ${
                 activeSubView === 'timeline'
                   ? 'bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] shadow-sm'
                   : 'text-[#595855] dark:text-[#a8a69e] hover:text-[#000000] dark:hover:text-[#f5f5f3]'
@@ -201,7 +201,7 @@ export function PlanningPage({ lang, t }) {
                       value={newItem.time}
                       onChange={(e) => setNewItem({ ...newItem, time: e.target.value })}
                       placeholder="21:30"
-                      className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-xs text-black dark:text-[#f5f5f3] transition-colors"
+                      className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-base sm:text-xs min-h-[42px] sm:min-h-0 text-black dark:text-[#f5f5f3] transition-colors"
                     />
                   </div>
                   <div className="sm:col-span-2">
@@ -216,7 +216,7 @@ export function PlanningPage({ lang, t }) {
                         else setNewItem({ ...newItem, titleEn: e.target.value, titleAr: e.target.value })
                       }}
                       placeholder={lang === 'ar' ? 'مثال: تقطيع التورتة الملكية' : 'e.g., Royal Cake Cutting'}
-                      className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-xs text-black dark:text-[#f5f5f3] transition-colors"
+                      className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-base sm:text-xs min-h-[42px] sm:min-h-0 text-black dark:text-[#f5f5f3] transition-colors"
                     />
                   </div>
                   <div>
@@ -231,21 +231,21 @@ export function PlanningPage({ lang, t }) {
                         else setNewItem({ ...newItem, locationEn: e.target.value, locationAr: e.target.value })
                       }}
                       placeholder={lang === 'ar' ? 'حلبة الرقص' : 'Dance Floor'}
-                      className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-xs text-black dark:text-[#f5f5f3] transition-colors"
+                      className="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] text-base sm:text-xs min-h-[42px] sm:min-h-0 text-black dark:text-[#f5f5f3] transition-colors"
                     />
                   </div>
                 </div>
-                <div className="flex justify-end gap-2">
+                <div className="flex justify-end gap-2 pt-2">
                   <button
                     type="button"
                     onClick={() => setShowAddForm(false)}
-                    className="px-3 py-1.5 rounded-lg border border-[#dfdcd5] dark:border-[#2e2d28] text-xs text-[#000000] dark:text-[#f5f5f3] hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
+                    className="px-4 py-2 min-h-[40px] sm:min-h-0 rounded-lg border border-[#dfdcd5] dark:border-[#2e2d28] text-xs text-[#000000] dark:text-[#f5f5f3] hover:bg-black/5 dark:hover:bg-white/5 active:scale-95 transition-all cursor-pointer"
                   >
                     {lang === 'ar' ? 'إلغاء' : 'Cancel'}
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-1.5 rounded-lg bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] text-xs font-medium hover:bg-[#595855] dark:hover:bg-[#dfdcd5] transition-colors cursor-pointer"
+                    className="px-5 py-2 min-h-[40px] sm:min-h-0 rounded-lg bg-[#000000] dark:bg-[#f5f5f3] text-white dark:text-[#0b0b0a] text-xs font-medium hover:bg-[#595855] dark:hover:bg-[#dfdcd5] active:scale-95 transition-all cursor-pointer"
                   >
                     {lang === 'ar' ? 'حفظ الفقرة' : 'Save'}
                   </button>
