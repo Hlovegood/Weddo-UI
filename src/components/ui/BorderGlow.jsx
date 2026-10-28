@@ -203,13 +203,18 @@ export const BorderGlow = ({
 
     const cleanups = [];
     cleanups.push(animateValue({ duration: 500, onUpdate: v => card?.style.setProperty('--edge-proximity', v.toString()) }));
-    cleanups.push(animateValue({ ease: easeInCubic, duration: 1500, end: 50, onUpdate: v => {
-      card?.style.setProperty('--cursor-angle', `${(angleEnd - angleStart) * (v / 100) + angleStart}deg`);
-    }}));
-    cleanups.push(animateValue({ ease: easeOutCubic, delay: 1500, duration: 2250, start: 50, end: 100, onUpdate: v => {
-      card?.style.setProperty('--cursor-angle', `${(angleEnd - angleStart) * (v / 100) + angleStart}deg`);
-    }}));
-    cleanups.push(animateValue({ ease: easeInCubic, delay: 2500, duration: 1500, start: 100, end: 0,
+    cleanups.push(animateValue({
+      ease: easeInCubic, duration: 1500, end: 50, onUpdate: v => {
+        card?.style.setProperty('--cursor-angle', `${(angleEnd - angleStart) * (v / 100) + angleStart}deg`);
+      }
+    }));
+    cleanups.push(animateValue({
+      ease: easeOutCubic, delay: 1500, duration: 2250, start: 50, end: 100, onUpdate: v => {
+        card?.style.setProperty('--cursor-angle', `${(angleEnd - angleStart) * (v / 100) + angleStart}deg`);
+      }
+    }));
+    cleanups.push(animateValue({
+      ease: easeInCubic, delay: 2500, duration: 1500, start: 100, end: 0,
       onUpdate: v => card?.style.setProperty('--edge-proximity', v.toString()),
       onEnd: () => card?.classList.remove('sweep-active'),
     }));
@@ -223,8 +228,8 @@ export const BorderGlow = ({
   // Dark Theme: Radiant Luminous Egyptian Gold (#d4af37, #fbe8a6)
   // Light Theme: Royal Egyptian Sapphire Blue (#2563eb, #1d4ed8) - Complementary 5.5:1 contrast against linen
   const resolvedGlowColor = glowColor ?? (isDark ? '45 94 65' : '220 95 50');
-  const resolvedColors = colors ?? (isDark 
-    ? ['#fbe8a6', '#d4af37', '#e5c158', '#b38728'] 
+  const resolvedColors = colors ?? (isDark
+    ? ['#fbe8a6', '#d4af37', '#e5c158', '#b38728']
     : ['#1e40af', '#2563eb', '#38bdf8', '#0284c7', '#1d4ed8']);
 
   // Dynamic Background Resolution:
