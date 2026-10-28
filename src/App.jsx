@@ -19,6 +19,7 @@ import { Footer } from './components/Footer'
 import { Preloader } from './components/Preloader'
 import { NavigationPreloader } from './components/NavigationPreloader'
 import { LanguageTransition } from './components/LanguageTransition'
+import { AnimatedThemeToggler } from './components/ui/animated-theme-toggler'
 
 // Modals & Drawers
 import { VenueDetailsModal } from './components/VenueDetailsModal'
@@ -429,10 +430,14 @@ export default function App() {
         <Globe className={`w-5 h-5 transition-transform duration-500 ease-out ${langTransition.active ? 'rotate-180 scale-110 text-[#d4af37]' : 'group-hover:rotate-45'}`} />
       </button>
 
-      {/* 2. Dark & Light Mode Button next to the Bubble Menu CTA */}
-      <button
-        onClick={toggleTheme}
-        type="button"
+      {/* 2. Magic UI Animated Theme Toggler next to the Bubble Menu CTA */}
+      <AnimatedThemeToggler
+        theme={theme}
+        onThemeChange={(nextTheme) => {
+          setTheme(nextTheme)
+        }}
+        duration={500}
+        variant="circle"
         className="bubble w-12 h-12 rounded-full flex items-center justify-center text-[#000000] dark:text-[#f5f5f3] hover:scale-105 active:scale-95 transition-all cursor-pointer"
         title={
           theme === 'dark'
@@ -450,7 +455,7 @@ export default function App() {
         ) : (
           <Moon className="w-5 h-5 text-[#000000] transition-transform duration-300 hover:-rotate-12" />
         )}
-      </button>
+      </AnimatedThemeToggler>
     </>
   )
 
