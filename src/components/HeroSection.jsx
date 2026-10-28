@@ -5,8 +5,6 @@ import {
   ArrowUpRight,
   Sparkles, 
   Compass, 
-  ChevronRight, 
-  ChevronLeft,
   CheckCircle2,
   MapPin,
   Users,
@@ -349,29 +347,6 @@ export function HeroSection({
 
   const activeEstate = HERO_FEATURED_ESTATES[activeEstateIndex] || HERO_FEATURED_ESTATES[0]
 
-  // Direction Button Handlers: Navigate and highlight previous/next venue in 3D arc
-  const handlePrevVenue = () => {
-    sound.tap();
-    if (galleryRef.current?.prev) {
-      galleryRef.current.prev();
-    } else {
-      const total = HERO_FEATURED_ESTATES.length;
-      const prevIdx = activeEstateIndex <= 0 ? total - 1 : activeEstateIndex - 1;
-      setActiveEstateIndex(prevIdx);
-    }
-  };
-
-  const handleNextVenue = () => {
-    sound.tap();
-    if (galleryRef.current?.next) {
-      galleryRef.current.next();
-    } else {
-      const total = HERO_FEATURED_ESTATES.length;
-      const nextIdx = (activeEstateIndex + 1) % total;
-      setActiveEstateIndex(nextIdx);
-    }
-  };
-
   const scrollToSearch = () => {
     sound.tap()
     const el = document.getElementById('search-cockpit-anchor')
@@ -499,42 +474,6 @@ export function HeroSection({
         {/* 3. Bottom Hero Content: Full-Width Architectural Folio */}
         <div className="relative z-20 w-full max-w-full mx-auto px-4 sm:px-6 lg:px-10 xl:px-14 mt-auto flex flex-col">
           
-          {/* Top Toolbar: Label + Folio Count + Direction Arrows */}
-          <div className="flex items-center justify-between mb-2 px-2 sm:px-4">
-            
-            {/* Title & Folio Count */}
-            <div className="flex items-center gap-2 sm:gap-3">
-              <span className="text-xs sm:text-sm font-mono uppercase tracking-widest text-[#1c1b18] dark:text-white/95 font-medium transition-colors">
-                {lang === 'ar' ? 'معرض القصور الملكية المعمارية' : 'Sovereign Venues Folio'}
-              </span>
-              <span className="text-[10px] sm:text-xs text-[#d4af37] font-mono px-2 py-0.5 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-md border border-black/10 dark:border-white/15">
-                {activeEstateIndex + 1} / {HERO_FEATURED_ESTATES.length}
-              </span>
-            </div>
-
-            {/* Direction Arrow Buttons: Directly changes and highlights selected venue */}
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <button
-                type="button"
-                onClick={handlePrevVenue}
-                aria-label={lang === 'ar' ? 'عرض القصر السابق وتحديده' : 'Highlight previous estate'}
-                title={lang === 'ar' ? 'عرض القصر السابق وتحديده' : 'Highlight previous estate'}
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/80 dark:bg-black/45 hover:bg-white dark:hover:bg-black/75 backdrop-blur-md border border-[#dfdcd5] dark:border-white/25 text-[#1c1b18] dark:text-white flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
-              >
-                <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 rtl:rotate-180" />
-              </button>
-              <button
-                type="button"
-                onClick={handleNextVenue}
-                aria-label={lang === 'ar' ? 'عرض القصر التالي وتحديده' : 'Highlight next estate'}
-                title={lang === 'ar' ? 'عرض القصر التالي وتحديده' : 'Highlight next estate'}
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/80 dark:bg-black/45 hover:bg-white dark:hover:bg-black/75 backdrop-blur-md border border-[#dfdcd5] dark:border-white/25 text-[#1c1b18] dark:text-white flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
-              >
-                <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 rtl:rotate-180" />
-              </button>
-            </div>
-          </div>
-
           {/* CircularGallery 3D Venues Arc */}
           <div className="relative w-full h-[430px] xs:h-[460px] sm:h-[500px] md:h-[530px] lg:h-[560px] my-1 overflow-hidden select-none">
             <CircularGallery
