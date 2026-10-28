@@ -267,15 +267,20 @@ export function HeroSection({
   const hasMovedRef = useRef(false)
   const [isGrabbing, setIsGrabbing] = useState(false)
 
-  // Mobile Touch Scroll Snap Detection: updates active card index indicator
+  const isProgrammaticScrollRef = useRef(false)
+  const programmaticTimeoutRef = useRef(null)
+
+  // Mobile & Scroll Snap Detection: updates active card index indicator
   useEffect(() => {
     const container = scrollContainerRef.current
-    if (!container || !isMobile) return
+    if (!container) return
 
     let rafId
     const handleScroll = () => {
+      if (isProgrammaticScrollRef.current) return
       cancelAnimationFrame(rafId)
       rafId = requestAnimationFrame(() => {
+        if (isProgrammaticScrollRef.current) return
         const cards = container.children
         if (!cards || cards.length === 0) return
         const containerRect = container.getBoundingClientRect()
@@ -305,7 +310,7 @@ export function HeroSection({
       cancelAnimationFrame(rafId)
       container.removeEventListener('scroll', handleScroll)
     }
-  }, [isMobile, activeEstateIndex])
+  }, [activeEstateIndex])
 
   // Desktop Mouse Drag Handlers
   const handlePointerDown = (e) => {
@@ -347,34 +352,73 @@ export function HeroSection({
     try {
       e.currentTarget.releasePointerCapture(e.pointerId)
     } catch {}
+
+    if (hasMovedRef.current) {
+      // Find and highlight closest card after manual mouse drag
+      const container = scrollContainerRef.current
+      if (!container) return
+      const cards = container.children
+      if (!cards || cards.length === 0) return
+      const containerRect = container.getBoundingClientRect()
+      const containerCenter = containerRect.left + containerRect.width / 2
+
+      let closestIdx = 0
+      let minDiff = Infinity
+      for (let i = 0; i < cards.length; i++) {
+        const cardRect = cards[i].getBoundingClientRect()
+        const cardCenter = cardRect.left + cardRect.width / 2
+        const diff = Math.abs(containerCenter - cardCenter)
+        if (diff < minDiff) {
+          minDiff = diff
+          closestIdx = i
+        }
+      }
+      scrollToCardIndex(closestIdx)
+    }
   }
 
-  // Card Selection & Scroll To Card
+  // Card Selection & Scroll To Card (Highlights & Centers the Card)
   const handleCardClick = (idx) => {
     if (hasMovedRef.current) return
-    sound.tap()
     scrollToCardIndex(idx)
   }
 
   const scrollToCardIndex = (idx) => {
     sound.tap()
     setActiveEstateIndex(idx)
+
+    // Lock programmatic scroll to prevent interim scroll events from overriding highlight
+    isProgrammaticScrollRef.current = true
+    clearTimeout(programmaticTimeoutRef.current)
+    programmaticTimeoutRef.current = setTimeout(() => {
+      isProgrammaticScrollRef.current = false
+    }, 600)
+
     const container = scrollContainerRef.current
     if (!container) return
     const cards = container.children
     if (cards && cards[idx]) {
       const card = cards[idx]
-      const scrollPos = card.offsetLeft - (container.offsetWidth - card.offsetWidth) / 2
-      container.scrollTo({ left: scrollPos, behavior: 'smooth' })
+      const containerRect = container.getBoundingClientRect()
+      const cardRect = card.getBoundingClientRect()
+      const delta = (cardRect.left - containerRect.left) - (containerRect.width - cardRect.width) / 2
+      if (Math.abs(delta) > 1) {
+        container.scrollBy({ left: delta, behavior: 'smooth' })
+      }
     }
   }
 
-  const scrollByAmount = (offset) => {
-    sound.tap()
-    const container = scrollContainerRef.current
-    if (container) {
-      container.scrollBy({ left: lang === 'ar' ? -offset : offset, behavior: 'smooth' })
-    }
+  // Direction Button Handlers: Navigate and highlight previous/next venue
+  const handlePrevVenue = () => {
+    const total = HERO_FEATURED_ESTATES.length
+    const prevIdx = activeEstateIndex <= 0 ? total - 1 : activeEstateIndex - 1
+    scrollToCardIndex(prevIdx)
+  }
+
+  const handleNextVenue = () => {
+    const total = HERO_FEATURED_ESTATES.length
+    const nextIdx = (activeEstateIndex + 1) % total
+    scrollToCardIndex(nextIdx)
   }
 
   const scrollToSearch = () => {
@@ -492,23 +536,25 @@ export function HeroSection({
                 ))}
               </div>
 
-              {/* Desktop Scroll Arrow Buttons */}
-              <div className="hidden sm:flex items-center gap-2">
+              {/* Direction Arrow Buttons: Directly changes and highlights selected venue */}
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <button
                   type="button"
-                  onClick={() => scrollByAmount(-340)}
-                  aria-label="Scroll left"
-                  className="w-8 h-8 rounded-full bg-white/80 dark:bg-black/45 hover:bg-white dark:hover:bg-black/75 backdrop-blur-md border border-[#dfdcd5] dark:border-white/25 text-[#1c1b18] dark:text-white flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
+                  onClick={handlePrevVenue}
+                  aria-label={lang === 'ar' ? 'عرض القصر السابق وتحديده' : 'Highlight previous estate'}
+                  title={lang === 'ar' ? 'عرض القصر السابق وتحديده' : 'Highlight previous estate'}
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/80 dark:bg-black/45 hover:bg-white dark:hover:bg-black/75 backdrop-blur-md border border-[#dfdcd5] dark:border-white/25 text-[#1c1b18] dark:text-white flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
                 >
-                  <ChevronLeft className="w-4 h-4 rtl:rotate-180" />
+                  <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 rtl:rotate-180" />
                 </button>
                 <button
                   type="button"
-                  onClick={() => scrollByAmount(340)}
-                  aria-label="Scroll right"
-                  className="w-8 h-8 rounded-full bg-white/80 dark:bg-black/45 hover:bg-white dark:hover:bg-black/75 backdrop-blur-md border border-[#dfdcd5] dark:border-white/25 text-[#1c1b18] dark:text-white flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
+                  onClick={handleNextVenue}
+                  aria-label={lang === 'ar' ? 'عرض القصر التالي وتحديده' : 'Highlight next estate'}
+                  title={lang === 'ar' ? 'عرض القصر التالي وتحديده' : 'Highlight next estate'}
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/80 dark:bg-black/45 hover:bg-white dark:hover:bg-black/75 backdrop-blur-md border border-[#dfdcd5] dark:border-white/25 text-[#1c1b18] dark:text-white flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
                 >
-                  <ChevronRight className="w-4 h-4 rtl:rotate-180" />
+                  <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 rtl:rotate-180" />
                 </button>
               </div>
 
@@ -569,16 +615,20 @@ export function HeroSection({
                     {/* Solid Opaque Base Underlay */}
                     <div className="absolute inset-0 bg-[#12100d] pointer-events-none" />
 
-                    {/* Dimmed Card Thumbnail Image */}
+                    {/* Dimmed Card Thumbnail Image - highlighted card is illuminated */}
                     <img
                       src={estate.image}
                       alt={lang === 'ar' ? estate.titleAr : estate.titleEn}
                       draggable={false}
-                      className="absolute inset-0 w-full h-full object-cover object-center brightness-[0.70] group-hover:brightness-[0.82] group-hover:scale-105 transition-all duration-500 pointer-events-none select-none"
+                      className={`absolute inset-0 w-full h-full object-cover object-center ${
+                        isActive ? 'brightness-[0.82]' : 'brightness-[0.66]'
+                      } group-hover:brightness-[0.84] group-hover:scale-105 transition-all duration-500 pointer-events-none select-none`}
                     />
 
                     {/* Cinematic Ambient Dimming Scrim Layer */}
-                    <div className="absolute inset-0 bg-black/35 group-hover:bg-black/20 transition-colors duration-300 pointer-events-none" />
+                    <div className={`absolute inset-0 ${
+                      isActive ? 'bg-black/25' : 'bg-black/42'
+                    } group-hover:bg-black/20 transition-colors duration-300 pointer-events-none`} />
 
                     {/* Top Floating Glass Meta Bar */}
                     <div className="relative z-10 p-3 sm:p-3.5 flex items-center justify-between gap-1.5 pointer-events-none">
