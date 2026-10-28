@@ -21,18 +21,14 @@ const CLASSES = {
 };
 const STEPS = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
 const DEFAULT_ITEMS = [
-  { image: 'https://picsum.photos/seed/1/800/600', text: 'Bridge' },
-  { image: 'https://picsum.photos/seed/2/800/600', text: 'Desk Setup' },
-  { image: 'https://picsum.photos/seed/3/800/600', text: 'Waterfall' },
-  { image: 'https://picsum.photos/seed/4/800/600', text: 'Strawberries' },
-  { image: 'https://picsum.photos/seed/5/800/600', text: 'Deep Diving' },
-  { image: 'https://picsum.photos/seed/16/800/600', text: 'Train Track' },
-  { image: 'https://picsum.photos/seed/17/800/600', text: 'Santorini' },
-  { image: 'https://picsum.photos/seed/8/800/600', text: 'Blurry Lights' },
-  { image: 'https://picsum.photos/seed/9/800/600', text: 'New York' },
-  { image: 'https://picsum.photos/seed/10/800/600', text: 'Good Boy' },
-  { image: 'https://picsum.photos/seed/21/800/600', text: 'Coastline' },
-  { image: 'https://picsum.photos/seed/12/800/600', text: 'Palm Trees' }
+  { image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1000&q=80&auto=format&fit=crop', text: 'The Olive Garden' },
+  { image: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=1000&q=80&auto=format&fit=crop', text: 'Grand Nile Waterfront' },
+  { image: 'https://images.unsplash.com/photo-1544077960-604201fe74bc?w=1000&q=80&auto=format&fit=crop', text: 'Pyramids Terrace' },
+  { image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1000&q=80&auto=format&fit=crop', text: 'Summit Ballroom' },
+  { image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1000&q=80&auto=format&fit=crop', text: 'Azure Fountain Court' },
+  { image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1000&q=80&auto=format&fit=crop', text: 'Royal Cairo Grand Palace' },
+  { image: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1000&q=80&auto=format&fit=crop', text: 'Citadel Royal Pavilion' },
+  { image: 'https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=1000&q=80&auto=format&fit=crop', text: 'Royal Orangery Gardens' }
 ];
 
 const VERTEX = `#version 300 es
@@ -407,61 +403,114 @@ export const CircularGallery = forwardRef(({
     let lastItems = null;
     let typing = false;
 
+    const makeFallbackTexture = (label = 'Weddo Estate') => {
+      try {
+        const fbCanvas = document.createElement('canvas');
+        fbCanvas.width = 512;
+        fbCanvas.height = 700;
+        const ctx = fbCanvas.getContext('2d');
+        if (ctx) {
+          const grad = ctx.createRadialGradient(256, 350, 40, 256, 350, 400);
+          grad.addColorStop(0, '#2b261f');
+          grad.addColorStop(0.6, '#181512');
+          grad.addColorStop(1, '#0e0d0b');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, 512, 700);
+
+          ctx.strokeStyle = 'rgba(212, 175, 55, 0.45)';
+          ctx.lineWidth = 4;
+          ctx.strokeRect(20, 20, 472, 660);
+
+          ctx.fillStyle = '#d4af37';
+          ctx.font = '600 24px serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('WEDDO ROYAL ESTATE', 256, 340);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+          ctx.font = '16px sans-serif';
+          ctx.fillText(label || 'Egyptian Venue', 256, 375);
+        }
+        const texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, fbCanvas);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+        gl.generateMipmap(gl.TEXTURE_2D);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        return texture;
+      } catch {
+        return blank;
+      }
+    };
+
     const textureFor = url => {
       const existing = textures.get(url);
       if (existing) return existing;
       const entry = { texture: null, aspect: 1, ready: 0, loaded: false };
       textures.set(url, entry);
+
+      const applyImageToTexture = (img) => {
+        if (!textures.has(url) || entry.loaded) return;
+        try {
+          const texture = gl.createTexture();
+          gl.bindTexture(gl.TEXTURE_2D, texture);
+          gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+          gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+          gl.generateMipmap(gl.TEXTURE_2D);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+          if (anisotropy) {
+            const max = gl.getParameter(anisotropy.MAX_TEXTURE_MAX_ANISOTROPY_EXT);
+            gl.texParameterf(gl.TEXTURE_2D, anisotropy.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, max));
+          }
+          entry.texture = texture;
+          entry.aspect = (img.naturalWidth || img.width || 1) / Math.max(1, (img.naturalHeight || img.height || 1));
+          entry.loaded = true;
+          entry.ready = 1;
+          wake();
+        } catch (err) {
+          console.warn('[CircularGallery] Failed to upload texture:', url, err);
+          fallback();
+        }
+      };
+
+      const fallback = () => {
+        if (!textures.has(url) || entry.loaded) return;
+        entry.texture = makeFallbackTexture();
+        entry.aspect = 0.78;
+        entry.loaded = true;
+        entry.ready = 1;
+        wake();
+      };
+
       const image = new Image();
-      if (!url.startsWith('data:') && !url.startsWith('blob:') && (url.startsWith('http://') || url.startsWith('https://'))) {
+      if (!url.startsWith('data:') && !url.startsWith('blob:')) {
         image.crossOrigin = 'anonymous';
       }
       image.decoding = 'async';
-      image.onload = () => {
-        if (!textures.has(url)) return;
-        const texture = gl.createTexture();
-        gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
-        gl.generateMipmap(gl.TEXTURE_2D);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        if (anisotropy) {
-          const max = gl.getParameter(anisotropy.MAX_TEXTURE_MAX_ANISOTROPY_EXT);
-          gl.texParameterf(gl.TEXTURE_2D, anisotropy.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, max));
-        }
-        entry.texture = texture;
-        entry.aspect = image.naturalWidth / Math.max(1, image.naturalHeight);
-        entry.loaded = true;
-        wake();
-      };
+      image.onload = () => applyImageToTexture(image);
       image.onerror = () => {
         // If anonymous crossOrigin fails on relative images, retry without crossOrigin
         if (image.crossOrigin) {
           const retry = new Image();
           retry.decoding = 'async';
-          retry.onload = () => {
-            if (!textures.has(url)) return;
-            const texture = gl.createTexture();
-            gl.bindTexture(gl.TEXTURE_2D, texture);
-            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, retry);
-            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
-            gl.generateMipmap(gl.TEXTURE_2D);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-            entry.texture = texture;
-            entry.aspect = retry.naturalWidth / Math.max(1, retry.naturalHeight);
-            entry.loaded = true;
-            wake();
-          };
+          retry.onload = () => applyImageToTexture(retry);
+          retry.onerror = () => fallback();
           retry.src = url;
+        } else {
+          fallback();
         }
       };
       image.src = url;
+
+      // Handle already cached images immediately
+      if (image.complete && image.naturalWidth > 0) {
+        applyImageToTexture(image);
+      }
+
       return entry;
     };
 
@@ -590,7 +639,7 @@ export const CircularGallery = forwardRef(({
       gl.uniform1f(u.uFocal, view.height * 1.207 * ratio);
       gl.uniform1f(u.uWaveTime, state.waveTime);
       gl.uniform1f(u.uFade, s.fadeEdges);
-      gl.uniform3fv(u.uPlaceholder, parse(s.textColor));
+      gl.uniform3fv(u.uPlaceholder, [0.10, 0.09, 0.08]);
       gl.uniform3fv(u.uRingColor, parse(s.textColor));
       gl.uniform1f(u.uRingWidth, 2 * ratio);
       gl.uniform1f(u.uRingGap, 5 * ratio);
