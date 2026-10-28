@@ -74,6 +74,15 @@ uniform float uFade;
 uniform float uShadow;
 uniform float uBlur;
 uniform vec2 uShadowOffset;
+
+// Active Card Border & Atmospheric Glow
+uniform float uActiveGlow;
+uniform vec3 uGlowColor;
+uniform float uGlowRadius;
+uniform float uGlowIntensity;
+uniform vec3 uBorderColor;
+uniform float uBorderWidth;
+
 in vec2 vLocal;
 out vec4 outColor;
 
@@ -112,11 +121,44 @@ void main() {
   float luma = dot(color, vec3(0.2126, 0.7152, 0.0722));
   color = mix(color, vec3(luma), uGray) * (1.0 - uDim);
   float body = cover * mix(0.08, 1.0, uReady);
+
+  // Outer Bloom & Border Glow for Active Card
+  vec4 glowLayer = vec4(0.0);
+  vec4 borderLayer = vec4(0.0);
+  if (uActiveGlow > 0.001) {
+    // 1. Soft Outer Atmospheric Glow radiating outward from card perimeter
+    float dist = max(d, 0.0);
+    float maxR = max(uGlowRadius, 1.0);
+    if (dist < maxR) {
+      float coreT = clamp(dist / (maxR * 0.36), 0.0, 1.0);
+      float coreGlow = pow(1.0 - coreT, 1.8);
+      float auraT = clamp(dist / maxR, 0.0, 1.0);
+      float auraGlow = pow(1.0 - auraT, 2.8);
+      float glowVal = (coreGlow * 0.65 + auraGlow * 0.35) * uGlowIntensity * uActiveGlow;
+      float outerGlowAlpha = clamp(glowVal * (1.0 - cover), 0.0, 1.0);
+      glowLayer = vec4(uGlowColor * outerGlowAlpha, outerGlowAlpha);
+    }
+
+    // 2. Crisp Luminous Theme Border Framing along the inner perimeter
+    float bHalf = max(uBorderWidth * 0.5, 0.75);
+    float bDist = abs(d + bHalf) - bHalf;
+    float bAlpha = clamp(0.5 - bDist / pixel, 0.0, 1.0) * uActiveGlow * 0.95;
+    borderLayer = vec4(uBorderColor * bAlpha, bAlpha);
+  }
+
+  // Keyboard accessibility focus ring
   float band = abs(d - uRingGap - uRingWidth * 0.5) - uRingWidth * 0.5;
   float ring = clamp(0.5 - band / pixel, 0.0, 1.0) * uRing;
-  vec4 card = vec4(color * body, body);
   vec4 outline = vec4(uRingColor * ring, ring);
-  outColor = (card + outline * (1.0 - card.a)) * uAlpha * edgeFade();
+
+  // Layer Compositing (Premultiplied Alpha)
+  vec4 card = vec4(color * body, body);
+  vec4 composite = glowLayer;
+  composite = card + composite * (1.0 - card.a);
+  composite = borderLayer + composite * (1.0 - borderLayer.a);
+  composite = outline + composite * (1.0 - outline.a);
+
+  outColor = composite * uAlpha * edgeFade();
 }`;
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -225,6 +267,12 @@ export const CircularGallery = forwardRef(({
   items,
   bend = 3,
   textColor = '#ffffff',
+  activeGlow = true,
+  activeGlowColor = '#d4af37',
+  activeBorderColor = '#fbe8a6',
+  glowRadius = 32,
+  glowIntensity = 1.1,
+  borderWidth = 2.2,
   borderRadius = 0.05,
   font = DEFAULT_FONT,
   fontUrl,
@@ -263,6 +311,12 @@ export const CircularGallery = forwardRef(({
     items: list,
     bend,
     textColor,
+    activeGlow,
+    activeGlowColor,
+    activeBorderColor,
+    glowRadius: Math.max(0, glowRadius),
+    glowIntensity: Math.max(0, glowIntensity),
+    borderWidth: Math.max(0, borderWidth),
     borderRadius: clamp(borderRadius, 0, 0.5),
     scrollSpeed: Math.max(0, scrollSpeed),
     scrollEase: clamp(scrollEase, 0.001, 1),
@@ -293,6 +347,10 @@ export const CircularGallery = forwardRef(({
     close: () => engineRef.current?.close?.(),
     wake: () => engineRef.current?.wake?.()
   }));
+
+  useEffect(() => {
+    engineRef.current?.wake();
+  }, [activeGlow, activeGlowColor, activeBorderColor, glowRadius, glowIntensity, borderWidth, textColor]);
 
   useEffect(() => {
     let alive = true;
@@ -651,6 +709,21 @@ export const CircularGallery = forwardRef(({
       gl.uniform3fv(u.uRingColor, parse(s.textColor));
       gl.uniform1f(u.uRingWidth, 2 * ratio);
       gl.uniform1f(u.uRingGap, 5 * ratio);
+
+      // Active Card Border Glow & Atmospheric Radiance uniforms
+      const glowEnabled = s.activeGlow !== false;
+      const glowR = (s.glowRadius || 32);
+      const glowIntensity = s.glowIntensity != null ? s.glowIntensity : 1.1;
+      const glowColor = s.activeGlowColor || '#d4af37';
+      const borderColor = s.activeBorderColor || '#fbe8a6';
+      const borderWidth = (s.borderWidth || 2.2);
+
+      gl.uniform3fv(u.uGlowColor, parse(glowColor));
+      gl.uniform3fv(u.uBorderColor, parse(borderColor));
+      gl.uniform1f(u.uGlowRadius, glowR * ratio);
+      gl.uniform1f(u.uGlowIntensity, glowIntensity);
+      gl.uniform1f(u.uBorderWidth, borderWidth * ratio);
+
       gl.activeTexture(gl.TEXTURE0);
       gl.uniform1i(u.uTexture, 0);
       const count = SEGMENTS_X * SEGMENTS_Y * 6;
@@ -668,6 +741,7 @@ export const CircularGallery = forwardRef(({
         gl.uniform1f(u.uBlur, blur);
         gl.uniform2f(u.uShadowOffset, 0, -blur * 0.45);
         gl.uniform1f(u.uPad, blur * 1.6);
+        gl.uniform1f(u.uActiveGlow, 0);
         gl.bindTexture(gl.TEXTURE_2D, blank);
         cards.forEach(card => {
           place(card);
@@ -675,7 +749,8 @@ export const CircularGallery = forwardRef(({
         });
       }
       gl.uniform1f(u.uShadow, 0);
-      gl.uniform1f(u.uPad, 10 * ratio);
+      const cardPad = Math.max(12, glowR + 8) * ratio;
+      gl.uniform1f(u.uPad, cardPad);
       cards.forEach(card => {
         place(card);
         const entry = card.entry;
@@ -685,6 +760,16 @@ export const CircularGallery = forwardRef(({
         gl.uniform1f(u.uGray, card.gray);
         gl.uniform1f(u.uDim, card.dim);
         gl.uniform1f(u.uRing, card.slot === state.active ? state.ring * (1 - card.focus) : 0);
+
+        let activeGlowVal = 0;
+        if (glowEnabled) {
+          const order = Math.abs(card.slot * metrics.spacing - state.scroll) / Math.max(metrics.spacing, 1);
+          const t = Math.max(0, Math.min(1, 1 - order * 1.3));
+          const activeWeight = t * t * (3 - 2 * t);
+          activeGlowVal = activeWeight * (1 - card.focus);
+        }
+        gl.uniform1f(u.uActiveGlow, activeGlowVal);
+
         gl.drawElements(gl.TRIANGLES, count, gl.UNSIGNED_SHORT, 0);
       });
     };

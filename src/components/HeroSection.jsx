@@ -481,6 +481,12 @@ export function HeroSection({
               items={circularGalleryItems}
               bend={isMobile ? 2.2 : 2.8}
               textColor={isDark ? '#f5f5f3' : '#1c1b18'}
+              activeGlow={true}
+              activeGlowColor={isDark ? '#d4af37' : '#2563eb'}
+              activeBorderColor={isDark ? '#fbe8a6' : '#3b82f6'}
+              glowRadius={isMobile ? 24 : 32}
+              glowIntensity={isDark ? 1.05 : 1.35}
+              borderWidth={isMobile ? 2 : 2.4}
               borderRadius={0.06}
               scrollEase={0.06}
               scrollSpeed={isMobile ? 1.8 : 2}
