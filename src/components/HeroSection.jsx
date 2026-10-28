@@ -349,12 +349,6 @@ export function HeroSection({
 
   const activeEstate = HERO_FEATURED_ESTATES[activeEstateIndex] || HERO_FEATURED_ESTATES[0]
 
-  const scrollToCardIndex = (idx) => {
-    sound.tap();
-    setActiveEstateIndex(idx);
-    galleryRef.current?.focus?.(idx);
-  };
-
   // Direction Button Handlers: Navigate and highlight previous/next venue in 3D arc
   const handlePrevVenue = () => {
     sound.tap();
@@ -505,7 +499,7 @@ export function HeroSection({
         {/* 3. Bottom Hero Content: Full-Width Architectural Folio */}
         <div className="relative z-20 w-full max-w-full mx-auto px-4 sm:px-6 lg:px-10 xl:px-14 mt-auto flex flex-col">
           
-          {/* Top Toolbar: Label + Pagination Dots + Desktop Scroll Arrows */}
+          {/* Top Toolbar: Label + Folio Count + Direction Arrows */}
           <div className="flex items-center justify-between mb-2 px-2 sm:px-4">
             
             {/* Title & Folio Count */}
@@ -518,52 +512,26 @@ export function HeroSection({
               </span>
             </div>
 
-            {/* Controls: Interactive Pagination Dots + Desktop Arrow Buttons */}
-            <div className="flex items-center gap-2 sm:gap-3">
-              
-              {/* Interactive Pagination Dots with accessible touch targets */}
-              <div className="flex items-center gap-0.5 px-2 py-1 rounded-full bg-white/60 dark:bg-black/40 backdrop-blur-md border border-[#dfdcd5] dark:border-white/15 shadow-xs transition-colors">
-                {HERO_FEATURED_ESTATES.map((_, dotIdx) => (
-                  <button
-                    key={dotIdx}
-                    type="button"
-                    onClick={() => scrollToCardIndex(dotIdx)}
-                    aria-label={`Go to estate ${dotIdx + 1}`}
-                    className="p-1 flex items-center justify-center cursor-pointer transition-transform active:scale-90"
-                  >
-                    <span className={`block transition-all duration-300 rounded-full ${
-                      activeEstateIndex === dotIdx 
-                        ? (isDark 
-                            ? 'w-4 sm:w-5 h-2 bg-[#d4af37] shadow-[0_0_8px_#d4af37]' 
-                            : 'w-4 sm:w-5 h-2 bg-[#2563eb] shadow-[0_0_8px_rgba(37,99,235,0.7)]')
-                        : 'w-2 h-2 bg-black/25 dark:bg-white/40 hover:bg-black/50 dark:hover:bg-white/70'
-                    }`} />
-                  </button>
-                ))}
-              </div>
-
-              {/* Direction Arrow Buttons: Directly changes and highlights selected venue */}
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <button
-                  type="button"
-                  onClick={handlePrevVenue}
-                  aria-label={lang === 'ar' ? 'عرض القصر السابق وتحديده' : 'Highlight previous estate'}
-                  title={lang === 'ar' ? 'عرض القصر السابق وتحديده' : 'Highlight previous estate'}
-                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/80 dark:bg-black/45 hover:bg-white dark:hover:bg-black/75 backdrop-blur-md border border-[#dfdcd5] dark:border-white/25 text-[#1c1b18] dark:text-white flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
-                >
-                  <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 rtl:rotate-180" />
-                </button>
-                <button
-                  type="button"
-                  onClick={handleNextVenue}
-                  aria-label={lang === 'ar' ? 'عرض القصر التالي وتحديده' : 'Highlight next estate'}
-                  title={lang === 'ar' ? 'عرض القصر التالي وتحديده' : 'Highlight next estate'}
-                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/80 dark:bg-black/45 hover:bg-white dark:hover:bg-black/75 backdrop-blur-md border border-[#dfdcd5] dark:border-white/25 text-[#1c1b18] dark:text-white flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
-                >
-                  <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 rtl:rotate-180" />
-                </button>
-              </div>
-
+            {/* Direction Arrow Buttons: Directly changes and highlights selected venue */}
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <button
+                type="button"
+                onClick={handlePrevVenue}
+                aria-label={lang === 'ar' ? 'عرض القصر السابق وتحديده' : 'Highlight previous estate'}
+                title={lang === 'ar' ? 'عرض القصر السابق وتحديده' : 'Highlight previous estate'}
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/80 dark:bg-black/45 hover:bg-white dark:hover:bg-black/75 backdrop-blur-md border border-[#dfdcd5] dark:border-white/25 text-[#1c1b18] dark:text-white flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
+              >
+                <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 rtl:rotate-180" />
+              </button>
+              <button
+                type="button"
+                onClick={handleNextVenue}
+                aria-label={lang === 'ar' ? 'عرض القصر التالي وتحديده' : 'Highlight next estate'}
+                title={lang === 'ar' ? 'عرض القصر التالي وتحديده' : 'Highlight next estate'}
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/80 dark:bg-black/45 hover:bg-white dark:hover:bg-black/75 backdrop-blur-md border border-[#dfdcd5] dark:border-white/25 text-[#1c1b18] dark:text-white flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-sm"
+              >
+                <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 rtl:rotate-180" />
+              </button>
             </div>
           </div>
 
