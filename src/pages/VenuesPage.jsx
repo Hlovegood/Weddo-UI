@@ -159,15 +159,12 @@ export function VenuesPage({
           {/* Quick Stats Pill (Container above the search cockpit) with Interactive BorderGlow */}
           <BorderGlow
             edgeSensitivity={30}
-            glowColor="40 80 80"
-            backgroundColor="var(--card-bg)"
             borderRadius={16}
             glowRadius={35}
             glowIntensity={1.2}
             coneSpread={28}
             animated={true}
-            colors={['#d4af37', '#f59e0b', '#10b981']}
-            className="shrink-0 transition-colors"
+            className="shrink-0 transition-colors shadow-sm"
           >
             <div className="flex items-center gap-4 p-4">
               <div className="text-center px-3 border-r border-[#dfdcd5] dark:border-[#2e2d28] rtl:border-r-0 rtl:border-l">

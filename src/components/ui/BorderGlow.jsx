@@ -78,7 +78,7 @@ export const BorderGlow = ({
   className = '',
   edgeSensitivity = 30,
   glowColor,
-  backgroundColor = '#120F17',
+  backgroundColor,
   borderRadius = 28,
   glowRadius = 40,
   glowIntensity = 1.0,
@@ -227,8 +227,14 @@ export const BorderGlow = ({
     ? ['#fbe8a6', '#d4af37', '#e5c158', '#b38728'] 
     : ['#1e40af', '#2563eb', '#38bdf8', '#0284c7', '#1d4ed8']);
 
+  // Dynamic Background Resolution:
+  // Fall back to theme background if omitted, or if specified as var(--card-bg) / auto
+  const resolvedBg = (!backgroundColor || backgroundColor === 'var(--card-bg)' || backgroundColor === 'auto')
+    ? (isDark ? '#181715' : '#ffffff')
+    : backgroundColor;
+
   const glowVars = buildGlowVars(resolvedGlowColor, glowIntensity);
-  const lightSurface = isLightColor(backgroundColor);
+  const lightSurface = isLightColor(resolvedBg);
 
   return (
     <div
@@ -237,7 +243,7 @@ export const BorderGlow = ({
       onPointerLeave={handlePointerLeave}
       className={`border-glow-card${lightSurface ? ' border-glow-card--light' : ''} ${className}`}
       style={{
-        '--card-bg': backgroundColor,
+        '--card-bg': resolvedBg,
         '--edge-sensitivity': edgeSensitivity,
         '--border-radius': typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius,
         '--glow-padding': `${glowRadius}px`,

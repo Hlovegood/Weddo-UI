@@ -543,6 +543,7 @@ export default function App() {
               onNavigate={navigateTo}
               lang={lang}
               t={t}
+              theme={theme}
             />
           ) : currentRoute === 'venues' ? (
             <VenuesPage
@@ -559,6 +560,7 @@ export default function App() {
               onOpenCompare={() => setIsCompareOpen(true)}
               lang={lang}
               t={t}
+              theme={theme}
             />
           ) : currentRoute === 'planning' ? (
             <PlanningPage
@@ -597,6 +599,7 @@ export default function App() {
               onNavigate={navigateTo}
               lang={lang}
               t={t}
+              theme={theme}
             />
           )}
         </main>

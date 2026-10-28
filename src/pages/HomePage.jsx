@@ -29,8 +29,34 @@ export function HomePage({
   onQuickInquire,
   onNavigate,
   lang,
-  t
+  t,
+  theme
 }) {
+  const [currentTheme, setCurrentTheme] = React.useState(() => {
+    if (theme) return theme
+    if (typeof document !== 'undefined') {
+      return document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
+    }
+    return 'light'
+  })
+
+  React.useEffect(() => {
+    if (theme) {
+      setCurrentTheme(theme)
+      return
+    }
+    if (typeof document === 'undefined') return
+    const updateTheme = () => {
+      const active = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
+      setCurrentTheme(active)
+    }
+    updateTheme()
+    const observer = new MutationObserver(updateTheme)
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] })
+    return () => observer.disconnect()
+  }, [theme])
+
+  const isDark = currentTheme === 'dark'
   const featuredVenues = venues.slice(0, 3)
 
   return (
@@ -42,6 +68,7 @@ export function HomePage({
         onResetFilters={onResetFilters}
         lang={lang}
         t={t}
+        theme={currentTheme}
       />
 
       {/* 2. Bespoke Editorial Feature Launchpad */}
@@ -218,27 +245,27 @@ export function HomePage({
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <BorderGlow
           edgeSensitivity={30}
-          glowColor="40 80 80"
-          backgroundColor="var(--card-bg)"
+          glowColor={isDark ? "40 80 80" : "220 95 50"}
+          backgroundColor={isDark ? '#181715' : '#ffffff'}
           borderRadius={24}
           glowRadius={42}
-          glowIntensity={1.1}
+          glowIntensity={isDark ? 1.1 : 1.3}
           coneSpread={25}
           animated={false}
-          colors={['#d4af37', '#f472b6', '#38bdf8']}
-          className="transition-colors"
+          colors={isDark ? ['#d4af37', '#f472b6', '#38bdf8'] : ['#1e40af', '#2563eb', '#38bdf8']}
+          className="transition-colors duration-300 shadow-xl border border-black/5 dark:border-white/10"
         >
           <div className="p-8 sm:p-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#10b981]/15 text-[#10b981] flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#10b981]/15 text-[#10b981] flex items-center justify-center shrink-0 transition-colors">
                   <CheckCircle2 className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-serif text-lg text-[#000000] dark:text-[#f5f5f3] mb-1">
+                  <h4 className="font-serif text-lg text-[#000000] dark:text-[#f5f5f3] mb-1 transition-colors">
                     {lang === 'ar' ? 'أسعار إرشادية مباشرة' : 'Direct Transparent EGP Pricing'}
                   </h4>
-                  <p className="text-xs text-[#595855] dark:text-[#a8a69e] leading-relaxed">
+                  <p className="text-xs text-[#595855] dark:text-[#a8a69e] leading-relaxed transition-colors">
                     {lang === 'ar'
                       ? 'لا عمولات وسيطة مخفية. جميع باقات القاعات معلنة بأسعارها المعتمدة رسمياً وشاملة تجهيزات الصوت والخدمة.'
                       : 'Zero broker markups. All venue packages feature certified pricing and explicit amenity breakdowns.'}
@@ -247,14 +274,14 @@ export function HomePage({
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#3b82f6]/15 text-[#3b82f6] flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#3b82f6]/15 text-[#3b82f6] flex items-center justify-center shrink-0 transition-colors">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-serif text-lg text-[#000000] dark:text-[#f5f5f3] mb-1">
+                  <h4 className="font-serif text-lg text-[#000000] dark:text-[#f5f5f3] mb-1 transition-colors">
                     {lang === 'ar' ? 'تدقيق الحماية المدنية' : 'Civil Defense Fire Certified'}
                   </h4>
-                  <p className="text-xs text-[#595855] dark:text-[#a8a69e] leading-relaxed">
+                  <p className="text-xs text-[#595855] dark:text-[#a8a69e] leading-relaxed transition-colors">
                     {lang === 'ar'
                       ? 'نراجع شخصياً مخارج الطوارئ وعروض الممرات والمولدات الكهربائية الصامتة لضمان أمان ليلتك.'
                       : 'Every venue undergoes rigorous physical inspections of emergency egress, fire suppression, and backup power.'}
@@ -263,14 +290,14 @@ export function HomePage({
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#8b5cf6]/15 text-[#8b5cf6] flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#8b5cf6]/15 text-[#8b5cf6] flex items-center justify-center shrink-0 transition-colors">
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-serif text-lg text-[#000000] dark:text-[#f5f5f3] mb-1">
+                  <h4 className="font-serif text-lg text-[#000000] dark:text-[#f5f5f3] mb-1 transition-colors">
                     {lang === 'ar' ? 'تنسيق جلسات التذوق' : 'Private Tasting Coordination'}
                   </h4>
-                  <p className="text-xs text-[#595855] dark:text-[#a8a69e] leading-relaxed">
+                  <p className="text-xs text-[#595855] dark:text-[#a8a69e] leading-relaxed transition-colors">
                     {lang === 'ar'
                       ? 'حدد جلسة تذوق خاصة لقائمة الطعام في القاعة وقابل الشيف التنفيذي ومنسق الحفل قبل توقيع العقد.'
                       : 'Schedule private culinary tasting sessions with executive chefs before locking your contract.'}

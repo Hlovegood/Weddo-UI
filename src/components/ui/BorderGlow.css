@@ -6,6 +6,7 @@
   --border-radius: 28px;
   --glow-padding: 40px;
   --cone-spread: 25;
+  --card-bg: #181715;
 
   position: relative;
   border-radius: var(--border-radius);
@@ -13,8 +14,9 @@
   transform: translate3d(0, 0, 0.01px);
   display: grid;
   border: 1px solid rgb(255 255 255 / 15%);
-  background: var(--card-bg, #120F17);
+  background: var(--card-bg, #181715);
   overflow: visible;
+  transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow:
     rgba(0, 0, 0, 0.1) 0px 1px 2px,
     rgba(0, 0, 0, 0.1) 0px 2px 4px,
@@ -26,10 +28,12 @@
 
 .border-glow-card--light,
 :root:not(.dark) .border-glow-card {
+  --card-bg: #ffffff;
   border-color: rgb(24 24 27 / 12%);
   box-shadow:
     rgb(24 24 27 / 4%) 0 1px 2px,
-    rgb(24 24 27 / 5%) 0 8px 24px;
+    rgb(24 24 27 / 5%) 0 8px 24px,
+    rgb(24 24 27 / 3%) 0 16px 32px;
 }
 
 .border-glow-card--light::after,
@@ -61,7 +65,7 @@
 .border-glow-card::before {
   border: 1px solid transparent;
   background:
-    linear-gradient(var(--card-bg, #120F17) 0 100%) padding-box,
+    linear-gradient(var(--card-bg, #181715) 0 100%) padding-box,
     linear-gradient(rgb(255 255 255 / 0%) 0% 100%) border-box,
     var(--gradient-one, radial-gradient(at 80% 55%, hsla(268, 100%, 76%, 1) 0px, transparent 50%)) border-box,
     var(--gradient-two, radial-gradient(at 69% 34%, hsla(349, 100%, 74%, 1) 0px, transparent 50%)) border-box,
