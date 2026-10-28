@@ -18,6 +18,7 @@ import {
 import { SearchCockpit } from './SearchCockpit'
 import BorderGlow from './ui/BorderGlow'
 import GridMotion from './ui/GridMotion'
+import { TextAnimate } from './ui/text-animate'
 import { Badge } from './ui/badge'
 import { sound } from '../lib/sound'
 import { formatEGP } from '../lib/utils'
@@ -479,21 +480,47 @@ export function HeroSection({
           
           {/* Monumental Display Headline in Davinci Serif */}
           <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-[72px] font-normal text-[#1c1b18] dark:text-white tracking-[-0.03em] leading-[1.12] drop-shadow-sm transition-colors duration-300">
-            <span>
+            <TextAnimate
+              key={`hero-title-1-${lang}`}
+              by="word"
+              animation="blurInUp"
+              duration={0.4}
+              once={true}
+              as="span"
+              className="inline-block"
+            >
               {lang === 'ar' ? 'أرقى قصور وأفراح مصر التاريخية' : 'Unforgettable Royal Egyptian'}
-            </span>
+            </TextAnimate>
             <br />
-            <span className="italic font-normal text-[#1c1b18]/90 dark:text-white/95">
+            <TextAnimate
+              key={`hero-title-2-${lang}`}
+              by="word"
+              animation="blurInUp"
+              delay={0.18}
+              duration={0.4}
+              once={true}
+              as="span"
+              className="italic font-normal text-[#1c1b18]/90 dark:text-white/95 inline-block"
+            >
               {lang === 'ar' ? 'وقاعات القمم والمؤتمرات' : 'Wedding & Summit Experience'}
-            </span>
+            </TextAnimate>
           </h1>
 
           {/* Clean Editorial Subline */}
-          <p className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-[#595855] dark:text-white/85 max-w-2xl mx-auto font-sans leading-relaxed transition-colors duration-300">
+          <TextAnimate
+            key={`hero-sub-${lang}`}
+            by="word"
+            animation="fadeIn"
+            delay={0.36}
+            duration={0.6}
+            once={true}
+            as="p"
+            className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-[#595855] dark:text-white/85 max-w-2xl mx-auto font-sans leading-relaxed transition-colors duration-300"
+          >
             {lang === 'ar'
               ? 'دليلك المعتمد لأندر القصور الملكية وشرفات النيل وقاعات المؤتمرات بأسعار مباشرة بالجنيه وتأمين الحماية المدنية.'
               : 'Curated royal Nile ballrooms, historic Giza terraces, and executive summit auditoriums with verified direct EGP rates.'}
-          </p>
+          </TextAnimate>
         </div>
 
         {/* 3. Bottom Hero Content: Full-Width Architectural Folio */}
