@@ -221,9 +221,28 @@ export function HeroSection({
   setFilters,
   onResetFilters,
   lang,
-  t
+  t,
+  theme,
+  isPreloading = false
 }) {
   const [activeEstateIndex, setActiveEstateIndex] = useState(0)
+
+  // Animation synchronization: ensures hero typography animates only after preloader finishes
+  const [animationReady, setAnimationReady] = useState(() => !isPreloading)
+  const [animationCycle, setAnimationCycle] = useState(0)
+
+  useEffect(() => {
+    if (isPreloading) {
+      setAnimationReady(false)
+    } else {
+      // 100ms breathing room after preloader curtain wipe completes to synchronize render & paint
+      const timer = setTimeout(() => {
+        setAnimationReady(true)
+        setAnimationCycle(prev => prev + 1)
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [isPreloading])
 
   // Mobile Device & Accessibility Detection
   const [isMobile, setIsMobile] = useState(false)
@@ -480,47 +499,70 @@ export function HeroSection({
           
           {/* Monumental Display Headline in Davinci Serif */}
           <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-[72px] font-normal text-[#1c1b18] dark:text-white tracking-[-0.03em] leading-[1.12] drop-shadow-sm transition-colors duration-300">
-            <TextAnimate
-              key={`hero-title-1-${lang}`}
-              by="word"
-              animation="blurInUp"
-              duration={0.4}
-              once={true}
-              as="span"
-              className="inline-block"
-            >
-              {lang === 'ar' ? 'أرقى قصور وأفراح مصر التاريخية' : 'Unforgettable Royal Egyptian'}
-            </TextAnimate>
+            {animationReady ? (
+              <TextAnimate
+                key={`hero-title-1-${lang}-${animationCycle}`}
+                by="word"
+                animation="blurInUp"
+                duration={0.4}
+                startOnView={false}
+                once={true}
+                as="span"
+                className="inline-block"
+              >
+                {lang === 'ar' ? 'أرقى قصور وأفراح مصر التاريخية' : 'Unforgettable Royal Egyptian'}
+              </TextAnimate>
+            ) : (
+              <span className="inline-block opacity-0 select-none pointer-events-none">
+                {lang === 'ar' ? 'أرقى قصور وأفراح مصر التاريخية' : 'Unforgettable Royal Egyptian'}
+              </span>
+            )}
             <br />
-            <TextAnimate
-              key={`hero-title-2-${lang}`}
-              by="word"
-              animation="blurInUp"
-              delay={0.18}
-              duration={0.4}
-              once={true}
-              as="span"
-              className="italic font-normal text-[#1c1b18]/90 dark:text-white/95 inline-block"
-            >
-              {lang === 'ar' ? 'وقاعات القمم والمؤتمرات' : 'Wedding & Summit Experience'}
-            </TextAnimate>
+            {animationReady ? (
+              <TextAnimate
+                key={`hero-title-2-${lang}-${animationCycle}`}
+                by="word"
+                animation="blurInUp"
+                delay={0.18}
+                duration={0.4}
+                startOnView={false}
+                once={true}
+                as="span"
+                className="italic font-normal text-[#1c1b18]/90 dark:text-white/95 inline-block"
+              >
+                {lang === 'ar' ? 'وقاعات القمم والمؤتمرات' : 'Wedding & Summit Experience'}
+              </TextAnimate>
+            ) : (
+              <span className="italic font-normal text-[#1c1b18]/90 dark:text-white/95 inline-block opacity-0 select-none pointer-events-none">
+                {lang === 'ar' ? 'وقاعات القمم والمؤتمرات' : 'Wedding & Summit Experience'}
+              </span>
+            )}
           </h1>
 
           {/* Clean Editorial Subline */}
-          <TextAnimate
-            key={`hero-sub-${lang}`}
-            by="word"
-            animation="fadeIn"
-            delay={0.36}
-            duration={0.6}
-            once={true}
-            as="p"
-            className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-[#595855] dark:text-white/85 max-w-2xl mx-auto font-sans leading-relaxed transition-colors duration-300"
-          >
-            {lang === 'ar'
-              ? 'دليلك المعتمد لأندر القصور الملكية وشرفات النيل وقاعات المؤتمرات بأسعار مباشرة بالجنيه وتأمين الحماية المدنية.'
-              : 'Curated royal Nile ballrooms, historic Giza terraces, and executive summit auditoriums with verified direct EGP rates.'}
-          </TextAnimate>
+          {animationReady ? (
+            <TextAnimate
+              key={`hero-sub-${lang}-${animationCycle}`}
+              by="word"
+              animation="fadeIn"
+              delay={0.36}
+              duration={0.6}
+              startOnView={false}
+              once={true}
+              as="p"
+              className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-[#595855] dark:text-white/85 max-w-2xl mx-auto font-sans leading-relaxed transition-colors duration-300"
+            >
+              {lang === 'ar'
+                ? 'دليلك المعتمد لأندر القصور الملكية وشرفات النيل وقاعات المؤتمرات بأسعار مباشرة بالجنيه وتأمين الحماية المدنية.'
+                : 'Curated royal Nile ballrooms, historic Giza terraces, and executive summit auditoriums with verified direct EGP rates.'}
+            </TextAnimate>
+          ) : (
+            <p className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-[#595855] dark:text-white/85 max-w-2xl mx-auto font-sans leading-relaxed transition-colors duration-300 opacity-0 select-none pointer-events-none">
+              {lang === 'ar'
+                ? 'دليلك المعتمد لأندر القصور الملكية وشرفات النيل وقاعات المؤتمرات بأسعار مباشرة بالجنيه وتأمين الحماية المدنية.'
+                : 'Curated royal Nile ballrooms, historic Giza terraces, and executive summit auditoriums with verified direct EGP rates.'}
+            </p>
+          )}
         </div>
 
         {/* 3. Bottom Hero Content: Full-Width Architectural Folio */}

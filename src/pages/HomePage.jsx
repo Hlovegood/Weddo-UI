@@ -30,7 +30,8 @@ export function HomePage({
   onNavigate,
   lang,
   t,
-  theme
+  theme,
+  isPreloading = false
 }) {
   const [currentTheme, setCurrentTheme] = React.useState(() => {
     if (theme) return theme
@@ -69,6 +70,7 @@ export function HomePage({
         lang={lang}
         t={t}
         theme={currentTheme}
+        isPreloading={isPreloading}
       />
 
       {/* 2. Bespoke Editorial Feature Launchpad */}

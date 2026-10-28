@@ -549,6 +549,7 @@ export default function App() {
               lang={lang}
               t={t}
               theme={theme}
+              isPreloading={showPreloader || navTransition.active}
             />
           ) : currentRoute === 'venues' ? (
             <VenuesPage
@@ -605,6 +606,7 @@ export default function App() {
               lang={lang}
               t={t}
               theme={theme}
+              isPreloading={showPreloader || navTransition.active}
             />
           )}
         </main>
