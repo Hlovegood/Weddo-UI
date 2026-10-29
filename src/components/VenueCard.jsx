@@ -130,7 +130,7 @@ export function VenueCard({
       exit={{ opacity: 0, scale: 0.96 }}
       transition={{ type: 'spring', damping: 25, stiffness: 280 }}
       whileHover={{ y: -6 }}
-      className="group relative rounded-[9px] bg-[#e7e5e4] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-[#000000]/[0.08] dark:hover:shadow-black/50 hover:border-[#000000] dark:hover:border-[#f5f5f3] will-change-transform"
+      className="group relative rounded-[9px] bg-[#e7e5e4] dark:bg-[#1c1b18] border border-[#dfdcd5] dark:border-[#2e2d28] overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-[#000000]/[0.08] dark:hover:shadow-black/50 hover:border-[#000000] dark:hover:border-[#f5f5f3] will-change-transform @container"
       style={{ transformStyle: 'preserve-3d' }}
     >
 
@@ -305,26 +305,28 @@ export function VenueCard({
         </div>
 
         {/* Card Footer: Starting Price & Primary CTA */}
-        <div className="pt-4 border-t border-[#dfdcd5] dark:border-[#2e2d28] flex items-center justify-between gap-2.5">
-          <div className="flex flex-col min-w-0 flex-1">
-            <span className="text-[11px] font-mono rtl:font-sans text-[#595855] dark:text-[#a8a69e] uppercase rtl:normal-case tracking-wider rtl:tracking-normal truncate">
-              {t.fromPrice}
+        <div className="pt-4 border-t border-[#dfdcd5] dark:border-[#2e2d28] flex flex-col @[440px]:flex-row @[440px]:items-center justify-between gap-3">
+          {/* Price Block: Spans row on narrow cards; stacks vertically on wide cards */}
+          <div className="flex items-baseline justify-between @[440px]:flex-col @[440px]:justify-start @[440px]:items-start min-w-0">
+            <span className="text-[11px] font-mono rtl:font-sans text-[#595855] dark:text-[#a8a69e] uppercase rtl:normal-case tracking-wider rtl:tracking-normal">
+              {lang === 'ar' ? 'تبدأ الباقات من' : 'Starting from'}
             </span>
             <span className="text-[16px] sm:text-[17px] font-serif rtl:font-sans font-semibold sm:font-normal tracking-tight rtl:tracking-normal text-[#000000] dark:text-[#f5f5f3] whitespace-nowrap">
               {formatEGP(lowestPrice, lang)}
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Action Buttons: 2-column balanced grid on narrow cards; inline auto-width on wide cards */}
+          <div className="grid grid-cols-2 @[440px]:flex items-center gap-2 shrink-0">
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => {
                 sound.pop()
                 onSelectDetails(venue)
               }}
-              className="tap-bounce px-3 sm:px-3.5 py-2 min-h-[38px] rounded-[28.8px] text-[11px] sm:text-xs font-medium bg-white dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] hover:bg-[#dfdcd5] dark:hover:bg-[#34332e] border border-[#dfdcd5] dark:border-[#2e2d28] transition-colors cursor-pointer select-none whitespace-nowrap"
+              className="tap-bounce px-3 sm:px-3.5 py-2 min-h-[38px] rounded-[28.8px] text-[11px] sm:text-xs font-medium bg-white dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] hover:bg-[#dfdcd5] dark:hover:bg-[#34332e] border border-[#dfdcd5] dark:border-[#2e2d28] transition-colors cursor-pointer select-none whitespace-nowrap flex items-center justify-center text-center"
             >
-              {lang === 'ar' ? 'التفاصيل' : t.viewDetails}
+              {lang === 'ar' ? 'التفاصيل' : 'Details'}
             </motion.button>
 
             {/* Primary Request Date Action */}
@@ -337,9 +339,9 @@ export function VenueCard({
                     sound.pop()
                     onQuickInquire(venue)
                   }}
-                  className="tap-bounce btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] text-[11px] sm:text-xs min-h-[38px] px-3.5 sm:px-4 flex items-center gap-1.5 shadow-xs cursor-pointer select-none whitespace-nowrap group/cta"
+                  className="tap-bounce btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] text-[11px] sm:text-xs min-h-[38px] px-3.5 sm:px-4 flex items-center justify-center gap-1.5 shadow-xs cursor-pointer select-none whitespace-nowrap group/cta"
                 >
-                  <span>{lang === 'ar' ? 'طلب حجز' : t.quickInquire}</span>
+                  <span>{lang === 'ar' ? 'طلب حجز' : 'Request Date'}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#ffffff] dark:text-[#0b0b0a] rtl:-scale-x-100 transition-transform duration-200 group-hover/cta:translate-x-0.5 rtl:group-hover/cta:-translate-x-0.5 group-hover/cta:-translate-y-0.5 shrink-0" />
                 </motion.button>
               </TooltipTrigger>
