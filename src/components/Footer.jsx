@@ -21,7 +21,7 @@ export function Footer({ lang, t, onReplayPreloader }) {
   }
 
   return (
-    <footer className="bg-[#ebebeb] dark:bg-[#121210] border-t border-[#dfdcd5] dark:border-[#2e2d28] pt-16 pb-12 transition-colors text-[#000000] dark:text-[#f5f5f3]">
+    <footer className="bg-[#c4c3b6] dark:bg-[#121210] border-t border-[#dfdcd5] dark:border-[#2e2d28] pt-16 pb-12 transition-colors text-[#000000] dark:text-[#f5f5f3]">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Footer Grid */}

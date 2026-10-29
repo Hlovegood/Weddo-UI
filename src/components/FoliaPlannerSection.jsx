@@ -248,7 +248,7 @@ export function FoliaPlannerSection({ lang, t }) {
   const totalSeated = tables.reduce((sum, tb) => sum + tb.occupied, 0)
 
   return (
-    <section id="folia-suite" className="py-16 md:py-24 bg-[#c4c3b6]/20 dark:bg-[#121210] text-[#000000] dark:text-[#f5f5f3] relative overflow-hidden transition-colors border-y border-[#dfdcd5] dark:border-[#2e2d28]">
+    <section id="folia-suite" className="py-6 md:py-10 text-[#000000] dark:text-[#f5f5f3] relative overflow-hidden transition-colors">
       
       {/* Background Architectural Grid Pattern */}
       <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.04] pointer-events-none bg-[radial-gradient(currentColor_1px,transparent_1px)] [background-size:24px_24px]" />

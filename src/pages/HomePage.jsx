@@ -96,10 +96,10 @@ export function HomePage({
           {/* Card 1: Venues Catalog */}
           <div 
             onClick={() => onNavigate('/venues')}
-            className="group cursor-pointer bg-[#ffffff] dark:bg-[#1c1b18] p-6 sm:p-7 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
+            className="group cursor-pointer bg-[#e7e5e4] dark:bg-[#1c1b18] p-6 sm:p-7 rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-[#c4c3b6]/30 dark:bg-[#282723] flex items-center justify-center text-[#000000] dark:text-[#f5f5f3] mb-5 group-hover:scale-110 group-hover:bg-[#000000] group-hover:text-[#ffffff] dark:group-hover:bg-[#f5f5f3] dark:group-hover:text-[#0b0b0a] transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-[#c4c3b6]/50 dark:bg-[#282723] flex items-center justify-center text-[#000000] dark:text-[#f5f5f3] mb-5 group-hover:scale-110 group-hover:bg-[#000000] group-hover:text-[#ffffff] dark:group-hover:bg-[#f5f5f3] dark:group-hover:text-[#0b0b0a] transition-all duration-300">
                 <Building2 className="w-6 h-6" />
               </div>
               <span className="font-mono text-[11px] uppercase tracking-wider text-[#595855] dark:text-[#a8a69e] block mb-1">
@@ -114,7 +114,7 @@ export function HomePage({
                   : 'Full catalog with multi-facet filters, 360° virtual tours, transparent EGP price bands, and direct tasting bookings.'}
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-xs font-medium text-[#000000] dark:text-[#f5f5f3]">
+            <div className="mt-6 pt-4 border-t border-[#dfdcd5] dark:border-[#2e2d28] flex items-center justify-between text-xs font-medium text-[#000000] dark:text-[#f5f5f3]">
               <span>{lang === 'ar' ? 'عرض القاعات (٨)' : 'Explore All Venues'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform rtl:rotate-180" />
             </div>
@@ -123,7 +123,7 @@ export function HomePage({
           {/* Card 2: Folia Planning Suite */}
           <div 
             onClick={() => onNavigate('/planning')}
-            className="group cursor-pointer bg-[#ffffff] dark:bg-[#1c1b18] p-6 sm:p-7 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
+            className="group cursor-pointer bg-[#e7e5e4] dark:bg-[#1c1b18] p-6 sm:p-7 rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               <div className="w-12 h-12 rounded-xl bg-[#10b981]/15 flex items-center justify-center text-[#10b981] mb-5 group-hover:scale-110 group-hover:bg-[#10b981] group-hover:text-[#ffffff] transition-all duration-300">
@@ -141,7 +141,7 @@ export function HomePage({
                   : 'Interactive seating canvas, curated palette swatches, live EGP budget sliders, and vendor milestone tracking.'}
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-xs font-medium text-[#000000] dark:text-[#f5f5f3]">
+            <div className="mt-6 pt-4 border-t border-[#dfdcd5] dark:border-[#2e2d28] flex items-center justify-between text-xs font-medium text-[#000000] dark:text-[#f5f5f3]">
               <span>{lang === 'ar' ? 'فتح الستوديو' : 'Launch Studio'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform rtl:rotate-180" />
             </div>
@@ -150,7 +150,7 @@ export function HomePage({
           {/* Card 3: Pricing & Membership */}
           <div 
             onClick={() => onNavigate('/pricing')}
-            className="group cursor-pointer bg-[#ffffff] dark:bg-[#1c1b18] p-6 sm:p-7 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
+            className="group cursor-pointer bg-[#e7e5e4] dark:bg-[#1c1b18] p-6 sm:p-7 rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               <div className="w-12 h-12 rounded-xl bg-[#f59e0b]/15 flex items-center justify-center text-[#f59e0b] mb-5 group-hover:scale-110 group-hover:bg-[#f59e0b] group-hover:text-[#ffffff] transition-all duration-300">
@@ -168,7 +168,7 @@ export function HomePage({
                   : 'Transparent membership plans, fee waivers, private concierge support, and legal permit handling comparison.'}
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-xs font-medium text-[#000000] dark:text-[#f5f5f3]">
+            <div className="mt-6 pt-4 border-t border-[#dfdcd5] dark:border-[#2e2d28] flex items-center justify-between text-xs font-medium text-[#000000] dark:text-[#f5f5f3]">
               <span>{lang === 'ar' ? 'مقارنة الباقات' : 'Compare Plans'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform rtl:rotate-180" />
             </div>
@@ -177,7 +177,7 @@ export function HomePage({
           {/* Card 4: Safety & Compliance Hub */}
           <div 
             onClick={() => onNavigate('/compliance')}
-            className="group cursor-pointer bg-[#ffffff] dark:bg-[#1c1b18] p-6 sm:p-7 rounded-2xl border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
+            className="group cursor-pointer bg-[#e7e5e4] dark:bg-[#1c1b18] p-6 sm:p-7 rounded-2xl border border-[#dfdcd5] dark:border-[#2e2d28] hover:border-black/30 dark:hover:border-white/30 shadow-sm hover:shadow-xl active:scale-[0.98] transition-all duration-300 flex flex-col justify-between"
           >
             <div>
               <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/15 flex items-center justify-center text-[#8b5cf6] mb-5 group-hover:scale-110 group-hover:bg-[#8b5cf6] group-hover:text-[#ffffff] transition-all duration-300">
@@ -195,7 +195,7 @@ export function HomePage({
                   : 'Ministry of Tourism licensing checks, Civil Defense fire standards, decibel acoustic limits, and generator backup audits.'}
               </p>
             </div>
-            <div className="mt-6 pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-xs font-medium text-[#000000] dark:text-[#f5f5f3]">
+            <div className="mt-6 pt-4 border-t border-[#dfdcd5] dark:border-[#2e2d28] flex items-center justify-between text-xs font-medium text-[#000000] dark:text-[#f5f5f3]">
               <span>{lang === 'ar' ? 'دليل المعايير' : 'View Standards'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform rtl:rotate-180" />
             </div>
@@ -204,7 +204,7 @@ export function HomePage({
       </section>
 
       {/* 3. Featured Flagship Estates Preview */}
-      <section className="bg-[#dfdcd5]/40 dark:bg-[#181715]/60 py-20 border-y border-black/10 dark:border-white/10 transition-colors">
+      <section className="py-20 border-t border-[#dfdcd5] dark:border-[#2e2d28] transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
@@ -244,18 +244,18 @@ export function HomePage({
       </section>
 
       {/* 4. Trust Manifesto & Egyptian Quality Pillars with Interactive BorderGlow */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-[#dfdcd5] dark:border-[#2e2d28]">
         <BorderGlow
           edgeSensitivity={30}
           glowColor={isDark ? "40 80 80" : "220 95 50"}
-          backgroundColor={isDark ? '#181715' : '#ffffff'}
+          backgroundColor={isDark ? '#1c1b18' : '#e7e5e4'}
           borderRadius={24}
           glowRadius={42}
           glowIntensity={isDark ? 1.1 : 1.3}
           coneSpread={25}
           animated={false}
           colors={isDark ? ['#d4af37', '#f472b6', '#38bdf8'] : ['#1e40af', '#2563eb', '#38bdf8']}
-          className="transition-colors duration-300 shadow-xl border border-black/5 dark:border-white/10"
+          className="transition-colors duration-300 shadow-xl border border-[#dfdcd5] dark:border-[#2e2d28]"
         >
           <div className="p-6 sm:p-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

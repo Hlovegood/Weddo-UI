@@ -147,8 +147,8 @@ export function VenueCard({
         {/* Top Badges & Actions */}
         <div className="absolute top-4 inset-x-4 flex items-center justify-between z-10">
           {badgeText ? (
-            <Badge variant="live" pulse={true} className="shadow-md">
-              <Sparkles className="w-3 h-3 text-[#dfdcd5]" />
+            <Badge variant="live" pulse={true} className="shadow-md rtl:tracking-normal rtl:font-sans">
+              <Sparkles className="w-3 h-3 text-[#dfdcd5] shrink-0" />
               <span>{badgeText}</span>
             </Badge>
           ) : <div />}
@@ -166,11 +166,11 @@ export function VenueCard({
                     : 'bg-white/85 text-[#000000] hover:bg-white dark:bg-[#1c1b18]/90 dark:text-[#f5f5f3] dark:hover:bg-[#282723]'
                     }`}
                 >
-                  <Scale className="w-4 h-4" />
+                  <Scale className="w-4 h-4 shrink-0" />
                 </motion.button>
               </TooltipTrigger>
               <TooltipContent side="top">
-                <p>{isCompared ? t.removeFromCompare : t.addToCompare}</p>
+                <p className="rtl:font-sans">{isCompared ? t.removeFromCompare : t.addToCompare}</p>
               </TooltipContent>
             </Tooltip>
 
@@ -186,27 +186,33 @@ export function VenueCard({
                     : 'bg-white/85 text-[#000000] hover:bg-white dark:bg-[#1c1b18]/90 dark:text-[#f5f5f3] dark:hover:bg-[#282723]'
                     }`}
                 >
-                  <Heart className={`w-4 h-4 ${isShortlisted ? 'fill-[#e11d48] text-[#e11d48]' : ''}`} />
+                  <Heart className={`w-4 h-4 shrink-0 ${isShortlisted ? 'fill-[#e11d48] text-[#e11d48]' : ''}`} />
                 </motion.button>
               </TooltipTrigger>
               <TooltipContent side="top">
-                <p>{isShortlisted ? t.savedToShortlist : t.saveToShortlist}</p>
+                <p className="rtl:font-sans">{isShortlisted ? t.savedToShortlist : t.saveToShortlist}</p>
               </TooltipContent>
             </Tooltip>
           </div>
         </div>
 
-        {/* Bottom Banner on Image: Area & Rating */}
-        <div className="absolute bottom-3 inset-x-4 flex items-center justify-between text-white z-10">
-          <div className="flex items-center gap-1.5 text-[12px] font-medium bg-[#000000]/80 dark:bg-[#121210]/90 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 dark:border-white/20 shadow-xs">
-            <MapPin className="w-3.5 h-3.5 text-[#dfdcd5]" />
-            <span className="truncate max-w-[170px]">{address}</span>
+        {/* Bottom Banner on Image: Area & Rating with BiDi Protection */}
+        <div className="absolute bottom-3 inset-x-4 flex items-center justify-between text-white z-10 gap-2">
+          <div className="flex items-center gap-1.5 text-[12px] font-medium bg-[#000000]/80 dark:bg-[#121210]/90 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 dark:border-white/20 shadow-xs min-w-0 max-w-[65%]">
+            <MapPin className="w-3.5 h-3.5 text-[#dfdcd5] shrink-0" />
+            <span className="truncate rtl:font-sans">{address}</span>
           </div>
 
-          <div className="flex items-center gap-1 text-[12px] font-semibold bg-[#000000]/80 dark:bg-[#121210]/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 dark:border-white/20 shadow-xs">
-            <Star className="w-3.5 h-3.5 text-[#f59e0b] fill-[#f59e0b]" />
-            <span>{venue.rating}</span>
-            <span className="text-white/60 font-normal">({venue.reviewsCount})</span>
+          <div className="flex items-center gap-1 text-[12px] font-semibold bg-[#000000]/80 dark:bg-[#121210]/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 dark:border-white/20 shadow-xs shrink-0">
+            <Star className="w-3.5 h-3.5 text-[#f59e0b] fill-[#f59e0b] shrink-0" />
+            <span>
+              {lang === 'ar'
+                ? venue.rating.toLocaleString('ar-EG', { minimumFractionDigits: 1, maximumFractionDigits: 2 })
+                : venue.rating}
+            </span>
+            <span className="text-white/70 font-normal font-sans" dir="ltr">
+              <bdi>({lang === 'ar' ? venue.reviewsCount.toLocaleString('ar-EG') : venue.reviewsCount})</bdi>
+            </span>
           </div>
         </div>
       </div>
@@ -214,7 +220,7 @@ export function VenueCard({
       {/* Card Content Area */}
       <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
         <div>
-          {/* Title in Serif Davinci Playfair with HoverCard Live Inspection */}
+          {/* Title in Serif with HoverCard Live Inspection */}
           <HoverCard>
             <HoverCardTrigger asChild>
               <h3
@@ -222,12 +228,12 @@ export function VenueCard({
                   sound.pop()
                   onSelectDetails(venue)
                 }}
-                className="font-serif text-2xl font-normal tracking-[-0.02em] text-[#000000] dark:text-[#f5f5f3] hover:opacity-75 transition-opacity cursor-pointer leading-[1.2] mb-2.5 inline-block"
+                className="font-serif text-2xl font-normal tracking-[-0.02em] rtl:tracking-normal rtl:leading-[1.35] text-[#000000] dark:text-[#f5f5f3] hover:opacity-75 transition-opacity cursor-pointer leading-[1.2] mb-2.5 inline-block"
               >
                 {name}
               </h3>
             </HoverCardTrigger>
-            <HoverCardContent side="top" className="w-80">
+            <HoverCardContent side="top" className="w-80 rtl:text-right">
               <div className="flex items-start gap-3">
                 <img
                   src={venue.coverPhoto}
@@ -236,14 +242,14 @@ export function VenueCard({
                 />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                    <span className="text-[11px] font-semibold tracking-wide uppercase text-emerald-700 dark:text-emerald-400">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <span className="text-[11px] font-semibold tracking-wide uppercase rtl:tracking-normal rtl:normal-case text-emerald-700 dark:text-emerald-400">
                       {lang === 'ar' ? 'معتمد رسمياً' : 'Verified Partner'}
                     </span>
                   </div>
                   <h4 className="text-xs font-semibold text-[#000000] dark:text-[#f5f5f3] truncate mt-0.5">{name}</h4>
                   <p className="text-[11px] text-[#595855] dark:text-[#a8a69e] flex items-center gap-1 mt-1">
-                    <Clock className="w-3 h-3" />
+                    <Clock className="w-3 h-3 shrink-0" />
                     <span>{lang === 'ar' ? 'متوسط الرد: ١٢ دقيقة' : 'Avg reply: ~12 mins'}</span>
                   </p>
                 </div>
@@ -251,48 +257,60 @@ export function VenueCard({
               <div className="mt-3 pt-2.5 border-t border-[#dfdcd5] dark:border-[#2e2d28] text-[11px] text-[#595855] dark:text-[#a8a69e] grid grid-cols-2 gap-1.5">
                 <span className="flex items-center gap-1">✓ {lang === 'ar' ? 'تصريح صوت معتمد' : 'Sound permit verified'}</span>
                 <span className="flex items-center gap-1">✓ {lang === 'ar' ? 'فيلا تحضير للعروس' : 'Bridal suite access'}</span>
-                <span className="flex items-center gap-1">✓ {lang === 'ar' ? 'خدمة فالي باركينج' : 'Valet parking included'}</span>
+                <span className="flex items-center gap-1">✓ {lang === 'ar' ? 'خدمة صف سيارات' : 'Valet parking included'}</span>
                 <span className="flex items-center gap-1">✓ {lang === 'ar' ? 'تذوق مجاني للباقة' : 'Complimentary tasting'}</span>
               </div>
             </HoverCardContent>
           </HoverCard>
 
           {/* Body summary */}
-          <p className="text-[14px] text-[#595855] dark:text-[#a8a69e] leading-[1.5] line-clamp-2 mb-5 font-sans">
+          <p className="text-[14px] text-[#595855] dark:text-[#a8a69e] leading-[1.5] rtl:leading-[1.7] rtl:text-[13.5px] line-clamp-2 mb-5 font-sans">
             {summary}
           </p>
 
           {/* Spaces & Capacity Snapshot */}
           <div className="grid grid-cols-2 gap-2 p-3.5 rounded-[9px] bg-[#dfdcd5]/40 dark:bg-[#282723]/60 border border-[#dfdcd5] dark:border-[#2e2d28] mb-6">
             <div className="flex flex-col">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#595855] dark:text-[#a8a69e]">
+              <span className="text-[11px] font-mono rtl:font-sans uppercase rtl:normal-case tracking-wider rtl:tracking-normal text-[#595855] dark:text-[#a8a69e]">
                 {lang === 'ar' ? 'المساحات' : 'Spaces'}
               </span>
               <span className="text-[13px] font-medium text-[#000000] dark:text-[#f5f5f3] flex items-center gap-1.5 mt-0.5">
-                <Building2 className="w-3.5 h-3.5 text-[#000000] dark:text-[#f5f5f3]" />
-                <span>{venue.spaces?.length} {lang === 'ar' ? 'مساحات مجهزة' : 'Named Spaces'}</span>
+                <Building2 className="w-3.5 h-3.5 text-[#000000] dark:text-[#f5f5f3] shrink-0" />
+                <span className="truncate">
+                  {lang === 'ar'
+                    ? (venue.spaces?.length === 1
+                        ? 'مساحة مجهزة واحدة'
+                        : venue.spaces?.length === 2
+                          ? 'مساحتان مجهزتان'
+                          : `${venue.spaces?.length.toLocaleString('ar-EG')} مساحات مجهزة`)
+                    : `${venue.spaces?.length} Named Spaces`}
+                </span>
               </span>
             </div>
 
             <div className="flex flex-col">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#595855] dark:text-[#a8a69e]">
+              <span className="text-[11px] font-mono rtl:font-sans uppercase rtl:normal-case tracking-wider rtl:tracking-normal text-[#595855] dark:text-[#a8a69e]">
                 {t.capacityUpTo}
               </span>
               <span className="text-[13px] font-medium text-[#000000] dark:text-[#f5f5f3] flex items-center gap-1.5 mt-0.5">
-                <Users className="w-3.5 h-3.5 text-[#000000] dark:text-[#f5f5f3]" />
-                <span>{maxCapacity} {t.guestsLabel}</span>
+                <Users className="w-3.5 h-3.5 text-[#000000] dark:text-[#f5f5f3] shrink-0" />
+                <span className="truncate">
+                  {lang === 'ar'
+                    ? `${maxCapacity.toLocaleString('ar-EG')} ${t.guestsLabel}`
+                    : `${maxCapacity.toLocaleString('en-US')} ${t.guestsLabel}`}
+                </span>
               </span>
             </div>
           </div>
         </div>
 
         {/* Card Footer: Starting Price & Primary CTA */}
-        <div className="pt-4 border-t border-[#dfdcd5] dark:border-[#2e2d28] flex items-center justify-between gap-3">
-          <div className="flex flex-col">
-            <span className="text-[11px] font-mono text-[#595855] dark:text-[#a8a69e] uppercase tracking-wider">
+        <div className="pt-4 border-t border-[#dfdcd5] dark:border-[#2e2d28] flex items-center justify-between gap-2.5">
+          <div className="flex flex-col min-w-0 flex-1">
+            <span className="text-[11px] font-mono rtl:font-sans text-[#595855] dark:text-[#a8a69e] uppercase rtl:normal-case tracking-wider rtl:tracking-normal truncate">
               {t.fromPrice}
             </span>
-            <span className="text-[17px] font-serif font-normal tracking-tight text-[#000000] dark:text-[#f5f5f3]">
+            <span className="text-[16px] sm:text-[17px] font-serif rtl:font-sans font-semibold sm:font-normal tracking-tight rtl:tracking-normal text-[#000000] dark:text-[#f5f5f3] whitespace-nowrap">
               {formatEGP(lowestPrice, lang)}
             </span>
           </div>
@@ -306,7 +324,7 @@ export function VenueCard({
               }}
               className="tap-bounce px-3 sm:px-3.5 py-2 min-h-[38px] rounded-[28.8px] text-[11px] sm:text-xs font-medium bg-white dark:bg-[#282723] text-[#000000] dark:text-[#f5f5f3] hover:bg-[#dfdcd5] dark:hover:bg-[#34332e] border border-[#dfdcd5] dark:border-[#2e2d28] transition-colors cursor-pointer select-none whitespace-nowrap"
             >
-              {t.viewDetails}
+              {lang === 'ar' ? 'التفاصيل' : t.viewDetails}
             </motion.button>
 
             {/* Primary Request Date Action */}
@@ -319,14 +337,14 @@ export function VenueCard({
                     sound.pop()
                     onQuickInquire(venue)
                   }}
-                  className="tap-bounce btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] text-[11px] sm:text-xs min-h-[38px] px-3.5 sm:px-4 flex items-center gap-1 shadow-xs cursor-pointer select-none whitespace-nowrap"
+                  className="tap-bounce btn-pill-ink dark:bg-[#f5f5f3] dark:text-[#0b0b0a] text-[11px] sm:text-xs min-h-[38px] px-3.5 sm:px-4 flex items-center gap-1.5 shadow-xs cursor-pointer select-none whitespace-nowrap group/cta"
                 >
-                  <span>{t.quickInquire}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#ffffff] dark:text-[#0b0b0a]" />
+                  <span>{lang === 'ar' ? 'طلب حجز' : t.quickInquire}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#ffffff] dark:text-[#0b0b0a] rtl:-scale-x-100 transition-transform duration-200 group-hover/cta:translate-x-0.5 rtl:group-hover/cta:-translate-x-0.5 group-hover/cta:-translate-y-0.5 shrink-0" />
                 </motion.button>
               </TooltipTrigger>
               <TooltipContent side="top">
-                <p>{lang === 'ar' ? 'طلب موعد واستفسار مباشر' : 'Direct structured inquiry'}</p>
+                <p className="rtl:font-sans">{lang === 'ar' ? 'طلب موعد واستفسار مباشر' : 'Direct structured inquiry'}</p>
               </TooltipContent>
             </Tooltip>
           </div>

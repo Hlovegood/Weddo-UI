@@ -175,8 +175,8 @@ export function LanguageTransition({
           ref={contentRef}
           className={`relative z-10 max-w-md w-full mx-auto px-6 py-8 rounded-3xl flex flex-col items-center text-center backdrop-blur-2xl border shadow-2xl ${
             theme === 'dark'
-              ? 'bg-[#181715]/90 border-white/15 text-[#f5f5f3]'
-              : 'bg-[#ffffff]/90 border-[#dfdcd5] text-[#1c1b18]'
+              ? 'bg-[#1c1b18]/95 border-[#2e2d28] text-[#f5f5f3]'
+              : 'bg-[#e7e5e4]/95 border-[#dfdcd5] text-[#1c1b18]'
           }`}
         >
           {/* Animated Globe Emblem with Gold Halo */}

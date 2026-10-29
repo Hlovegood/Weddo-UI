@@ -521,7 +521,7 @@ export default function App() {
           }
           items={bubbleMenuItems}
           menuAriaLabel={lang === 'ar' ? 'تبديل القائمة الرئيسية' : 'Toggle main navigation menu'}
-          menuBg={theme === 'dark' ? '#1c1b18' : '#ffffff'}
+          menuBg={theme === 'dark' ? '#1c1b18' : '#e7e5e4'}
           menuContentColor={theme === 'dark' ? '#f5f5f3' : '#000000'}
           useFixedPosition={true}
           animationEase="back.out(1.5)"

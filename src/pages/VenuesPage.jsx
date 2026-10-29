@@ -185,7 +185,7 @@ export function VenuesPage({
       </div>
 
       {/* Control Cockpit Bar */}
-      <div className="bg-[#ffffff] dark:bg-[#1c1b18] rounded-2xl p-4 sm:p-6 border border-black/10 dark:border-white/10 shadow-sm mb-8 space-y-4 transition-colors">
+      <div className="bg-[#e7e5e4] dark:bg-[#1c1b18] rounded-2xl p-4 sm:p-6 border border-[#dfdcd5] dark:border-[#2e2d28] shadow-sm mb-8 space-y-4 transition-colors">
         {/* Row 1: Search & Sort & View Mode */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
           {/* Search Input */}
@@ -404,7 +404,7 @@ export function VenuesPage({
               isCompared={compareIds.includes(venue.id)}
               onToggleCompare={() => onToggleCompare(venue.id)}
               onSelectDetails={() => onSelectDetails(venue)}
-              onQuickInquire={(spaceId, pkgId) => onQuickInquire(venue, spaceId, pkgId)}
+              onQuickInquire={(v, spaceId, pkgId) => onQuickInquire(v || venue, spaceId, pkgId)}
               lang={lang}
               t={t}
             />
@@ -458,27 +458,27 @@ export function VenuesPage({
                   {/* 3-Column Stats Grid */}
                   <div className="grid grid-cols-3 gap-2 bg-[#dfdcd5]/30 dark:bg-[#282723]/60 p-2.5 rounded-xl text-center border border-black/5 dark:border-white/5">
                     <div>
-                      <span className="block text-[10px] font-mono text-[#595855] dark:text-[#a8a69e] uppercase">
+                      <span className="block text-[10px] font-mono rtl:font-sans text-[#595855] dark:text-[#a8a69e] uppercase rtl:normal-case">
                         {lang === 'ar' ? 'السعة' : 'Capacity'}
                       </span>
-                      <span className="font-mono text-xs font-semibold text-[#000000] dark:text-[#f5f5f3]">
-                        {maxCap}
+                      <span className="font-mono rtl:font-sans text-xs font-semibold text-[#000000] dark:text-[#f5f5f3]">
+                        {lang === 'ar' ? maxCap.toLocaleString('ar-EG') : maxCap}
                       </span>
                     </div>
                     <div className="border-x border-[#dfdcd5] dark:border-[#2e2d28]">
-                      <span className="block text-[10px] font-mono text-[#595855] dark:text-[#a8a69e] uppercase">
+                      <span className="block text-[10px] font-mono rtl:font-sans text-[#595855] dark:text-[#a8a69e] uppercase rtl:normal-case">
                         {lang === 'ar' ? 'المساحات' : 'Spaces'}
                       </span>
-                      <span className="font-mono text-xs font-semibold text-[#000000] dark:text-[#f5f5f3]">
-                        {venue.spaces?.length || 0}
+                      <span className="font-mono rtl:font-sans text-xs font-semibold text-[#000000] dark:text-[#f5f5f3]">
+                        {lang === 'ar' ? (venue.spaces?.length || 0).toLocaleString('ar-EG') : (venue.spaces?.length || 0)}
                       </span>
                     </div>
                     <div>
-                      <span className="block text-[10px] font-mono text-[#595855] dark:text-[#a8a69e] uppercase">
+                      <span className="block text-[10px] font-mono rtl:font-sans text-[#595855] dark:text-[#a8a69e] uppercase rtl:normal-case">
                         {lang === 'ar' ? 'يبدأ من' : 'Rate'}
                       </span>
-                      <span className="font-serif text-xs font-semibold text-[#000000] dark:text-[#f5f5f3]">
-                        {lowestPrice.toLocaleString()}
+                      <span className="font-serif rtl:font-sans text-xs font-semibold text-[#000000] dark:text-[#f5f5f3]">
+                        {formatEGP(lowestPrice, lang)}
                       </span>
                     </div>
                   </div>
@@ -587,20 +587,20 @@ export function VenuesPage({
                         </td>
 
                         <td className="py-3.5 px-4">
-                          <span className="font-mono font-medium text-[#000000] dark:text-[#f5f5f3]">
-                            {maxCap} {lang === 'ar' ? 'ضيف' : 'guests'}
+                          <span className="font-mono rtl:font-sans font-medium text-[#000000] dark:text-[#f5f5f3]">
+                            {lang === 'ar' ? `${maxCap.toLocaleString('ar-EG')} ضيف` : `${maxCap} guests`}
                           </span>
                         </td>
 
                         <td className="py-3.5 px-4">
-                          <span className="px-2 py-0.5 rounded-md bg-[#dfdcd5] dark:bg-[#282723] text-[10px] font-mono text-[#595855] dark:text-[#a8a69e]">
-                            {venue.spaces?.length || 0} {lang === 'ar' ? 'مساحات' : 'spaces'}
+                          <span className="px-2 py-0.5 rounded-md bg-[#dfdcd5] dark:bg-[#282723] text-[10px] font-mono rtl:font-sans text-[#595855] dark:text-[#a8a69e]">
+                            {lang === 'ar' ? (venue.spaces?.length === 2 ? 'مساحتان مجهزتان' : `${(venue.spaces?.length || 0).toLocaleString('ar-EG')} مساحات`) : `${venue.spaces?.length || 0} spaces`}
                           </span>
                         </td>
 
                         <td className="py-3.5 px-4">
-                          <span className="font-serif text-sm font-semibold text-[#000000] dark:text-[#f5f5f3]">
-                            {lowestPrice.toLocaleString()} <span className="text-[10px] font-mono">EGP</span>
+                          <span className="font-serif rtl:font-sans text-sm font-semibold text-[#000000] dark:text-[#f5f5f3]">
+                            {formatEGP(lowestPrice, lang)}
                           </span>
                         </td>
 

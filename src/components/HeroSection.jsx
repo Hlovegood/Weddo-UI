@@ -577,7 +577,7 @@ export function HeroSection({
         <BorderGlow
           edgeSensitivity={26}
           glowColor={isDark ? "40 80 80" : "220 95 50"}
-          backgroundColor={isDark ? '#181715' : '#ffffff'}
+          backgroundColor={isDark ? '#1c1b18' : '#e7e5e4'}
           borderRadius={24}
           glowRadius={36}
           glowIntensity={isDark ? 1.1 : 1.3}
